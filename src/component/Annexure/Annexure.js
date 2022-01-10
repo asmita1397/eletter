@@ -48,7 +48,16 @@ const Annexure = () => {
                   <TableComponent
                     columns={columns}
                     subColumns={subColumns}
-                    rows={[]}
+                    rows={[
+                      {
+                        a: 1,
+                        c: 3,
+                        d: 5,
+                      },
+                      {
+                        b: 2,
+                      },
+                    ]}
                   />
                 </div>
               </div>
