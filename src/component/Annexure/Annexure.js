@@ -10,6 +10,7 @@ const Annexure = () => {
   const [colValue, setColValue] = useState();
   const context = useContext(UserConsumer);
   const [preview, setPreview] = useState(false);
+  const [tableRows, setTableRows] = useState(context.annexureData.basic);
   const columns = [
     {
       headerName: "Basic and Other Allowances Details",
@@ -36,9 +37,16 @@ const Annexure = () => {
       headerName: "Yearly",
     },
   ];
-  const validation = () =>{
-
-  }
+  const validation = () => {
+    if (colName && colValue) {
+      const copy = tableRows;
+      copy.push({
+        columnName: colName,
+        columnValue: colValue,
+      });
+      setTableRows(copy);
+    }
+  };
 
   return (
     <div>
@@ -109,7 +117,7 @@ const Annexure = () => {
                   <TableComponent
                     // columns={columns}
                     subColumns={subColumnsHome}
-                    rows={context.annexureData.basic}
+                    rows={tableRows}
                   />
                 </div>
               </div>
@@ -123,7 +131,7 @@ const Annexure = () => {
                   <TableComponent
                     // columns={columns}
                     subColumns={subColumns}
-                    rows={context.annexureData.basic}
+                    rows={tableRows}
                   />
                 </Modal.Body>
                 <Modal.Footer>
