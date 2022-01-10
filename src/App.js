@@ -76,6 +76,7 @@ import { BulkNoDueLetter } from './component/NoDueLetter/BulkNoDueLetter';
 import { InputNoDueLetter } from './component/NoDueLetter/InputNoDueLetter';
 import { BulkCertificateLetter } from './component/CertificateLetter/BulkCertificateLetter';
 import ReactFirebaseFileUpload from './component/DigitalSignature';
+import { InputAnnexure } from './component/Annexure/InputConsultantOffer';
 
 export class App extends Component {
   constructor(props) {
@@ -229,6 +230,7 @@ export class App extends Component {
         <Route exact path='/email' component={MailComponent}></Route>
 
         <Route exact path='/test' component={Temp}></Route>
+        <Route exact path='/InputAnnexure' render={() => { return <InputAnnexure history={this.props.history} empData={this.state.emp} /> }} ></Route>
 
         </UserProvider>
       </div>
