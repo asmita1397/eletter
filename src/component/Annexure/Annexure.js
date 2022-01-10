@@ -97,7 +97,6 @@ const Annexure = () => {
                       type="submit"
                       onClick={validation}
                       id="generate"
-                      outline
                       className=" form-control-plaintext  justify-content-center text-center"
                       color="primary"
                     >
@@ -108,7 +107,7 @@ const Annexure = () => {
 
                 <div className="card-body ">
                   <TableComponent
-                    columns={columns}
+                    // columns={columns}
                     subColumns={subColumnsHome}
                     rows={context.annexureData.basic}
                   />
@@ -122,7 +121,7 @@ const Annexure = () => {
                 </Modal.Header>
                 <Modal.Body>
                   <TableComponent
-                    columns={columns}
+                    // columns={columns}
                     subColumns={subColumns}
                     rows={context.annexureData.basic}
                   />
