@@ -87,6 +87,17 @@ export class App extends Component {
       show: "",
       buttonVal: false,
       pdfVal: false,
+      annexureData: {
+        basic:[{
+          columnName: 'Basic Salary',
+          columnValue1: '14470',
+          columnValue2: '14470'
+        }, {
+          columnName: 'House Rent Allowance',
+          columnValue1: '14470',
+          columnValue2: '14470'
+        }]
+      },
 
       buttonValMethod: (data) => {
         this.setState({
