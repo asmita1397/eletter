@@ -4,7 +4,11 @@ const TableComponent = (props) => {
   const { columns = [], subColumns = [], rows = [] } = props;
 
   const renderTableBody = (item) => {
-    Object.entries(item).forEach();
+    const rowObj = [];
+    Object.entries(item).forEach(([key, value]) => {
+      rowObj.push(<td>{value}</td>);
+    });
+    return rowObj;
   };
 
   return (
@@ -30,7 +34,11 @@ const TableComponent = (props) => {
             );
           })}
         </thead>
-        {/* <tbody>{renderTableBody()}</tbody> */}
+        <tbody>
+          {rows.map((item) => (
+            <tr>{renderTableBody(item)}</tr>
+          ))}
+        </tbody>
       </table>
     </div>
   );
