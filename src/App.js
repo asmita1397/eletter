@@ -98,7 +98,7 @@ export class App extends Component {
           columnValue2: '14470'
         }]
       },
-
+      
       buttonValMethod: (data) => {
         this.setState({
           buttonVal: data,
@@ -109,6 +109,12 @@ export class App extends Component {
           pdfVal: val,
         });
       },
+      annexureDataMethod: (val)=>{
+        this.setState({
+          basic: val,
+        });
+      }
+
     };
   }
 
