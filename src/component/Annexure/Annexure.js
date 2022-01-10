@@ -6,6 +6,8 @@ import { UserConsumer } from "../Context/CustomContext";
 import { Button, Modal } from "react-bootstrap";
 
 const Annexure = () => {
+  const [colName, setColName] = useState();
+  const [colValue, setColValue] = useState();
   const context = useContext(UserConsumer);
   const [preview, setPreview] = useState(false);
   const columns = [
@@ -34,10 +36,13 @@ const Annexure = () => {
       headerName: "Yearly",
     },
   ];
+  const validation = () =>{
+
+  }
 
   return (
     <div>
-      {/* <Home buttonShow={false} buttonVal={value.buttonVal} /> */}
+      <Home buttonShow={false} buttonVal={context.buttonVal} />
       <div>
         <div className="container-fluid mt-5">
           <div className="row">
@@ -57,6 +62,50 @@ const Annexure = () => {
                     Annexure
                   </h3>
                 </div>
+                <div className="row">
+                  <div className="col-4">
+                    <MDBInput
+                      autocomplete="off"
+                      value={colName}
+                      label="Column Name"
+                      type="text"
+                      name="ColumnName"
+                      id="ColumnName"
+                      title="ColumnName"
+                      onChange={(event) => {
+                        setColName(event.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="col-4">
+                    <MDBInput
+                      autocomplete="off"
+                      value={colValue}
+                      label="Column Value"
+                      type="text"
+                      name="ColumnValue"
+                      id="ColumnValue"
+                      title="ColumnValue"
+                      onChange={(event) => {
+                        setColValue(event.target.value);
+                      }}
+                    />
+                  </div>
+                  <div className="col-3 mt-2">
+                    <MDBBtn
+                      outline
+                      type="submit"
+                      onClick={validation}
+                      id="generate"
+                      outline
+                      className=" form-control-plaintext  justify-content-center text-center"
+                      color="primary"
+                    >
+                      Add
+                    </MDBBtn>
+                  </div>
+                </div>
+
                 <div className="card-body ">
                   <TableComponent
                     columns={columns}
