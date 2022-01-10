@@ -1,9 +1,11 @@
 import { MDBBtn, MDBInput } from "mdbreact";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Home } from "../home";
 import TableComponent from "./TableComponent";
+import { UserConsumer } from "../Context/CustomContext";
 
 const Annexure = () => {
+  const context = useContext(UserConsumer)
   const columns = [
     {
       headerName: "Basic and Other Allowances Details",
@@ -21,6 +23,10 @@ const Annexure = () => {
       headerName: "Yearly",
     },
   ];
+
+  useEffect(()=>{
+     console.log('====', context)
+  }, [])
 
   return (
     <div>
