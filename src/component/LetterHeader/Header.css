@@ -1,0 +1,43 @@
+.tyupHeader{
+  padding: 0px; 
+  text-decoration: none;
+  color: #000000bf;
+  font-weight: 500;
+  display: block;
+  border-right: 35px solid transparent;
+  border-top: 65px solid rgb(37,50,72);
+  height: 0px;
+  /* font-size: medium;  */
+  margin: 0px 334px 0px 0px;  
+}
+.tydownHeader{ 
+padding: 0px;
+text-decoration: none;
+color: rgb(37,50,72);;
+font-weight: 500;
+display: block;
+border-right: 35px solid transparent;
+border-top: 45px solid rgb(200,211,232);
+font-size: 30px;
+height: 0px;
+line-height: 45px;
+margin: 0px 56px 0px 0px;
+}
+.tydownHeaderText{
+position: relative;
+/* top: -47px;  */
+bottom: 49px;
+margin: 0px 0px 0px 7px;
+}
+.tyheaderleft{
+  margin:-75px 0px 0px 860px;
+    font-size: 50px;
+}
+.Tlettercolor{
+  color: rgb(248,152,59);
+  font-size: 50px;
+}
+.Ylettercolor{
+  color: rgb(248,152,59);
+  font-size: 50px;
+}

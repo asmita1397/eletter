@@ -1,0 +1,272 @@
+p , td,strong,span,li{
+    font-size: 22px;
+  
+}
+
+ .main{
+  margin-top: 100px; 
+
+ }
+
+#pageA4{
+background: white;
+    display: block;
+    margin: 0 auto;
+    width:31cm;
+    height: 41.5cm;
+    padding-left: 25mm;
+    padding-right:25mm;
+    padding-top:25mm;
+    padding-bottom:15mm;
+    font-family: Calibri !important;
+    top:1px
+}
+
+
+
+#AFourPage{
+    background: white;
+    display: block;
+    margin: 0 auto;
+    width:31cm;
+    height: 43.5cm; 
+    padding-left: 25mm;
+    padding-right:25mm;
+    padding-top:25mm; 
+    padding-bottom:15mm; 
+    font-family: Calibri !important;
+    position: relative;
+  
+}
+#AFourFirstPage{
+    background: white;
+    display: block;
+    margin: 0 auto;
+    width:31cm;
+    height: 42.5cm;
+    padding-left: 25mm;
+    padding-right:25mm;
+    padding-top:25mm;
+    padding-bottom:15mm;
+    font-family: Calibri !important;
+   
+}
+
+
+
+body {
+    margin-top: 0px;margin-left: 0px;
+    font-family: Calibri !important;
+}
+
+@Page {
+    size:auto;
+  margin-top: 0;
+  margin-bottom: 0mm;
+  margin-left: 0mm;
+  margin-right: 0mm;
+
+    font-family: Calibri !important;
+    font-size: 13;
+}
+
+#errordiv {
+    
+    color: red;
+    font-size: 11px;
+    margin-top: -19px;
+    text-align: left;
+    
+}
+
+
+strong {
+    font-weight: bold !important;
+}
+
+.waterMark {
+    margin: 0;
+    position: absolute;
+    top: 48%;
+    left: 28%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+
+  .md-form input[type=text]:focus {
+
+    box-shadow: 0 1px 0  black !important;
+    
+    border-bottom: 1px solid black !important;
+
+    color: black;
+    
+    }
+
+
+    .md-form input[type=number]:focus {
+
+        box-shadow: 0 1px 0  black !important;
+        
+        border-bottom: 1px solid black !important;
+    
+        color: black;
+        
+        }
+    .md-form input[type='text']:focus:not([readonly]) + label {
+        color:black !important;
+      
+            
+      }
+      .md-form input[type='date']:focus:not([readonly]) + label {
+        color:black !important;
+      
+  
+      }
+      .md-form input[type='time']:focus:not([readonly]) + label {
+        color:black !important;
+            
+            
+    }
+
+    .md-form input[type='number']:focus:not([readonly]) + label {
+        color:black !important;
+      
+  
+      }
+
+      .md-form input[type=date]:focus {
+
+        box-shadow: 0 1px 0  black !important;
+        
+        border-bottom: 1px solid black !important;
+    
+        color: black;
+        
+        }
+
+        .md-form input[type=time]:focus {
+
+            box-shadow: 0 1px 0  black !important;
+            
+            border-bottom: 1px solid black !important;
+        
+            color: black;
+            
+            }
+    
+
+        .dropdown-content li:hover, .dropdown-content li.active {
+
+            background-color:black;
+        
+        }
+       
+          .footer{
+            
+            right: 0;
+            left: 152px;
+            bottom: 0px;
+            text-align: center;
+          }
+
+          
+.tyfooter {
+    width: 1170px;
+    height: 100px;
+    margin-left: 28px;
+}
+
+
+.headerimg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;  
+      
+    
+}
+
+.footerimg1 {
+    position: absolute;
+    bottom: 1px;
+    left: 0;
+    right: 0;
+}
+
+.footerimg {
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  right: 0;
+}
+.digsign1{
+  position: absolute;
+}
+.digsign1{
+  position: absolute;
+}
+.pdf-body {
+ color: black !important;
+ font-weight: 500 !important;
+}
+
+
+
+
+.mainHeader {
+    margin-top: 0;
+}
+
+@media print{
+    .mainHeader {
+        margin-top: -8.3%;
+        color:black;
+    }
+    }
+
+    .foo {
+        counter-reset: foo;
+      }
+      .foo li {
+        list-style-type: none;
+      }
+      .foo li::before {
+        counter-increment: foo;
+        content: "1." counter(foo) " ";
+        margin-right: 20px;
+      }
+
+      .order {
+        list-style-type: none;
+      }
+      .orderspan {
+        margin-right: 20px;
+        font-size: 20px;
+      } 
+
+      .md-form label {
+       
+        font-size: 18px !important;
+        color: black !important;
+      }
+
+
+      .trStyle
+      {
+        border:1px solid black;
+      }
+      
+      /*Media quiers*...........................*/
+      .card-body {
+       
+        padding: 12px !important;
+    }
+    .digitalsign{
+      position: relative;
+      top: 0;
+      padding-left: 42px;
+      right: 0;
+      
+    }
+      

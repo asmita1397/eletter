@@ -1,0 +1,34 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="selectable">http://example.com/page.htm
+        jhfgvjhfgjhgjhgjhg
+        khvjhvgjh
+        sadfjvbjhasbf
+        sadfjvbjhasbfjhbjba
+        JKBKJABKJBA
+    </div>
+    <button onclick="selectText('selectable')">Click</button>
+    <script>
+function selectText(containerid) {
+    if (document.selection) { // IE
+        var range = document.body.createTextRange();
+        range.moveToElementText(document.getElementById(containerid));
+        range.select();
+    } else if (window.getSelection) {
+        var range = document.createRange();
+        range.selectNode(document.getElementById(containerid));
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+    }
+}
+
+     </script>   
+</body>
+</html> -->

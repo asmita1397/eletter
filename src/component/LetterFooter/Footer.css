@@ -1,0 +1,73 @@
+.tyupFooter{
+  
+    padding: 12px; 
+    text-decoration: none;
+    color: #000000bf;
+    font-weight: 500;
+    display: block;
+    border-left: 35px solid transparent;
+    border-bottom: 40px solid #abbfe4;
+    font-size: medium;
+    height: 0px;
+    line-height: 63px;
+    margin: 0px 0px 0px 49px;
+   
+  }
+  .tydownFooter{
+  
+      padding: 1px; 
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      display: block;
+      border-left: 35px solid transparent;
+      border-bottom: 40px solid #F89820;
+      height: 0px;
+      font-size: medium;
+      line-height: 45px;
+   
+    
+  }
+  .fa {
+    display: inline;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1;
+    font-family: FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .tyFooter{
+    /* margin:0px 87px 0px 112px */
+  }
+  /* .typhoneFooter{
+    font-size: medium;
+  }
+  .tyemailFooter{
+    font-size: medium;
+  }
+  
+  .tycontactFooter{
+    font-size: medium;
+  } */
+  .typhone{
+    margin-left: 5px;
+    font-size: 500;
+    
+    
+  }
+  .tyemail{
+    margin-left: 5px;
+    font-size: 500;
+   
+  }
+  
+  .tycontact{
+    margin-left: 5px;
+    font-size: 500;
+    
+  }

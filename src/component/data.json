@@ -1,0 +1,25 @@
+
+{
+    "users": [
+      {
+         "name": "hr@testyantra.com",
+         "password": "hr@123"
+      },
+      {
+         "name": "hr_ambika@testyantra.com" ,
+         "password": "ambika@123"
+      },
+      {
+         "name": "hr_shwetha@testyantra.com",
+         "password": "shwetha@123"
+      },
+      {
+         "name": "madanks@testyantra.com",
+         "password": "madan@123"
+      },
+      {
+         "name": "sagar.g@testyantra.com",
+         "password": "sagar@123"
+      }
+    ]
+ }
