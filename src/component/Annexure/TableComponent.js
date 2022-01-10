@@ -1,4 +1,5 @@
 import React from "react";
+import "./Temp.css";
 
 const TableComponent = (props) => {
   const { columns = [], subColumns = [], rows = [] } = props;
@@ -13,13 +14,23 @@ const TableComponent = (props) => {
 
   return (
     <div>
-      <table className="table table-bordered text-center">
+      <table className="text-center">
         <thead>
           {columns.map((col) => {
-            const { headerName = "", colSpan = 1, rowSpan = 1 } = col;
+            const {
+              headerName = "",
+              colSpan = 1,
+              rowSpan = 1,
+              width = 100,
+            } = col;
             return (
-              <tr>
-                <th colSpan={colSpan} rowSpan={rowSpan}>
+              <tr className="bg-gray">
+                <th
+                  colSpan={colSpan}
+                  rowSpan={rowSpan}
+                  style={{ width }}
+                  className="fw-700"
+                >
                   {headerName}
                 </th>
               </tr>
@@ -28,7 +39,7 @@ const TableComponent = (props) => {
           {subColumns.map((col) => {
             const { headerName = "", colSpan = 1, rowSpan = 1 } = col;
             return (
-              <th colSpan={colSpan} rowSpan={rowSpan}>
+              <th colSpan={colSpan} rowSpan={rowSpan} className="fw-700">
                 {headerName}
               </th>
             );
