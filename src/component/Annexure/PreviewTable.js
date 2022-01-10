@@ -1,17 +1,14 @@
 import React from "react";
 import "./Temp.css";
 
-const TableComponent = (props) => {
+const PreviewTable = (props) => {
   const { columns = [], subColumns = [], rows = [] } = props;
 
   const renderTableBody = (item) => {
-    debugger;
+    debugger
     const rowObj = [];
-    subColumns.map((value, index) => {
-      const keys = Object.keys(item);
-      const value1 = item[keys[index]];
-      const value2 = item[keys[index + 2]];
-      rowObj.push(<td>{`${value1}${index === 0 ? `(${value2})` : ''}`}</td>);
+    Object.entries(item).forEach(([key, value]) => {
+      rowObj.push(<td>{value}</td>);
     });
     return rowObj;
   };
@@ -59,4 +56,4 @@ const TableComponent = (props) => {
   );
 };
 
-export default TableComponent;
+export default PreviewTable;

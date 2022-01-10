@@ -4,12 +4,14 @@ import { Home } from "../home";
 import TableComponent from "./TableComponent";
 import { UserConsumer } from "../Context/CustomContext";
 import { Button, Modal } from "react-bootstrap";
+import PreviewTable from "./PreviewTable";
 
 const Annexure = () => {
   const [colName, setColName] = useState();
   const [colValue, setColValue] = useState();
   const context = useContext(UserConsumer);
   const [preview, setPreview] = useState(false);
+  const [previewTableRows, setPreviewTableRows] = useState(false);
   const [tableRows, setTableRows] = useState(context.annexureData.basic);
   const columns = [
     {
@@ -37,16 +39,43 @@ const Annexure = () => {
       headerName: "Yearly",
     },
   ];
+  const getValue = (value) => {
+    const getIndex = tableRows.findIndex((val, index) =>
+      Object.values(val).includes(value)
+    );
+    return tableRows[getIndex].columnValue1;
+  };
   const validation = () => {
     if (colName && colValue) {
+      debugger;
       const copy = tableRows;
+      const formula = colValue.split("*");
+      const splitted =
+        formula.length > 0 ? (getValue(formula[0]) * formula[1]) : colValue;
       copy.push({
         columnName: colName,
-        columnValue: colValue,
+        columnValue1: colValue,
+        columnKey1: `A${tableRows.length + 1}`,
+        columnKey2: `B${tableRows.length + 1}`,
+        month: splitted,
       });
-      context.annexureDataMethod(copy)
+
+      context.annexureDataMethod(copy);
       setTableRows(copy);
     }
+  };
+  const calculatePreview = () => {
+    const copy = [];
+    tableRows.map((val, index) => {
+      debugger
+      copy.push({
+        columnName: val.columnName,
+        columnValue1: Math.trunc(val.month),
+        columnValue2: parseInt(val.month)*12
+      });
+    });
+    
+    setPreviewTableRows(copy);
   };
 
   return (
@@ -122,17 +151,25 @@ const Annexure = () => {
                   />
                 </div>
               </div>
-              <Button onClick={() => setPreview(true)}> Preview</Button>
+              <Button
+                onClick={() => {
+                  calculatePreview();
+                  setPreview(true);
+                }}
+              >
+                {" "}
+                Preview
+              </Button>
 
               <Modal show={preview} onHide={() => setPreview(true)}>
                 <Modal.Header closeButton onClick={() => setPreview(false)}>
                   <Modal.Title>Annexure Preview</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <TableComponent
+                  <PreviewTable
                     // columns={columns}
                     subColumns={subColumns}
-                    rows={tableRows}
+                    rows={previewTableRows}
                   />
                 </Modal.Body>
                 <Modal.Footer>
