@@ -44,6 +44,7 @@ const Annexure = () => {
         columnName: colName,
         columnValue: colValue,
       });
+      context.annexureDataMethod(copy)
       setTableRows(copy);
     }
   };
