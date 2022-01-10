@@ -5,7 +5,7 @@ import TableComponent from "./TableComponent";
 import { UserConsumer } from "../Context/CustomContext";
 
 const Annexure = () => {
-  const context = useContext(UserConsumer)
+  const context = useContext(UserConsumer);
   const columns = [
     {
       headerName: "Basic and Other Allowances Details",
@@ -23,10 +23,6 @@ const Annexure = () => {
       headerName: "Yearly",
     },
   ];
-
-  useEffect(()=>{
-     console.log('====', context)
-  }, [])
 
   return (
     <div>
@@ -54,16 +50,7 @@ const Annexure = () => {
                   <TableComponent
                     columns={columns}
                     subColumns={subColumns}
-                    rows={[
-                      {
-                        a: 1,
-                        c: 3,
-                        d: 5,
-                      },
-                      {
-                        b: 2,
-                      },
-                    ]}
+                    rows={context.annexureData.basic}
                   />
                 </div>
               </div>
