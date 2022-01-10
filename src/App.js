@@ -91,11 +91,9 @@ export class App extends Component {
         basic:[{
           columnName: 'Basic Salary',
           columnValue1: '14470',
-          columnValue2: '14470'
         }, {
           columnName: 'House Rent Allowance',
           columnValue1: '14470',
-          columnValue2: '14470'
         }]
       },
       

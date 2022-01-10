@@ -3,15 +3,27 @@ import React, { useContext, useEffect, useState } from "react";
 import { Home } from "../home";
 import TableComponent from "./TableComponent";
 import { UserConsumer } from "../Context/CustomContext";
+import { Button, Modal } from "react-bootstrap";
 
 const Annexure = () => {
   const [colName, setColName] = useState();
   const [colValue, setColValue] = useState();
   const context = useContext(UserConsumer);
+  const [preview, setPreview] = useState(false);
+  const [tableRows, setTableRows] = useState(context.annexureData.basic);
   const columns = [
     {
       headerName: "Basic and Other Allowances Details",
       colSpan: 3,
+    },
+  ];
+
+  const subColumnsHome = [
+    {
+      headerName: "Column Name",
+    },
+    {
+      headerName: "Column Value",
     },
   ];
   const subColumns = [
@@ -25,9 +37,16 @@ const Annexure = () => {
       headerName: "Yearly",
     },
   ];
-  const validation = () =>{
-
-  }
+  const validation = () => {
+    if (colName && colValue) {
+      const copy = tableRows;
+      copy.push({
+        columnName: colName,
+        columnValue: colValue,
+      });
+      setTableRows(copy);
+    }
+  };
 
   return (
     <div>
@@ -86,7 +105,6 @@ const Annexure = () => {
                       type="submit"
                       onClick={validation}
                       id="generate"
-                      outline
                       className=" form-control-plaintext  justify-content-center text-center"
                       color="primary"
                     >
@@ -97,12 +115,31 @@ const Annexure = () => {
 
                 <div className="card-body ">
                   <TableComponent
-                    columns={columns}
-                    subColumns={subColumns}
-                    rows={context.annexureData.basic}
+                    // columns={columns}
+                    subColumns={subColumnsHome}
+                    rows={tableRows}
                   />
                 </div>
               </div>
+              <Button onClick={() => setPreview(true)}> Preview</Button>
+
+              <Modal show={preview} onHide={() => setPreview(true)}>
+                <Modal.Header closeButton onClick={() => setPreview(false)}>
+                  <Modal.Title>Annexure Preview</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <TableComponent
+                    // columns={columns}
+                    subColumns={subColumns}
+                    rows={tableRows}
+                  />
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={() => setPreview(false)}>
+                    Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
             </div>
           </div>
         </div>
