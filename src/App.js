@@ -79,6 +79,7 @@ import ReactFirebaseFileUpload from "./component/DigitalSignature";
 import Annexure from "./component/Annexure/Annexure";
 import AddAnnexure from "./component/Annexure/AddAnnexure";
 import annexureJson from './component/finalAnnexure.json'
+import ViewAnnexure from "./component/Annexure/ViewAnnexure";
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -861,6 +862,18 @@ export class App extends Component {
             render={() => {
               return (
                 <AddAnnexure
+                  history={this.props.history}
+                  empData={this.state.emp}
+                />
+              );
+            }}
+          ></Route>
+          <Route
+            exact
+            path="/ViewAnnexure"
+            render={() => {
+              return (
+                <ViewAnnexure
                   history={this.props.history}
                   empData={this.state.emp}
                 />

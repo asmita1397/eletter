@@ -52,7 +52,9 @@ export default class Cards extends Component {
                 <Link to="/AddAnnexure">
                   <span style={{ fontSize: "15px", margin: "5px" }}>add</span>{" "}
                 </Link>
-                <span style={{ fontSize: "15px", margin: "5px" }}>view</span>
+                <Link to="/ViewAnnexure">
+                  <span style={{ fontSize: "15px", margin: "5px" }}>view</span>{" "}
+                </Link>
                 <span style={{ fontSize: "15px", margin: "5px" }}>modify</span>
                 <img
                   style={{
