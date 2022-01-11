@@ -25,13 +25,13 @@ const Annexure = () => {
 
   const subColumnsHome = [
     {
+      headerName: "SL NO",
+    },
+    {
       headerName: "Column Name",
     },
     {
       headerName: "Column Value",
-    },
-    {
-      headerName: "Column Key",
     },
   ];
   const subColumns = [
@@ -69,7 +69,7 @@ const Annexure = () => {
         month: splitted,
       });
 
-      context.annexureDataMethod(copy);
+      // context.annexureDataMethod(copy);
       setTableRows(copy);
       setColName("");
       setColValue("");
@@ -101,10 +101,13 @@ const Annexure = () => {
   };
 
   const getTableRows = (list) => {
-    const copy = [...list];
-    copy.forEach((item) => {
-      delete item.monthly;
-      delete item.yearly;
+    const copy = [];
+    list.forEach((item) => {
+      copy.push({
+        columnKey: item.columnKey,
+        columnName: item.columnName,
+        columnValue: item.columnValue,
+      });
     });
     return copy;
   };

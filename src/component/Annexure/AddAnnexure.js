@@ -56,7 +56,7 @@ export default function AddAnnexure(props) {
         },
         {
           heading: "Benefit",
-          benifit: [],
+          benefit: [],
         },
       ];
       const updateAnnexureVal = {...context.annexureData, ...newObject};
@@ -171,7 +171,7 @@ export default function AddAnnexure(props) {
                       className="form-control-plaintext justify-content-center text-center"
                       color="primary"
                     >
-                      Generate
+                      Test
                     </MDBBtn>
                   </div>
                 </div>
