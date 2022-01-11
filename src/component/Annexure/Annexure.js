@@ -7,9 +7,11 @@ import { Button, Modal } from "react-bootstrap";
 import PreviewTable from "./PreviewTable";
 
 const Annexure = () => {
+  const context = useContext(UserConsumer);
   const [colName, setColName] = useState();
   const [colValue, setColValue] = useState();
-  const context = useContext(UserConsumer);
+  const [updateVal, setUpdatedValue] = useState(context.annexureData)
+ 
   const [preview, setPreview] = useState(false);
   const [previewTableRows, setPreviewTableRows] = useState(false);
   const [tableRows, setTableRows] = useState(context.annexureData.basic || []);
@@ -45,6 +47,23 @@ const Annexure = () => {
       headerName: "Yearly",
     },
   ];
+  const sectionData = [
+    {
+      name: "Basic Basic and Other Allowances Details",
+      value: "basic",
+      index: 0,
+    },
+    {
+      name: "Deductions",
+      value: "deduction",
+      index: 1,
+    },
+    {
+      name: "Benefit",
+      value: "benefit",
+      index: 2,
+    },
+  ];
   const getValue = (value) => {
     if (!isNaN(value)) {
       const getIndex = tableRows.findIndex((val, index) =>
@@ -57,20 +76,35 @@ const Annexure = () => {
   };
   const validation = () => {
     if (colName && colValue) {
-      const copy = tableRows;
-      const formula = colValue.split("*");
-      const splitted =
-        formula.length > 0 ? getValue(formula[0]) * formula[1] : colValue;
-      copy.push({
-        columnName: colName,
-        columnValue1: colValue,
-        columnKey1: `A${tableRows.length + 1}`,
-        columnKey2: `B${tableRows.length + 1}`,
-        month: splitted,
-      });
+      debugger;
+      const copy = JSON.parse(JSON.stringify(updateVal));
+      // const formula = colValue.split("*");
+      // const splitted =
+      //   formula.length > 0 ? getValue(formula[0]) * formula[1] : colValue;
+      // copy.push({
+      //   columnName: colName,
+      //   columnValue1: colValue,
+      //   columnKey1: `A${tableRows.length + 1}`,
+      //   columnKey2: `B${tableRows.length + 1}`,
+      //   month: splitted,
+      // });
 
       // context.annexureDataMethod(copy);
-      setTableRows(copy);
+      // setTableRows(copy);
+
+      copy[context.selectedSalaryRange][selectedSection][
+        sectionData[selectedSection].value
+      ].push({
+        columnName: colName,
+        columnValue: colValue,
+        columnKey: `A${
+          copy[context.selectedSalaryRange][selectedSection][
+            sectionData[selectedSection].value
+          ].length + 1
+        }`,
+        month: "",
+      });
+      setUpdatedValue(copy)
       setColName("");
       setColValue("");
     }
@@ -91,8 +125,8 @@ const Annexure = () => {
   console.log(context.selectedSalaryRange);
 
   useEffect(() => {
-    setTableData(context.annexureData[context.selectedSalaryRange] || null);
-  }, [context.selectedSalaryRange, context.annexureData]);
+    setTableData(updateVal[context.selectedSalaryRange] || null);
+  }, [context.selectedSalaryRange, updateVal]);
 
   console.log(tableRows, tableData);
 
@@ -194,9 +228,9 @@ const Annexure = () => {
                       <option value="Please select the salary range" hidden>
                         Please select table section
                       </option>
-                      <option value="basic">Basic</option>
-                      <option value="deductions">Deductions</option>
-                      <option value="benefit">Benefit</option>
+                      {sectionData.map((val) => {
+                        return <option value={val.index}>{val.name}</option>;
+                      })}
                     </select>
                   </div>
                   <div className="col-3">
