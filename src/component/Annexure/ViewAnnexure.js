@@ -30,8 +30,6 @@ function ViewAnnexure() {
     return [{ headerName: item.heading, colSpan: 3 }];
   };
 
-  console.log(tableData);
-
   const getTableRows = (list) => {
     const copy = [...list];
     copy.forEach((item) => {
@@ -39,6 +37,37 @@ function ViewAnnexure() {
       delete item.columnValue;
     });
     return copy;
+  };
+
+  const renderTable = (item) => {
+    if (item.hasOwnProperty("basic")) {
+      return (
+        <TableComponent
+          columns={getColumns(item)}
+          subColumns={subColumns}
+          rows={getTableRows(item.basic)}
+          renderType="normal"
+        />
+      );
+    }
+    if (item.hasOwnProperty("deduction")) {
+      return (
+        <TableComponent
+          columns={getColumns(item)}
+          rows={getTableRows(item.deduction)}
+          renderType="normal"
+        />
+      );
+    }
+    if (item.hasOwnProperty("benefit")) {
+      return (
+        <TableComponent
+          columns={getColumns(item)}
+          rows={getTableRows(item.benefit)}
+          renderType="normal"
+        />
+      );
+    }
   };
 
   return (
@@ -85,14 +114,7 @@ function ViewAnnexure() {
                     <option value={val.label}>{val.label}</option>
                   ))}
                 </select>
-                {tableData?.map((item) => (
-                  <TableComponent
-                    columns={getColumns(item)}
-                    subColumns={subColumns}
-                    rows={getTableRows(item.basic)}
-                    renderType="normal"
-                  />
-                ))}
+                {tableData?.map((item) => renderTable(item))}
               </div>
             </div>
           </div>
