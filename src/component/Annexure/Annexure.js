@@ -112,32 +112,41 @@ const Annexure = () => {
   const renderTable = (item) => {
     if (item.hasOwnProperty("basic")) {
       return (
-        <TableComponent
-          subColumns={subColumnsHome}
-          rows={getTableRows(item.basic)}
-          renderType="normal"
-          classes="my-3"
-        />
+        <>
+          <h5>{item.heading}</h5>
+          <TableComponent
+            subColumns={subColumnsHome}
+            rows={getTableRows(item.basic)}
+            renderType="normal"
+            classes="my-3"
+          />
+        </>
       );
     }
     if (item.hasOwnProperty("deduction")) {
       return (
-        <TableComponent
-          rows={getTableRows(item.deduction)}
-          subColumns={subColumnsHome}
-          renderType="normal"
-          classes="my-3"
-        />
+        <>
+          <h5>{item.heading}</h5>
+          <TableComponent
+            rows={getTableRows(item.deduction)}
+            subColumns={subColumnsHome}
+            renderType="normal"
+            classes="my-3"
+          />
+        </>
       );
     }
     if (item.hasOwnProperty("benefit")) {
       return (
-        <TableComponent
-          rows={getTableRows(item.benefit)}
-          subColumns={subColumnsHome}
-          renderType="normal"
-          classes="my-3"
-        />
+        <>
+          <h5>{item.heading}</h5>
+          <TableComponent
+            rows={getTableRows(item.benefit)}
+            subColumns={subColumnsHome}
+            renderType="normal"
+            classes="my-3"
+          />
+        </>
       );
     }
   };
@@ -165,7 +174,7 @@ const Annexure = () => {
                   </h3>
                 </div>
                 <div className="row">
-                  <div className="col-4">
+                  <div className="col-3 mt-4">
                     <select
                       class="browser-default custom-select my-auto"
                       autocomplete="off"
@@ -187,7 +196,7 @@ const Annexure = () => {
                       <option value="benefit">Benefit</option>
                     </select>
                   </div>
-                  <div className="col-4">
+                  <div className="col-3">
                     <MDBInput
                       autocomplete="off"
                       value={colName}
@@ -201,7 +210,7 @@ const Annexure = () => {
                       }}
                     />
                   </div>
-                  <div className="col-4">
+                  <div className="col-3">
                     <MDBInput
                       autocomplete="off"
                       value={colValue}
@@ -215,7 +224,7 @@ const Annexure = () => {
                       }}
                     />
                   </div>
-                  <div className="col-12 mt-2">
+                  <div className="col-3 mt-4">
                     <MDBBtn
                       outline
                       type="submit"
