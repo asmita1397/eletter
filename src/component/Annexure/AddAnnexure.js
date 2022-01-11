@@ -59,7 +59,7 @@ export default function AddAnnexure(props) {
           benifit: [],
         },
       ];
-      const updateAnnexureVal = {...context.annexureData, newObject};
+      const updateAnnexureVal = {...context.annexureData, ...newObject};
       errObj = {};
       context.updateAnnexureDropdown(updateDropdown);
       context.updateAnnexure(updateAnnexureVal);
