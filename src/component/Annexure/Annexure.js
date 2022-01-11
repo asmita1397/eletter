@@ -113,25 +113,28 @@ const Annexure = () => {
     if (item.hasOwnProperty("basic")) {
       return (
         <TableComponent
+          subColumns={subColumnsHome}
           rows={getTableRows(item.basic)}
           renderType="normal"
           classes="my-3"
         />
       );
     }
-    if (item.hasOwnProperty("deduction") && item.deduction.length > 0) {
+    if (item.hasOwnProperty("deduction")) {
       return (
         <TableComponent
           rows={getTableRows(item.deduction)}
+          subColumns={subColumnsHome}
           renderType="normal"
           classes="my-3"
         />
       );
     }
-    if (item.hasOwnProperty("benefit") && item.benefit.length > 0) {
+    if (item.hasOwnProperty("benefit")) {
       return (
         <TableComponent
           rows={getTableRows(item.benefit)}
+          subColumns={subColumnsHome}
           renderType="normal"
           classes="my-3"
         />
@@ -227,11 +230,11 @@ const Annexure = () => {
                 </div>
 
                 <div className="card-body ">
-                  <TableComponent
+                  {/* <TableComponent
                     // columns={columns}
                     subColumns={subColumnsHome}
                     rows={tableRows}
-                  />
+                  /> */}
                   {tableData?.map((item) => renderTable(item))}
                 </div>
               </div>
