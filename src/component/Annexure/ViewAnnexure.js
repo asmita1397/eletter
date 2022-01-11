@@ -3,7 +3,7 @@ import { UserConsumer } from "../Context/CustomContext";
 import { Home } from "../home";
 import TableComponent from "./TableComponent";
 
-function ViewAnnexure(props) {
+function ViewAnnexure() {
   const context = useContext(UserConsumer);
   const dropdownVals = context.annexureDropdown || [];
 
@@ -18,7 +18,13 @@ function ViewAnnexure(props) {
     return [{ headerName: item.heading, colSpan: 3 }];
   };
 
-  console.log(tableData);
+  const getTableRows = (list) => {
+    const copy = [...list];
+    copy.forEach((item) => {
+      delete item.columnKey;
+    });
+    return copy;
+  };
 
   return (
     <>
@@ -68,7 +74,7 @@ function ViewAnnexure(props) {
                   <TableComponent
                     columns={getColumns(item)}
                     //   subColumns={subColumnsHome}
-                    rows={item.basic}
+                    rows={getTableRows(item.basic)}
                     renderType="normal"
                   />
                 ))}
