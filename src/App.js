@@ -78,7 +78,7 @@ import { BulkCertificateLetter } from "./component/CertificateLetter/BulkCertifi
 import ReactFirebaseFileUpload from "./component/DigitalSignature";
 import Annexure from "./component/Annexure/Annexure";
 import AddAnnexure from "./component/Annexure/AddAnnexure";
-
+import annexureJson from './component/finalAnnexure.json'
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -88,23 +88,7 @@ export class App extends Component {
       show: "",
       buttonVal: false,
       pdfVal: false,
-      annexureData: {
-        basic:[{
-          columnName: 'Basic Salary',
-          columnValue1: '14470',
-          columnKey1: 'A1',
-          columnKey2: 'B1',
-          columnKey3: 'C1',
-          month: '14470'
-        }, {
-          columnName: 'House Rent Allowance',
-          columnValue1: '2825',
-          columnKey1: 'A2',
-          columnKey2: 'B2',
-          columnKey3: 'C2',
-          month: '2825'
-        }]
-      },
+      annexureData:annexureJson,
       
       buttonValMethod: (data) => {
         this.setState({
@@ -116,12 +100,11 @@ export class App extends Component {
           pdfVal: val,
         });
       },
-      annexureDataMethod: (val)=>{
+      annexureDataMethod: (val) => {
         this.setState({
           basic: val,
         });
-      }
-
+      },
     };
   }
 
