@@ -3,9 +3,21 @@ import { UserConsumer } from "../Context/CustomContext";
 import { Home } from "../home";
 import TableComponent from "./TableComponent";
 
-function ViewAnnexure(props) {
+function ViewAnnexure() {
   const context = useContext(UserConsumer);
   const dropdownVals = context.annexureDropdown || [];
+
+  const subColumns = [
+    {
+      headerName: "Cash Flow Head",
+    },
+    {
+      headerName: "Monthly",
+    },
+    {
+      headerName: "Yearly",
+    },
+  ];
 
   const [selectedRange, setSelectedRange] = useState(null);
   const [tableData, setTableData] = useState([]);
@@ -18,7 +30,13 @@ function ViewAnnexure(props) {
     return [{ headerName: item.heading, colSpan: 3 }];
   };
 
-  console.log(tableData);
+  const getTableRows = (list) => {
+    const copy = [...list];
+    copy.forEach((item) => {
+      delete item.columnKey;
+    });
+    return copy;
+  };
 
   return (
     <>
@@ -67,8 +85,8 @@ function ViewAnnexure(props) {
                 {tableData?.map((item) => (
                   <TableComponent
                     columns={getColumns(item)}
-                    //   subColumns={subColumnsHome}
-                    rows={item.basic}
+                    subColumns={subColumns}
+                    rows={getTableRows(item.basic)}
                     renderType="normal"
                   />
                 ))}
