@@ -35,7 +35,7 @@ export default function AddAnnexure() {
       Number(salaryRange.to) &&
       salaryRange.name
     ) {
-      const updateValue = [
+      const updateDropdown = [
         ...context.annexureDropdown,
         {
           salaryFrom: salaryRange.from,
@@ -44,8 +44,26 @@ export default function AddAnnexure() {
           name: salaryRange.name,
         },
       ];
+      const newObject = {};
+      newObject[`${salaryRange.from}-${salaryRange.to}`] = [
+        {
+          heading: "Basic and Other Allowances Details",
+          basic: [],
+        },
+        {
+          heading: "Deductions",
+          deduction: [],
+        },
+        {
+          heading: "Benefit",
+          benifit: [],
+        },
+      ];
+      const updateAnnexureVal = {...context.annexureData, newObject};
       errObj = {};
-      context.updateAnnexureDropdown(updateValue);
+      context.updateAnnexureDropdown(updateDropdown);
+      context.updateAnnexure(updateAnnexureVal);
+      console.log('-------', context.NumberannexureData)
     }
 
     setError(errObj);

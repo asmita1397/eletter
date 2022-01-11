@@ -46,6 +46,14 @@
           "yearly": 100000
         }
       ]
+    },
+    {
+      "heading": "Deductions",
+      "deduction": []
+    },
+    {
+      "heading": "Benefit",
+      "benifit": []
     }
   ],
   "27325-37500": [
@@ -95,6 +103,14 @@
           "yearly": 100000
         }
       ]
+    },
+    {
+      "heading": "Deductions",
+      "deduction": []
+    },
+    {
+      "heading": "Benefit",
+      "benifit": []
     }
   ]
 }
