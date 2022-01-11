@@ -1,5 +1,5 @@
 import { MDBBtn, MDBInput } from "mdbreact";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserConsumer } from "../Context/CustomContext";
 import { Home } from "../home";
 
@@ -9,7 +9,7 @@ export default function AddAnnexure() {
   const [error, setError] = useState({});
 
   const salValidation = () => {
-    let errObj = {...error};
+    let errObj = { ...error };
     if (!salaryRange.name) {
       errObj["name"] = "This field is required";
     } else {
@@ -30,15 +30,26 @@ export default function AddAnnexure() {
     } else {
       errObj["to"] = null;
     }
-    if (Number(salaryRange.from) && Number(salaryRange.to)) {
+    if (
+      Number(salaryRange.from) &&
+      Number(salaryRange.to) &&
+      salaryRange.name
+    ) {
+      const updateValue = [
+        ...context.annexureDropdown,
+        {
+          salaryFrom: salaryRange.from,
+          salaryTo: salaryRange.to,
+          label: `${salaryRange.from}-${salaryRange.to}`,
+          name: salaryRange.name,
+        },
+      ];
       errObj = {};
+      context.updateAnnexureDropdown(updateValue);
     }
+
     setError(errObj);
   };
-
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
 
   return (
     <div>
@@ -64,7 +75,6 @@ export default function AddAnnexure() {
 
               <div className="card-body ">
                 <div className="row">
-                 
                   <div className="col-12">
                     <MDBInput
                       autocomplete="off"
@@ -75,7 +85,10 @@ export default function AddAnnexure() {
                       id="name"
                       title="Annexure Name"
                       onChange={(event) => {
-                        setSalaryRange({ name: event.target.value });
+                        setSalaryRange({
+                          ...salaryRange,
+                          name: event.target.value,
+                        });
                       }}
                     />
                     {error.name ? (
@@ -96,7 +109,10 @@ export default function AddAnnexure() {
                       id="from"
                       title="Salary From"
                       onChange={(event) => {
-                        setSalaryRange({ from: event.target.value });
+                        setSalaryRange({
+                          ...salaryRange,
+                          from: event.target.value,
+                        });
                       }}
                     />
                     {error.from ? (
@@ -115,7 +131,10 @@ export default function AddAnnexure() {
                       id="to"
                       title="Salary to"
                       onChange={(event) => {
-                        setSalaryRange({ to: event.target.value });
+                        setSalaryRange({
+                          ...salaryRange,
+                          to: event.target.value,
+                        });
                       }}
                     />
                     {error.to ? (
