@@ -9,7 +9,7 @@ export default function AddAnnexure() {
   const [error, setError] = useState({});
 
   const salValidation = () => {
-    let errObj = error;
+    let errObj = {...error};
     if (!salaryRange.name) {
       errObj["name"] = "This field is required";
     } else {
@@ -79,7 +79,7 @@ export default function AddAnnexure() {
                       }}
                     />
                     {error.name ? (
-                      <div id="errordiv" className="container-fluid">
+                      <div id="errordiv" className="p-0">
                         {error.name}
                       </div>
                     ) : null}
@@ -100,7 +100,7 @@ export default function AddAnnexure() {
                       }}
                     />
                     {error.from ? (
-                      <div id="errordiv" className="container-fluid">
+                      <div id="errordiv" className="p-0">
                         {error.from}
                       </div>
                     ) : null}
@@ -119,7 +119,7 @@ export default function AddAnnexure() {
                       }}
                     />
                     {error.to ? (
-                      <div id="errordiv" className="container-fluid">
+                      <div id="errordiv" className="p-0">
                         {error.to}
                       </div>
                     ) : null}
