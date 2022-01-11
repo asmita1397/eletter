@@ -12,7 +12,10 @@ const Annexure = () => {
   const context = useContext(UserConsumer);
   const [preview, setPreview] = useState(false);
   const [previewTableRows, setPreviewTableRows] = useState(false);
-  const [tableRows, setTableRows] = useState(context.annexureData.basic);
+  const [tableRows, setTableRows] = useState(context.annexureData.basic || []);
+  const [selectedSection, setSelectedSection] = useState(null);
+  const [tableData, setTableData] = useState([]);
+
   const columns = [
     {
       headerName: "Basic and Other Allowances Details",
@@ -50,9 +53,7 @@ const Annexure = () => {
     }
   };
   const validation = () => {
-    debugger;
     if (colName && colValue) {
-      debugger;
       const copy = tableRows;
       const formula = colValue.split("*");
       const splitted =
@@ -67,8 +68,8 @@ const Annexure = () => {
 
       context.annexureDataMethod(copy);
       setTableRows(copy);
-      setColName('')
-      setColValue('')
+      setColName("");
+      setColValue("");
     }
   };
   const calculatePreview = () => {
@@ -82,7 +83,57 @@ const Annexure = () => {
     });
 
     setPreviewTableRows(copy);
-   
+  };
+
+  console.log(context.selectedSalaryRange);
+
+  useEffect(() => {
+    setTableData(context.annexureData[context.selectedSalaryRange] || null);
+  }, [context.selectedSalaryRange, context.annexureData]);
+
+  console.log(tableRows, tableData);
+
+  const getColumns = (item) => {
+    return [{ headerName: item.heading, colSpan: 3 }];
+  };
+
+  const getTableRows = (list) => {
+    const copy = [...list];
+    copy.forEach((item) => {
+      delete item.columnKey;
+      delete item.columnValue;
+    });
+    return copy;
+  };
+
+  const renderTable = (item) => {
+    if (item.hasOwnProperty("basic")) {
+      return (
+        <TableComponent
+          rows={getTableRows(item.basic)}
+          renderType="normal"
+          classes="my-3"
+        />
+      );
+    }
+    if (item.hasOwnProperty("deduction") && item.deduction.length > 0) {
+      return (
+        <TableComponent
+          rows={getTableRows(item.deduction)}
+          renderType="normal"
+          classes="my-3"
+        />
+      );
+    }
+    if (item.hasOwnProperty("benefit") && item.benefit.length > 0) {
+      return (
+        <TableComponent
+          rows={getTableRows(item.benefit)}
+          renderType="normal"
+          classes="my-3"
+        />
+      );
+    }
   };
 
   return (
@@ -108,6 +159,28 @@ const Annexure = () => {
                   </h3>
                 </div>
                 <div className="row">
+                  <div className="col-4">
+                    <select
+                      class="browser-default custom-select my-auto"
+                      autocomplete="off"
+                      value={selectedSection}
+                      name="salaryRange"
+                      title="Salary Range"
+                      placeholder="Please select the salary range"
+                      id="salaryRange"
+                      defaultValue="Please select the salary range"
+                      onChange={(event) => {
+                        setSelectedSection(event.target.value);
+                      }}
+                    >
+                      <option value="Please select the salary range" hidden>
+                        Please select table section
+                      </option>
+                      <option value="basic">Basic</option>
+                      <option value="deductions">Deductions</option>
+                      <option value="benefit">Benefit</option>
+                    </select>
+                  </div>
                   <div className="col-4">
                     <MDBInput
                       autocomplete="off"
@@ -136,7 +209,7 @@ const Annexure = () => {
                       }}
                     />
                   </div>
-                  <div className="col-3 mt-2">
+                  <div className="col-12 mt-2">
                     <MDBBtn
                       outline
                       type="submit"
@@ -156,6 +229,7 @@ const Annexure = () => {
                     subColumns={subColumnsHome}
                     rows={tableRows}
                   />
+                  {tableData?.map((item) => renderTable(item))}
                 </div>
               </div>
               <Button

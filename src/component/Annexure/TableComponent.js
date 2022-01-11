@@ -7,6 +7,7 @@ const TableComponent = (props) => {
     subColumns = [],
     rows = [],
     renderType = "advanced",
+    classes = "",
   } = props;
 
   const renderTableBody = (item) => {
@@ -16,7 +17,7 @@ const TableComponent = (props) => {
         rowObj.push(<td>{value}</td>);
       });
     } else if (renderType === "advanced") {
-      subColumns.map((value, index) => {
+      subColumns.forEach((value, index) => {
         const keys = Object.keys(item);
         const value1 = item[keys[index]];
         const value2 = item[keys[index + 2]];
@@ -28,7 +29,7 @@ const TableComponent = (props) => {
 
   return (
     <div>
-      <table className="text-center">
+      <table className={`text-center ${classes}`}>
         <thead>
           {columns.map((col) => {
             const {
