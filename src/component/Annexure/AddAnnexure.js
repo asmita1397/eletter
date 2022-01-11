@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { UserConsumer } from "../Context/CustomContext";
 import { Home } from "../home";
 
-export default function AddAnnexure() {
+export default function AddAnnexure(props) {
   const context = useContext(UserConsumer);
   const [salaryRange, setSalaryRange] = useState({});
   const [error, setError] = useState({});
@@ -63,7 +63,7 @@ export default function AddAnnexure() {
       errObj = {};
       context.updateAnnexureDropdown(updateDropdown);
       context.updateAnnexure(updateAnnexureVal);
-      console.log('-------', context.NumberannexureData)
+      props.history.push('/InputAnnexure')
     }
 
     setError(errObj);
