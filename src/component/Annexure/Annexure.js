@@ -93,7 +93,7 @@ const Annexure = () => {
           <div className="row">
             <div className="col-auto container mt-5 pb-5">
               <div
-                style={{ width: "800px" }}
+                style={{ width: "1200px" }}
                 className="card m-auto shadow-lg mt-5"
               >
                 <div
@@ -104,7 +104,7 @@ const Annexure = () => {
                   }}
                 >
                   <h3 className="text-center black-text font-bold ">
-                    Annexure
+                    Annexure for ({context.selectedSalaryRange})
                   </h3>
                 </div>
                 <div className="row">
