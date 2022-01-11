@@ -10,12 +10,22 @@ export default function AddAnnexure() {
 
   const salValidation = () => {
     let errObj = error;
-    if (!Number(salaryRange.from)) {
+    if (!salaryRange.name) {
+      errObj["name"] = "This field is required";
+    } else {
+      errObj["name"] = null;
+    }
+
+    if (!salaryRange.from) {
+      errObj["from"] = "This field is required";
+    } else if (!Number(salaryRange.from)) {
       errObj["from"] = "Salary From must be positive whole number";
     } else {
       errObj["from"] = null;
     }
-    if (!Number(salaryRange.from)) {
+    if (!salaryRange.to) {
+      errObj["to"] = "This field is required";
+    } else if (!Number(salaryRange.to)) {
       errObj["to"] = "Salary To must be positive whole number";
     } else {
       errObj["to"] = null;
