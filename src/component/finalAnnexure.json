@@ -6,32 +6,44 @@
         {
           "columnName": "Basic Salary",
           "columnValue": 15000,
-          "columnKey": "A1"
+          "columnKey": "A1",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "House Rent Allowance",
           "columnValue": 6000,
-          "columnKey": "A2"
+          "columnKey": "A2",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "Conveyance Allowance",
           "columnValue": 1600,
-          "columnKey": "A3"
+          "columnKey": "A3",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "Bonus",
           "columnValue": 1250,
-          "columnKey": "A4"
+          "columnKey": "A4",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "Other Allowances",
           "columnValue": 1354,
-          "columnKey": "A5"
+          "columnKey": "A5",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "Other Allowances",
           "columnValue": 1354,
-          "columnKey": "A6"
+          "columnKey": "A6",
+          "monthly": 15000,
+          "yearly": 100000
         }
       ]
     }
@@ -43,32 +55,44 @@
         {
           "columnName": "Basic Salary",
           "columnValue": 15000,
-          "columnKey": "A1"
+          "columnKey": "A1",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "House Rent Allowance",
           "columnValue": 6000,
-          "columnKey": "A2"
+          "columnKey": "A2",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "Conveyance Allowance",
           "columnValue": 1600,
-          "columnKey": "A3"
+          "columnKey": "A3",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "Bonus",
           "columnValue": 1250,
-          "columnKey": "A4"
+          "columnKey": "A4",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "Other Allowances",
           "columnValue": 1354,
-          "columnKey": "A5"
+          "columnKey": "A5",
+          "monthly": 15000,
+          "yearly": 100000
         },
         {
           "columnName": "Other Allowances",
           "columnValue": 1354,
-          "columnKey": "A6"
+          "columnKey": "A6",
+          "monthly": 15000,
+          "yearly": 100000
         }
       ]
     }
