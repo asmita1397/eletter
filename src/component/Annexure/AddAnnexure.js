@@ -63,6 +63,7 @@ export default function AddAnnexure(props) {
       errObj = {};
       context.updateAnnexureDropdown(updateDropdown);
       context.updateAnnexure(updateAnnexureVal);
+      context.updateSalaryRange(`${salaryRange.from}-${salaryRange.to}`)
       props.history.push('/InputAnnexure')
     }
 
