@@ -171,7 +171,7 @@ export default function AddAnnexure(props) {
                       className="form-control-plaintext justify-content-center text-center"
                       color="primary"
                     >
-                      Test
+                      Generate
                     </MDBBtn>
                   </div>
                 </div>

@@ -187,6 +187,38 @@ const Annexure = () => {
       );
     }
   };
+  
+
+  const renderTableForPreview = (item) => {
+    if (item.hasOwnProperty("basic")) {
+      return (
+        <TableComponent
+          columns={getColumns(item)}
+          subColumns={subColumns}
+          rows={getTableRows(item.basic)}
+          renderType="normal"
+        />
+      );
+    }
+    if (item.hasOwnProperty("deduction") && item.deduction.length > 0) {
+      return (
+        <TableComponent
+          columns={getColumns(item)}
+          rows={getTableRows(item.deduction)}
+          renderType="normal"
+        />
+      );
+    }
+    if (item.hasOwnProperty("benefit") && item.benefit.length > 0) {
+      return (
+        <TableComponent
+          columns={getColumns(item)}
+          rows={getTableRows(item.benefit)}
+          renderType="normal"
+        />
+      );
+    }
+  };
 
   return (
     <div>
@@ -299,11 +331,7 @@ const Annexure = () => {
                   <Modal.Title>Annexure Preview</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <PreviewTable
-                    // columns={columns}
-                    subColumns={subColumns}
-                    rows={previewTableRows}
-                  />
+                {updateVal[context.selectedSalaryRange].map((item) => renderTableForPreview(item))}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={() => setPreview(false)}>
