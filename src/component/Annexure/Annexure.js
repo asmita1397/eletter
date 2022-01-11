@@ -40,18 +40,23 @@ const Annexure = () => {
     },
   ];
   const getValue = (value) => {
-    const getIndex = tableRows.findIndex((val, index) =>
-      Object.values(val).includes(value)
-    );
-    return tableRows[getIndex].columnValue1;
+    if (!isNaN(value)) {
+      const getIndex = tableRows.findIndex((val, index) =>
+        Object.values(val).includes(value)
+      );
+      return tableRows[getIndex].columnValue1;
+    } else {
+      return value;
+    }
   };
   const validation = () => {
+    debugger;
     if (colName && colValue) {
       debugger;
       const copy = tableRows;
       const formula = colValue.split("*");
       const splitted =
-        formula.length > 0 ? (getValue(formula[0]) * formula[1]) : colValue;
+        formula.length > 0 ? getValue(formula[0]) * formula[1] : colValue;
       copy.push({
         columnName: colName,
         columnValue1: colValue,
@@ -62,20 +67,22 @@ const Annexure = () => {
 
       context.annexureDataMethod(copy);
       setTableRows(copy);
+      setColName('')
+      setColValue('')
     }
   };
   const calculatePreview = () => {
     const copy = [];
     tableRows.map((val, index) => {
-      debugger
       copy.push({
         columnName: val.columnName,
         columnValue1: Math.trunc(val.month),
-        columnValue2: parseInt(val.month)*12
+        columnValue2: parseInt(val.month) * 12,
       });
     });
-    
+
     setPreviewTableRows(copy);
+   
   };
 
   return (
