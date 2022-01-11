@@ -48,6 +48,28 @@ export default class Cards extends Component {
         <div className="mt-5 pt-5 pl-5 pr-5">
           <div className="row ">
             <div className="column">
+              <Link to="/InputAnnexure">
+                <div className="card-css  ">
+                  <span style={{fontSize: '15px', margin: '5px'}}>add</span>
+                  <span style={{fontSize: '15px', margin: '5px'}}>view</span>
+                  <span style={{fontSize: '15px', margin: '5px'}}>modify</span>
+                  <img
+                    style={{
+                      width: "70%",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    src={NoDue}
+                    className="card-css-img-top"
+                    alt="..."
+                  />
+                  <div style={{ color: "#343A40" }}>
+                    <h6 className="font-weight-bold">Annexure</h6>
+                  </div>
+                </div>
+              </Link>
+            </div>
+            <div className="column">
               <Link to="/hr">
                 <div className=" card-css ">
                   <img
@@ -427,25 +449,6 @@ export default class Cards extends Component {
                   />
                   <div style={{ color: "#343A40" }}>
                     <h6 className="font-weight-bold">NoDue Letter</h6>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className="column">
-              <Link to="/InputAnnexure">
-                <div className="card-css  ">
-                  <img
-                    style={{
-                      width: "70%",
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                    src={NoDue}
-                    className="card-css-img-top"
-                    alt="..."
-                  />
-                  <div style={{ color: "#343A40" }}>
-                    <h6 className="font-weight-bold">Annexure</h6>
                   </div>
                 </div>
               </Link>
