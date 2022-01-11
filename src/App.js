@@ -79,6 +79,7 @@ import ReactFirebaseFileUpload from "./component/DigitalSignature";
 import Annexure from "./component/Annexure/Annexure";
 import AddAnnexure from "./component/Annexure/AddAnnexure";
 import annexureJson from './component/finalAnnexure.json'
+import annexureDropDown from './component/annexureRange.json'
 import ViewAnnexure from "./component/Annexure/ViewAnnexure";
 export class App extends Component {
   constructor(props) {
@@ -90,7 +91,7 @@ export class App extends Component {
       buttonVal: false,
       pdfVal: false,
       annexureData:annexureJson,
-      
+      annexureDropdown:annexureDropDown,
       buttonValMethod: (data) => {
         this.setState({
           buttonVal: data,

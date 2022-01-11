@@ -40,42 +40,42 @@ export default function AddAnnexure() {
 
               <div className="card-body ">
                 <div className="row">
-                  <h5 className="text-center col-12">Salary Range</h5>
-                  <div className="col-4">
+                 
+                  <div className="col-12">
                     <MDBInput
                       autocomplete="off"
                       value={salaryRange.name}
-                      label="Name"
+                      label="Annexure Name"
                       type="text"
                       name="name"
                       id="name"
-                      title="Name"
+                      title="Annexure Name"
                       onChange={(event) => {
                         setSalaryRange({ name: event.target.value });
                       }}
                     />
                   </div>
-                  <div className="col-4">
+                  <div className="col-6">
                     <MDBInput
                       autocomplete="off"
                       value={salaryRange.from}
-                      label="From"
+                      label="Salary From"
                       type="number"
                       name="from"
                       min="1"
                       step="1"
                       id="from"
-                      title="Salary from"
+                      title="Salary From"
                       onChange={(event) => {
                         setSalaryRange({ from: event.target.value });
                       }}
                     />
                   </div>
-                  <div className="col-4">
+                  <div className="col-6">
                     <MDBInput
                       autocomplete="off"
                       value={salaryRange.to}
-                      label="To"
+                      label="Salary To"
                       type="number"
                       name="to"
                       id="to"
