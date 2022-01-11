@@ -30,6 +30,9 @@ const Annexure = () => {
     {
       headerName: "Column Value",
     },
+    {
+      headerName: "Column Key",
+    },
   ];
   const subColumns = [
     {
@@ -100,8 +103,8 @@ const Annexure = () => {
   const getTableRows = (list) => {
     const copy = [...list];
     copy.forEach((item) => {
-      delete item.columnKey;
-      delete item.columnValue;
+      delete item.monthly;
+      delete item.yearly;
     });
     return copy;
   };
