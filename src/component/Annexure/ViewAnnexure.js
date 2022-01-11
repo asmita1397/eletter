@@ -7,6 +7,18 @@ function ViewAnnexure() {
   const context = useContext(UserConsumer);
   const dropdownVals = context.annexureDropdown || [];
 
+  const subColumns = [
+    {
+      headerName: "Cash Flow Head",
+    },
+    {
+      headerName: "Monthly",
+    },
+    {
+      headerName: "Yearly",
+    },
+  ];
+
   const [selectedRange, setSelectedRange] = useState(null);
   const [tableData, setTableData] = useState([]);
 
@@ -73,7 +85,7 @@ function ViewAnnexure() {
                 {tableData?.map((item) => (
                   <TableComponent
                     columns={getColumns(item)}
-                    //   subColumns={subColumnsHome}
+                    subColumns={subColumns}
                     rows={getTableRows(item.basic)}
                     renderType="normal"
                   />
