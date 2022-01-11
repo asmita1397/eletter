@@ -30,10 +30,13 @@ function ViewAnnexure() {
     return [{ headerName: item.heading, colSpan: 3 }];
   };
 
+  console.log(tableData);
+
   const getTableRows = (list) => {
     const copy = [...list];
     copy.forEach((item) => {
       delete item.columnKey;
+      delete item.columnValue;
     });
     return copy;
   };
