@@ -128,8 +128,6 @@ export class Home extends Component {
 
   render() {
     let value = this.context;
-    console.log(value.buttonVal)
-    console.log("nnnbn", value.pdfVal)
     return (
       <div>
         <div>

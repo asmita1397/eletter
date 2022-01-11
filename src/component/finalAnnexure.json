@@ -1,80 +1,76 @@
-[
-  {
-    "21000-27324": [
-      {
-        "heading": "Basic and Other Allowances Details",
-        "basic": [
-          {
-            "columnName": "Basic Salary",
-            "columnValue": 15000,
-            "columnKey": "A1"
-          },
-          {
-            "columnName": "House Rent Allowance",
-            "columnValue": 6000,
-            "columnKey": "A2"
-          },
-          {
-            "columnName": "Conveyance Allowance",
-            "columnValue": 1600,
-            "columnKey": "A3"
-          },
-          {
-            "columnName": "Bonus",
-            "columnValue": 1250,
-            "columnKey": "A4"
-          },
-          {
-            "columnName": "Other Allowances",
-            "columnValue": 1354,
-            "columnKey": "A5"
-          },
-          {
-            "columnName": "Other Allowances",
-            "columnValue": 1354,
-            "columnKey": "A6"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "27325-37500": [
-      {
-        "heading": "Basic and Other Allowances Details",
-        "basic": [
-          {
-            "columnName": "Basic Salary",
-            "columnValue": 15000,
-            "columnKey": "A1"
-          },
-          {
-            "columnName": "House Rent Allowance",
-            "columnValue": 6000,
-            "columnKey": "A2"
-          },
-          {
-            "columnName": "Conveyance Allowance",
-            "columnValue": 1600,
-            "columnKey": "A3"
-          },
-          {
-            "columnName": "Bonus",
-            "columnValue": 1250,
-            "columnKey": "A4"
-          },
-          {
-            "columnName": "Other Allowances",
-            "columnValue": 1354,
-            "columnKey": "A5"
-          },
-          {
-            "columnName": "Other Allowances",
-            "columnValue": 1354,
-            "columnKey": "A6"
-          }
-        ]
-      }
-    ]
-  }
-]
+{
+  "21000-27324": [
+    {
+      "heading": "Basic and Other Allowances Details",
+      "basic": [
+        {
+          "columnName": "Basic Salary",
+          "columnValue": 15000,
+          "columnKey": "A1"
+        },
+        {
+          "columnName": "House Rent Allowance",
+          "columnValue": 6000,
+          "columnKey": "A2"
+        },
+        {
+          "columnName": "Conveyance Allowance",
+          "columnValue": 1600,
+          "columnKey": "A3"
+        },
+        {
+          "columnName": "Bonus",
+          "columnValue": 1250,
+          "columnKey": "A4"
+        },
+        {
+          "columnName": "Other Allowances",
+          "columnValue": 1354,
+          "columnKey": "A5"
+        },
+        {
+          "columnName": "Other Allowances",
+          "columnValue": 1354,
+          "columnKey": "A6"
+        }
+      ]
+    }
+  ],
+  "27325-37500": [
+    {
+      "heading": "Basic and Other Allowances Details",
+      "basic": [
+        {
+          "columnName": "Basic Salary",
+          "columnValue": 15000,
+          "columnKey": "A1"
+        },
+        {
+          "columnName": "House Rent Allowance",
+          "columnValue": 6000,
+          "columnKey": "A2"
+        },
+        {
+          "columnName": "Conveyance Allowance",
+          "columnValue": 1600,
+          "columnKey": "A3"
+        },
+        {
+          "columnName": "Bonus",
+          "columnValue": 1250,
+          "columnKey": "A4"
+        },
+        {
+          "columnName": "Other Allowances",
+          "columnValue": 1354,
+          "columnKey": "A5"
+        },
+        {
+          "columnName": "Other Allowances",
+          "columnValue": 1354,
+          "columnKey": "A6"
+        }
+      ]
+    }
+  ]
+}

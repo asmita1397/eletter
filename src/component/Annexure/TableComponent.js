@@ -2,17 +2,27 @@ import React from "react";
 import "./Temp.css";
 
 const TableComponent = (props) => {
-  const { columns = [], subColumns = [], rows = [] } = props;
+  const {
+    columns = [],
+    subColumns = [],
+    rows = [],
+    renderType = "advanced",
+  } = props;
 
   const renderTableBody = (item) => {
-    debugger;
     const rowObj = [];
-    subColumns.map((value, index) => {
-      const keys = Object.keys(item);
-      const value1 = item[keys[index]];
-      const value2 = item[keys[index + 2]];
-      rowObj.push(<td>{`${value1}${index === 0 ? `(${value2})` : ''}`}</td>);
-    });
+    if (renderType === "normal") {
+      Object.entries(item).forEach(([key, value]) => {
+        rowObj.push(<td>{value}</td>);
+      });
+    } else if (renderType === "advanced") {
+      subColumns.map((value, index) => {
+        const keys = Object.keys(item);
+        const value1 = item[keys[index]];
+        const value2 = item[keys[index + 2]];
+        rowObj.push(<td>{`${value1}${index === 0 ? `(${value2})` : ""}`}</td>);
+      });
+    }
     return rowObj;
   };
 

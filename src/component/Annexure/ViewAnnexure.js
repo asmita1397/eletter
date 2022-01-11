@@ -1,11 +1,84 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from "react";
+import { UserConsumer } from "../Context/CustomContext";
+import { Home } from "../home";
+import TableComponent from "./TableComponent";
 
-function ViewAnnexure() {
-    return (
-        <div>
-            
+function ViewAnnexure(props) {
+  const context = useContext(UserConsumer);
+  const dropdownVals = context.annexureDropdown || [];
+
+  const [selectedRange, setSelectedRange] = useState(null);
+  const [tableData, setTableData] = useState([]);
+
+  useEffect(() => {
+    setTableData(context.annexureData[selectedRange] || null);
+  }, [selectedRange, context.annexureData]);
+
+  const getColumns = (item) => {
+    return [{ headerName: item.heading, colSpan: 3 }];
+  };
+
+  console.log(tableData);
+
+  return (
+    <>
+      <Home buttonShow={false} buttonVal={context.buttonVal} />
+
+      <div className="container mt-5">
+        <div className="row">
+          <div className="col-auto container mt-5 pb-5">
+            <div
+              style={{ width: "500px" }}
+              className="card m-auto shadow-lg mt-5"
+            >
+              <div
+                class="card-header"
+                style={{
+                  borderRadius: "0px !important",
+                  background: "white",
+                }}
+              >
+                <h3 className="text-center black-text font-bold ">
+                  Add Annexure
+                </h3>
+              </div>
+
+              <div className="card-body">
+                <select
+                  class="browser-default custom-select my-3"
+                  autocomplete="off"
+                  value={selectedRange}
+                  name="salaryRange"
+                  title="Salary Range"
+                  placeholder="Please select the salary range"
+                  id="salaryRange"
+                  defaultValue="Please select the salary range"
+                  onChange={(event) => {
+                    setSelectedRange(event.target.value);
+                  }}
+                >
+                  <option value="Please select the salary range" hidden>
+                    Please select the salary range
+                  </option>
+                  {dropdownVals?.map((val) => (
+                    <option value={val.label}>{val.label}</option>
+                  ))}
+                </select>
+                {tableData?.map((item) => (
+                  <TableComponent
+                    columns={getColumns(item)}
+                    //   subColumns={subColumnsHome}
+                    rows={item.basic}
+                    renderType="normal"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-    )
+      </div>
+    </>
+  );
 }
 
-export default ViewAnnexure
+export default ViewAnnexure;
