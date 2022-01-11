@@ -6,15 +6,39 @@ import { Home } from "../home";
 export default function AddAnnexure() {
   const context = useContext(UserConsumer);
   const [salaryRange, setSalaryRange] = useState({});
-  const [error, setError] = useState([]);
+  const [error, setError] = useState({});
 
   const salValidation = () => {
-    if (salaryRange.from && salaryRange.to) {
-    //   if (Number(salaryRange.from)) {
-    //   } else {
-    //   }
+    let errObj = error;
+    if (!salaryRange.name) {
+      errObj["name"] = "This field is required";
+    } else {
+      errObj["name"] = null;
     }
+
+    if (!salaryRange.from) {
+      errObj["from"] = "This field is required";
+    } else if (!Number(salaryRange.from)) {
+      errObj["from"] = "Salary From must be positive whole number";
+    } else {
+      errObj["from"] = null;
+    }
+    if (!salaryRange.to) {
+      errObj["to"] = "This field is required";
+    } else if (!Number(salaryRange.to)) {
+      errObj["to"] = "Salary To must be positive whole number";
+    } else {
+      errObj["to"] = null;
+    }
+    if (Number(salaryRange.from) && Number(salaryRange.to)) {
+      errObj = {};
+    }
+    setError(errObj);
   };
+
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
 
   return (
     <div>
@@ -54,6 +78,11 @@ export default function AddAnnexure() {
                         setSalaryRange({ name: event.target.value });
                       }}
                     />
+                    {error.name ? (
+                      <div id="errordiv" className="container-fluid">
+                        {error.name}
+                      </div>
+                    ) : null}
                   </div>
                   <div className="col-6">
                     <MDBInput
@@ -70,6 +99,11 @@ export default function AddAnnexure() {
                         setSalaryRange({ from: event.target.value });
                       }}
                     />
+                    {error.from ? (
+                      <div id="errordiv" className="container-fluid">
+                        {error.from}
+                      </div>
+                    ) : null}
                   </div>
                   <div className="col-6">
                     <MDBInput
@@ -84,6 +118,11 @@ export default function AddAnnexure() {
                         setSalaryRange({ to: event.target.value });
                       }}
                     />
+                    {error.to ? (
+                      <div id="errordiv" className="container-fluid">
+                        {error.to}
+                      </div>
+                    ) : null}
                   </div>
                   <div className="mt-2 mx-auto">
                     <MDBBtn
