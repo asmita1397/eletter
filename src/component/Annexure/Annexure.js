@@ -106,7 +106,6 @@ const Annexure = () => {
           yearly: isNaN(formula)
             ? Math.ceil(eval(formula)) * 12
             : parseInt(colValue) * 12,
-
         };
         setSelectedColKey(null);
       } else {
@@ -443,7 +442,9 @@ const Annexure = () => {
                       className=" form-control-plaintext  justify-content-center text-center"
                       color="primary"
                     >
-                      Add
+                      {context.selectedSalaryRange.type === "mod"
+                        ? "Modify"
+                        : "Add"}
                     </MDBBtn>
                   </div>
                 </div>
