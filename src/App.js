@@ -97,7 +97,7 @@ export class App extends Component {
         name: "nncnc",
         salaryFrom: "21000",
         salaryTo: "27324",
-        displayLabel: ""
+        displayLabel: "₹21000 - 27324",
       },
       updateSalaryRange: (val) => {
         this.setState({
