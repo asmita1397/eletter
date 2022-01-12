@@ -165,6 +165,19 @@ const Annexure = () => {
     setSelectedColKey(item.columnKey);
   };
 
+  const handleDelete = (current) => {
+    const copy = JSON.parse(JSON.stringify(updateVal));
+    const section = current?.columnKey?.includes("A")
+      ? 0
+      : current?.columnKey?.includes("B")
+      ? 1
+      : 2;
+    const updatedList = copy[context.selectedSalaryRange.label][section][
+      sectionData[section].value
+    ].filter((item) => item.columnKey !== current.columnKey);
+    // setUpdatedValue(updatedList);
+  };
+
   const getTableRows = (list) => {
     const copy = [];
     list.forEach((item) => {
@@ -176,7 +189,12 @@ const Annexure = () => {
           edit: (
             <i className="fas fa-pen mx-3" onClick={() => handleEdit(item)}></i>
           ),
-          delete: <i class="fas fa-trash-alt mx-3"></i>,
+          delete: (
+            <i
+              class="fas fa-trash-alt mx-3"
+              onClick={() => handleDelete(item)}
+            ></i>
+          ),
         });
       } else {
         copy.push({
