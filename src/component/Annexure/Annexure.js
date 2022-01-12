@@ -229,9 +229,9 @@ const Annexure = () => {
     const num = context.selectedSalaryRange.split("-");
     return (
       <span>
-        <span>{`${Number(num[0]).toLocaleString("en-IN")}`}</span>
+        <span>{`₹${Number(num[0]).toLocaleString("en-IN")}`}</span>
         <span className="mx-1 h3 bold">-</span>
-        <span>{`${Number(num[1]).toLocaleString("en-IN")}`}</span>
+        <span>{`₹${Number(num[1]).toLocaleString("en-IN")}`}</span>
       </span>
     );
   };
