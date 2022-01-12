@@ -146,7 +146,7 @@ const Annexure = () => {
       copy.push({
         columnName: item.columnName,
         monthly: item.monthly,
-        yearly: item.yearly
+        yearly: item.yearly,
       });
     });
     return copy;
@@ -198,7 +198,7 @@ const Annexure = () => {
     if (item.hasOwnProperty("basic")) {
       return (
         <TableComponent
-        columns={getColumns(item)}
+          columns={getColumns(item)}
           subColumns={subColumns}
           rows={getPreviewTableRows(item.basic)}
           renderType="normal"
@@ -208,7 +208,7 @@ const Annexure = () => {
     if (item.hasOwnProperty("deduction") && item.deduction.length > 0) {
       return (
         <TableComponent
-        columns={getColumns(item)}
+          columns={getColumns(item)}
           rows={getPreviewTableRows(item.deduction)}
           renderType="normal"
         />
@@ -225,8 +225,19 @@ const Annexure = () => {
     }
   };
 
+  const getRange = () => {
+    const num = context.selectedSalaryRange.split("-");
+    return (
+      <span>
+        <span>{`₹${Number(num[0]).toLocaleString("en-IN")}`}</span>
+        <span className="mx-1 h3 bold">-</span>
+        <span>{`₹${Number(num[1]).toLocaleString("en-IN")}`}</span>
+      </span>
+    );
+  };
+
   const updateMainArray = () => {
-    debugger
+    debugger;
     context.updateAnnexure(updateVal);
   };
 
@@ -249,7 +260,7 @@ const Annexure = () => {
                   }}
                 >
                   <h3 className="text-center black-text font-bold ">
-                    Annexure for ({context.selectedSalaryRange.label})
+                    Annexure for ({getRange()})
                   </h3>
                 </div>
                 <div className="row">
