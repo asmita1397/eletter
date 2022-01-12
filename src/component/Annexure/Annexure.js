@@ -133,6 +133,11 @@ const Annexure = () => {
     return [{ headerName: item.heading, colSpan: 3 }];
   };
 
+  const handleEdit = (item) => {
+    setColName(item.columnName);
+    setColValue(item.columnValue);
+  };
+
   const getTableRows = (list) => {
     const copy = [];
     list.forEach((item) => {
@@ -141,7 +146,9 @@ const Annexure = () => {
           columnKey: item.columnKey,
           columnName: item.columnName,
           columnValue: item.columnValue,
-          edit: <i className="fas fa-pen mx-3"></i>,
+          edit: (
+            <i className="fas fa-pen mx-3" onClick={() => handleEdit(item)}></i>
+          ),
           delete: <i class="fas fa-trash-alt mx-3"></i>,
         });
       } else {
