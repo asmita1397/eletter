@@ -122,7 +122,7 @@ function ViewAnnexure() {
                     Please select the salary range
                   </option>
                   {dropdownVals?.map((val) => (
-                    <option value={val.label}>{val.label}</option>
+                    <option value={val.label}>{val.displayLabel}</option>
                   ))}
                 </select>
                 {tableData?.map((item) => renderTable(item))}
