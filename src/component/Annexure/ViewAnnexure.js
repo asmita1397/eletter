@@ -89,7 +89,7 @@ function ViewAnnexure() {
                 }}
               >
                 <h3 className="text-center black-text font-bold ">
-                  Add Annexure
+                  View Annexure
                 </h3>
               </div>
 

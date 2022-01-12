@@ -10,8 +10,8 @@ const Annexure = () => {
   const context = useContext(UserConsumer);
   const [colName, setColName] = useState();
   const [colValue, setColValue] = useState();
-  const [updateVal, setUpdatedValue] = useState(context.annexureData)
- 
+  const [updateVal, setUpdatedValue] = useState(context.annexureData);
+
   const [preview, setPreview] = useState(false);
   const [previewTableRows, setPreviewTableRows] = useState(false);
   const [tableRows, setTableRows] = useState(context.annexureData.basic || []);
@@ -27,7 +27,7 @@ const Annexure = () => {
 
   const subColumnsHome = [
     {
-      headerName: "SL NO",
+      headerName: "Sl No",
     },
     {
       headerName: "Column Name",
@@ -91,20 +91,21 @@ const Annexure = () => {
 
       // context.annexureDataMethod(copy);
       // setTableRows(copy);
-
+      const prefix =
+        selectedSection === 0 ? "A" : selectedSection === 1 ? "B" : "C";
       copy[context.selectedSalaryRange][selectedSection][
         sectionData[selectedSection].value
       ].push({
         columnName: colName,
         columnValue: colValue,
-        columnKey: `A${
+        columnKey: `${prefix}${
           copy[context.selectedSalaryRange][selectedSection][
             sectionData[selectedSection].value
           ].length + 1
         }`,
         month: "",
       });
-      setUpdatedValue(copy)
+      setUpdatedValue(copy);
       setColName("");
       setColValue("");
     }
@@ -187,7 +188,6 @@ const Annexure = () => {
       );
     }
   };
-  
 
   const renderTableForPreview = (item) => {
     if (item.hasOwnProperty("basic")) {
@@ -254,7 +254,7 @@ const Annexure = () => {
                       id="salaryRange"
                       defaultValue="Please select the salary range"
                       onChange={(event) => {
-                        setSelectedSection(event.target.value);
+                        setSelectedSection(parseInt(event.target.value));
                       }}
                     >
                       <option value="Please select the salary range" hidden>
@@ -323,7 +323,7 @@ const Annexure = () => {
                 }}
               >
                 {" "}
-                Preview
+                Test
               </Button>
 
               <Modal show={preview} onHide={() => setPreview(true)}>
@@ -331,7 +331,9 @@ const Annexure = () => {
                   <Modal.Title>Annexure Preview</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                {updateVal[context.selectedSalaryRange].map((item) => renderTableForPreview(item))}
+                  {updateVal[context.selectedSalaryRange].map((item) =>
+                    renderTableForPreview(item)
+                  )}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant="secondary" onClick={() => setPreview(false)}>
