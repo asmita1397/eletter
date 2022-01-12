@@ -20,7 +20,7 @@ const Annexure = () => {
 
   const subColumnsHome = [
     {
-      headerName: "Sl No",
+      headerName: "Ref No",
     },
     {
       headerName: "Column Name",
@@ -244,7 +244,16 @@ const Annexure = () => {
   return (
     <div>
       <Home buttonShow={false} buttonVal={context.buttonVal} />
-      <div>
+      <div
+        onKeyDown={(e) => {
+          if (preview && e.keyCode === 27) {
+            setPreview(false);
+          }
+          if (openConfirmation && e.keyCode === 27) {
+            setOpenConfirmation(false);
+          }
+        }}
+      >
         <div className="container-fluid mt-5">
           <div className="row">
             <div className="col-auto container mt-5 pb-5">
@@ -263,6 +272,7 @@ const Annexure = () => {
                     Annexure for {context.selectedSalaryRange.name}({getRange()}
                     )
                   </h3>
+                  <span className="h6">Please enter static fields*</span>
                 </div>
                 <div className="row">
                   <div className="col-3 mt-4">
