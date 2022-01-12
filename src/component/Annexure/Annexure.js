@@ -20,6 +20,7 @@ const Annexure = () => {
   const [entersalary, setentersalary] = useState(null);
   const [CTCerror, setCTCerror] = useState(null);
   const [isCTCvalid, setisCTCvalid] = useState(false);
+  const [selectedColKey, setSelectedColKey] = useState(null);
 
   const subColumnsHome = [
     {
@@ -90,22 +91,40 @@ const Annexure = () => {
       // setTableRows(copy);
       const prefix =
         selectedSection === 0 ? "A" : selectedSection === 1 ? "B" : "C";
-      copy[context.selectedSalaryRange.label][selectedSection][
-        sectionData[selectedSection].value
-      ].push({
-        columnName: colName,
-        columnValue: colValue,
-        columnKey: `${prefix}${
-          copy[context.selectedSalaryRange.label][selectedSection][
-            sectionData[selectedSection].value
-          ].length + 1
-        }`,
-        monthly: "",
-        yearly: "",
-      });
+      if (selectedColKey) {
+        debugger;
+        const index = copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ].findIndex((item) => item.columnKey === selectedColKey);
+        copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ][index] = {
+          columnName: colName,
+          columnValue: colValue,
+          columnKey: selectedColKey,
+          monthly: "",
+          yearly: "",
+        };
+        setSelectedColKey(null);
+      } else {
+        copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ].push({
+          columnName: colName,
+          columnValue: colValue,
+          columnKey: `${prefix}${
+            copy[context.selectedSalaryRange.label][selectedSection][
+              sectionData[selectedSection].value
+            ].length + 1
+          }`,
+          monthly: "",
+          yearly: "",
+        });
+      }
       setUpdatedValue(copy);
       setColName("");
       setColValue("");
+      setSelectedSection(-1);
     }
   };
   const calculatePreview = () => {
@@ -134,8 +153,16 @@ const Annexure = () => {
   };
 
   const handleEdit = (item) => {
+    setSelectedSection(
+      item?.columnKey?.includes("A")
+        ? 0
+        : item?.columnKey?.includes("B")
+        ? 1
+        : 2
+    );
     setColName(item.columnName);
     setColValue(item.columnValue);
+    setSelectedColKey(item.columnKey);
   };
 
   const getTableRows = (list) => {
@@ -352,7 +379,7 @@ const Annexure = () => {
                         setSelectedSection(parseInt(event.target.value));
                       }}
                     >
-                      <option value="Please select the salary range" hidden>
+                      <option value={-1} hidden>
                         Please select table section
                       </option>
                       {sectionData.map((val) => {
