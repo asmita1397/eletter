@@ -95,8 +95,9 @@ export class App extends Component {
       selectedSalaryRange: {
         label: "21000-27324",
         name: "nncnc",
-        salaryFrom: 21000,
-        salaryTo: 27324,
+        salaryFrom: "21000",
+        salaryTo: "27324",
+        displayLabel: ""
       },
       updateSalaryRange: (val) => {
         this.setState({
