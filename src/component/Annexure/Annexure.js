@@ -86,13 +86,13 @@ const Annexure = () => {
       // setTableRows(copy);
       const prefix =
         selectedSection === 0 ? "A" : selectedSection === 1 ? "B" : "C";
-      copy[context.selectedSalaryRange][selectedSection][
+      copy[context.selectedSalaryRange.label][selectedSection][
         sectionData[selectedSection].value
       ].push({
         columnName: colName,
         columnValue: colValue,
         columnKey: `${prefix}${
-          copy[context.selectedSalaryRange][selectedSection][
+          copy[context.selectedSalaryRange.label][selectedSection][
             sectionData[selectedSection].value
           ].length + 1
         }`,
@@ -120,8 +120,8 @@ const Annexure = () => {
   console.log(context.selectedSalaryRange);
 
   useEffect(() => {
-    setTableData(updateVal[context.selectedSalaryRange] || null);
-  }, [context.selectedSalaryRange, updateVal]);
+    setTableData(updateVal[context.selectedSalaryRange.label] || null);
+  }, [context.selectedSalaryRange.label, updateVal]);
 
   console.log(tableRows, tableData);
 
@@ -249,7 +249,7 @@ const Annexure = () => {
                   }}
                 >
                   <h3 className="text-center black-text font-bold ">
-                    Annexure for ({context.selectedSalaryRange})
+                    Annexure for ({context.selectedSalaryRange.label})
                   </h3>
                 </div>
                 <div className="row">
@@ -347,7 +347,7 @@ const Annexure = () => {
                   <Modal.Title>Annexure Preview</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  {updateVal[context.selectedSalaryRange].map((item) =>
+                  {updateVal[context.selectedSalaryRange.label].map((item) =>
                     renderTableForPreview(item)
                   )}
                 </Modal.Body>

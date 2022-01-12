@@ -59,12 +59,17 @@ export default function AddAnnexure(props) {
           benefit: [],
         },
       ];
-      const updateAnnexureVal = {...context.annexureData, ...newObject};
+      const updateAnnexureVal = { ...context.annexureData, ...newObject };
       errObj = {};
       context.updateAnnexureDropdown(updateDropdown);
       context.updateAnnexure(updateAnnexureVal);
-      context.updateSalaryRange(`${salaryRange.from}-${salaryRange.to}`)
-      props.history.push('/InputAnnexure')
+      context.updateSalaryRange({
+        salaryFrom: salaryRange.from,
+        salaryTo: salaryRange.to,
+        label: `${salaryRange.from}-${salaryRange.to}`,
+        name: salaryRange.name,
+      });
+      props.history.push("/InputAnnexure");
     }
 
     setError(errObj);
