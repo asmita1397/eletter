@@ -260,7 +260,7 @@ const Annexure = () => {
                   }}
                 >
                   <h3 className="text-center black-text font-bold ">
-                    Annexure for ({getRange()})
+                    Annexure for {context.selectedSalaryRange.name}({getRange()})
                   </h3>
                 </div>
                 <div className="row">
