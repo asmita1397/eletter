@@ -4,7 +4,6 @@ import { Home } from "../home";
 import TableComponent from "./TableComponent";
 import { UserConsumer } from "../Context/CustomContext";
 import { Button, Modal } from "react-bootstrap";
-import PreviewTable from "./PreviewTable";
 
 const Annexure = () => {
   const context = useContext(UserConsumer);
@@ -18,13 +17,6 @@ const Annexure = () => {
   const [selectedSection, setSelectedSection] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [openConfirmation, setOpenConfirmation] = useState(false);
-
-  const columns = [
-    {
-      headerName: "Basic and Other Allowances Details",
-      colSpan: 3,
-    },
-  ];
 
   const subColumnsHome = [
     {
@@ -104,7 +96,8 @@ const Annexure = () => {
             sectionData[selectedSection].value
           ].length + 1
         }`,
-        month: "",
+        monthly: "",
+        yearly: "",
       });
       setUpdatedValue(copy);
       setColName("");
@@ -143,6 +136,17 @@ const Annexure = () => {
         columnKey: item.columnKey,
         columnName: item.columnName,
         columnValue: item.columnValue,
+      });
+    });
+    return copy;
+  };
+  const getPreviewTableRows = (list) => {
+    const copy = [];
+    list.forEach((item) => {
+      copy.push({
+        columnName: item.columnName,
+        monthly: item.monthly,
+        yearly: item.yearly
       });
     });
     return copy;
@@ -194,9 +198,9 @@ const Annexure = () => {
     if (item.hasOwnProperty("basic")) {
       return (
         <TableComponent
-          columns={getColumns(item)}
+        columns={getColumns(item)}
           subColumns={subColumns}
-          rows={getTableRows(item.basic)}
+          rows={getPreviewTableRows(item.basic)}
           renderType="normal"
         />
       );
@@ -204,8 +208,8 @@ const Annexure = () => {
     if (item.hasOwnProperty("deduction") && item.deduction.length > 0) {
       return (
         <TableComponent
-          columns={getColumns(item)}
-          rows={getTableRows(item.deduction)}
+        columns={getColumns(item)}
+          rows={getPreviewTableRows(item.deduction)}
           renderType="normal"
         />
       );
@@ -213,12 +217,17 @@ const Annexure = () => {
     if (item.hasOwnProperty("benefit") && item.benefit.length > 0) {
       return (
         <TableComponent
-          columns={getColumns(item)}
-          rows={getTableRows(item.benefit)}
+          columns={getPreviewTableRows(item)}
+          rows={getPreviewTableRows(item.benefit)}
           renderType="normal"
         />
       );
     }
+  };
+
+  const updateMainArray = () => {
+    debugger
+    context.updateAnnexure(updateVal);
   };
 
   return (
@@ -369,7 +378,10 @@ const Annexure = () => {
                   </Button>
                   <Button
                     variant="secondary"
-                    onClick={() => setOpenConfirmation(false)}
+                    onClick={() => {
+                      updateMainArray();
+                      setOpenConfirmation(false);
+                    }}
                   >
                     Yes
                   </Button>
