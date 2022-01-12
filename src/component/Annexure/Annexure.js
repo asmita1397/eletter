@@ -17,6 +17,7 @@ const Annexure = () => {
   const [tableRows, setTableRows] = useState(context.annexureData.basic || []);
   const [selectedSection, setSelectedSection] = useState(null);
   const [tableData, setTableData] = useState([]);
+  const [openConfirmation, setOpenConfirmation] = useState(false);
 
   const columns = [
     {
@@ -325,6 +326,12 @@ const Annexure = () => {
                 {" "}
                 Test
               </Button>
+              <Button
+                className="float-right"
+                onClick={() => setOpenConfirmation(true)}
+              >
+                Submit
+              </Button>
 
               <Modal show={preview} onHide={() => setPreview(true)}>
                 <Modal.Header closeButton onClick={() => setPreview(false)}>
@@ -338,6 +345,33 @@ const Annexure = () => {
                 <Modal.Footer>
                   <Button variant="secondary" onClick={() => setPreview(false)}>
                     Close
+                  </Button>
+                </Modal.Footer>
+              </Modal>
+
+              <Modal
+                show={openConfirmation}
+                onHide={() => setOpenConfirmation(true)}
+              >
+                <Modal.Header
+                  closeButton
+                  onClick={() => setOpenConfirmation(false)}
+                >
+                  <Modal.Title>Annexure Confirmation</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Click yes if you have tested once.</Modal.Body>
+                <Modal.Footer>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setOpenConfirmation(false)}
+                  >
+                    No
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setOpenConfirmation(false)}
+                  >
+                    Yes
                   </Button>
                 </Modal.Footer>
               </Modal>
