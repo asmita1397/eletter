@@ -258,7 +258,7 @@ const Annexure = () => {
           <div className="row">
             <div className="col-auto container mt-5 pb-5">
               <div
-                style={{ width: "1200px" }}
+                style={{ width: "80vw" }}
                 className="card m-auto shadow-lg mt-5"
               >
                 <div
@@ -272,7 +272,7 @@ const Annexure = () => {
                     Annexure for {context.selectedSalaryRange.name}({getRange()}
                     )
                   </h3>
-                  <span className="h6">Please enter static fields*</span>
+                  <span className="h6">Please enter static fields first*</span>
                 </div>
                 <div className="row">
                   <div className="col-3 mt-4">
@@ -331,7 +331,7 @@ const Annexure = () => {
                       type="submit"
                       onClick={validation}
                       id="generate"
-                      style={{margin:"0"}}
+                      style={{ margin: "0" }}
                       className=" form-control-plaintext  justify-content-center text-center"
                       color="primary"
                     >
@@ -371,6 +371,35 @@ const Annexure = () => {
                     <Modal.Title>Annexure Preview</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
+                    <div className="row">
+                      <div className="col-6">
+                        <MDBInput
+                          autocomplete="off"
+                          value={colName}
+                          label="Column Name"
+                          type="text"
+                          name="ColumnName"
+                          id="ColumnName"
+                          title="ColumnName"
+                          onChange={(event) => {
+                            setColName(event.target.value);
+                          }}
+                        />
+                      </div>
+                      <div className="col-6">
+                        <MDBBtn
+                          outline
+                          type="submit"
+                          onClick={validation}
+                          id="generate"
+                          style={{ margin: "0" }}
+                          className=" form-control-plaintext  justify-content-center text-center"
+                          color="primary"
+                        >
+                          Generate
+                        </MDBBtn>
+                      </div>
+                    </div>
                     {updateVal[context.selectedSalaryRange.label].map((item) =>
                       renderTableForPreview(item)
                     )}
