@@ -42,7 +42,9 @@ export default function AddAnnexure(props) {
           salaryTo: salaryRange.to,
           label: `${salaryRange.from}-${salaryRange.to}`,
           name: salaryRange.name,
-          displayLabel: `₹${salaryRange.from} - ₹${salaryRange.to}`,
+          displayLabel: `₹${Number(salaryRange.from).toLocaleString(
+            "en-IN"
+          )} - ₹${Number(salaryRange.to).toLocaleString("en-IN")}`,
         },
       ];
       const newObject = {};
