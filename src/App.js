@@ -81,6 +81,7 @@ import AddAnnexure from "./component/Annexure/AddAnnexure";
 import annexureJson from "./component/finalAnnexure.json";
 import annexureDropDown from "./component/annexureRange.json";
 import ViewAnnexure from "./component/Annexure/ViewAnnexure";
+import UpdateAnnexure from "./component/Annexure/UpdateAnnexure";
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -897,6 +898,18 @@ export class App extends Component {
             render={() => {
               return (
                 <ViewAnnexure
+                  history={this.props.history}
+                  empData={this.state.emp}
+                />
+              );
+            }}
+          ></Route>
+          <Route
+            exact
+            path="/UpdateAnnexure"
+            render={() => {
+              return (
+                <UpdateAnnexure
                   history={this.props.history}
                   empData={this.state.emp}
                 />
