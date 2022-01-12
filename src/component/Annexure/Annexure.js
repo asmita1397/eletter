@@ -165,10 +165,17 @@ const Annexure = () => {
       : current?.columnKey?.includes("B")
       ? 1
       : 2;
+    const prefix = section === 0 ? "A" : section === 1 ? "B" : "C";
     const updatedList = copy[context.selectedSalaryRange.label][section][
       sectionData[section].value
     ].filter((item) => item.columnKey !== current.columnKey);
-    // setUpdatedValue(updatedList);
+    const updateLatest = updatedList.map((ele, index) => {
+      return {
+        ...ele,
+        columnKey: `${prefix}${index + 1}`,
+      };
+    });
+    console.log(updateLatest);
   };
 
   const getTableRows = (list) => {
