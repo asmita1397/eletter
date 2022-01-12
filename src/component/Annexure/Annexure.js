@@ -360,6 +360,9 @@ const Annexure = () => {
 
               <Modal
                 show={openConfirmation}
+                centered
+                size="md"
+                aria-labelledby="contained-modal-title-vcenter"
                 onHide={() => setOpenConfirmation(true)}
               >
                 <Modal.Header
