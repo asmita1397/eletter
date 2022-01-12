@@ -244,7 +244,16 @@ const Annexure = () => {
   return (
     <div>
       <Home buttonShow={false} buttonVal={context.buttonVal} />
-      <div>
+      <div
+        onKeyDown={(e) => {
+          if (preview && e.keyCode === 27) {
+            setPreview(false);
+          }
+          if (openConfirmation && e.keyCode === 27) {
+            setOpenConfirmation(false);
+          }
+        }}
+      >
         <div className="container-fluid mt-5">
           <div className="row">
             <div className="col-auto container mt-5 pb-5">
