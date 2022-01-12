@@ -221,6 +221,17 @@ const Annexure = () => {
     }
   };
 
+  const getRange = () => {
+    const num = context.selectedSalaryRange.split("-");
+    return (
+      <span>
+        <span>{`${Number(num[0]).toLocaleString("en-IN")}`}</span>
+        <span className="mx-1 h3 bold">-</span>
+        <span>{`${Number(num[1]).toLocaleString("en-IN")}`}</span>
+      </span>
+    );
+  };
+
   return (
     <div>
       <Home buttonShow={false} buttonVal={context.buttonVal} />
@@ -240,7 +251,7 @@ const Annexure = () => {
                   }}
                 >
                   <h3 className="text-center black-text font-bold ">
-                    Annexure for ({context.selectedSalaryRange})
+                    Annexure for ({getRange()})
                   </h3>
                 </div>
                 <div className="row">
