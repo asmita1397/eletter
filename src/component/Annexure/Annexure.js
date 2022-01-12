@@ -226,7 +226,7 @@ const Annexure = () => {
   };
 
   const getRange = () => {
-    const num = context.selectedSalaryRange.split("-");
+    const num = context.selectedSalaryRange.label.split("-");
     return (
       <span>
         <span>{`₹${Number(num[0]).toLocaleString("en-IN")}`}</span>
