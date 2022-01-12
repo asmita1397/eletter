@@ -19,6 +19,7 @@ const Annexure = () => {
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [entersalary, setentersalary] = useState(null);
   const [CTCerror, setCTCerror] = useState(null);
+  const [isCTCvalid, setisCTCvalid] = useState(false);
 
   const subColumnsHome = [
     {
@@ -148,8 +149,8 @@ const Annexure = () => {
     list.forEach((item) => {
       copy.push({
         columnName: item.columnName,
-        monthly: item.monthly,
-        yearly: item.yearly,
+        monthly: isCTCvalid ? item.monthly : 0,
+        yearly: isCTCvalid ? item.yearly : 0,
       });
     });
     return copy;
@@ -247,10 +248,17 @@ const Annexure = () => {
   const from = parseInt(context.selectedSalaryRange.salaryFrom);
   const to = parseInt(context.selectedSalaryRange.salaryTo);
   const validateCTC = () => {
-    if (entersalary >= from && entersalary <= to) {
-      setCTCerror(null);
+    if (!entersalary) {
+      setCTCerror("Please enter CTC");
+      setisCTCvalid(false);
     } else {
-      setCTCerror("Invalid CTC.");
+      if (entersalary >= from && entersalary <= to) {
+        setCTCerror(null);
+        setisCTCvalid(true);
+      } else {
+        setCTCerror("Invalid CTC.");
+        setisCTCvalid(false);
+      }
     }
   };
 
@@ -397,7 +405,7 @@ const Annexure = () => {
                           }}
                         />
                         {CTCerror ? (
-                          <div id="errordiv" className="p-0">
+                          <div id="errordiv" className="p-0 mb-3">
                             {CTCerror}
                           </div>
                         ) : null}
