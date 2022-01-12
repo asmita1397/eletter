@@ -331,6 +331,7 @@ const Annexure = () => {
                       type="submit"
                       onClick={validation}
                       id="generate"
+                      style={{margin:"0"}}
                       className=" form-control-plaintext  justify-content-center text-center"
                       color="primary"
                     >
