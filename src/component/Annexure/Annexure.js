@@ -19,6 +19,8 @@ const Annexure = () => {
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [entersalary, setentersalary] = useState(null);
   const [CTCerror, setCTCerror] = useState(null);
+  const [isCTCvalid, setisCTCvalid] = useState(false);
+  const [selectedColKey, setSelectedColKey] = useState(null);
 
   const subColumnsHome = [
     {
@@ -90,24 +92,44 @@ const Annexure = () => {
 
       const prefix =
         selectedSection === 0 ? "A" : selectedSection === 1 ? "B" : "C";
-      copy[context.selectedSalaryRange.label][selectedSection][
-        sectionData[selectedSection].value
-      ].push({
-        columnName: colName,
-        columnValue: colValue,
-        columnKey: `${prefix}${
-          copy[context.selectedSalaryRange.label][selectedSection][
-            sectionData[selectedSection].value
-          ].length + 1
-        }`,
-        monthly: isNaN(formula) ? Math.ceil(eval(formula)) : colValue,
-        yearly: isNaN(formula)
-          ? Math.ceil(eval(formula)) * 12
-          : parseInt(colValue) * 12,
-      });
+      if (selectedColKey) {
+        const index = copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ].findIndex((item) => item.columnKey === selectedColKey);
+        copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ][index] = {
+          columnName: colName,
+          columnValue: colValue,
+          columnKey: selectedColKey,
+          monthly: isNaN(formula) ? Math.ceil(eval(formula)) : colValue,
+          yearly: isNaN(formula)
+            ? Math.ceil(eval(formula)) * 12
+            : parseInt(colValue) * 12,
+
+        };
+        setSelectedColKey(null);
+      } else {
+        copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ].push({
+          columnName: colName,
+          columnValue: colValue,
+          columnKey: `${prefix}${
+            copy[context.selectedSalaryRange.label][selectedSection][
+              sectionData[selectedSection].value
+            ].length + 1
+          }`,
+          monthly: isNaN(formula) ? Math.ceil(eval(formula)) : colValue,
+          yearly: isNaN(formula)
+            ? Math.ceil(eval(formula)) * 12
+            : parseInt(colValue) * 12,
+        });
+      }
       setUpdatedValue(copy);
       setColName("");
       setColValue("");
+      setSelectedSection(-1);
     }
   };
 
@@ -123,24 +145,68 @@ const Annexure = () => {
     return [{ headerName: item.heading, colSpan: 3 }];
   };
 
+  const handleEdit = (item) => {
+    setSelectedSection(
+      item?.columnKey?.includes("A")
+        ? 0
+        : item?.columnKey?.includes("B")
+        ? 1
+        : 2
+    );
+    setColName(item.columnName);
+    setColValue(item.columnValue);
+    setSelectedColKey(item.columnKey);
+  };
+
+  const handleDelete = (current) => {
+    const copy = JSON.parse(JSON.stringify(updateVal));
+    const section = current?.columnKey?.includes("A")
+      ? 0
+      : current?.columnKey?.includes("B")
+      ? 1
+      : 2;
+    const updatedList = copy[context.selectedSalaryRange.label][section][
+      sectionData[section].value
+    ].filter((item) => item.columnKey !== current.columnKey);
+    // setUpdatedValue(updatedList);
+  };
+
   const getTableRows = (list) => {
     const copy = [];
     list.forEach((item) => {
-      copy.push({
-        columnKey: item.columnKey,
-        columnName: item.columnName,
-        columnValue: item.columnValue,
-      });
+      if (context?.selectedSalaryRange?.type === "mod") {
+        copy.push({
+          columnKey: item.columnKey,
+          columnName: item.columnName,
+          columnValue: item.columnValue,
+          edit: (
+            <i className="fas fa-pen mx-3" onClick={() => handleEdit(item)}></i>
+          ),
+          delete: (
+            <i
+              class="fas fa-trash-alt mx-3"
+              onClick={() => handleDelete(item)}
+            ></i>
+          ),
+        });
+      } else {
+        copy.push({
+          columnKey: item.columnKey,
+          columnName: item.columnName,
+          columnValue: item.columnValue,
+        });
+      }
     });
     return copy;
   };
+
   const getPreviewTableRows = (list) => {
     const copy = [];
     list.forEach((item) => {
       copy.push({
         columnName: item.columnName,
-        monthly: item.monthly,
-        yearly: item.yearly,
+        monthly: isCTCvalid ? item.monthly : 0,
+        yearly: isCTCvalid ? item.yearly : 0,
       });
     });
     return copy;
@@ -152,7 +218,15 @@ const Annexure = () => {
         <>
           <h5>{item.heading}</h5>
           <TableComponent
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             rows={getTableRows(item.basic)}
             renderType="normal"
             classes="my-3"
@@ -166,7 +240,15 @@ const Annexure = () => {
           <h5>{item.heading}</h5>
           <TableComponent
             rows={getTableRows(item.deduction)}
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             renderType="normal"
             classes="my-3"
           />
@@ -179,7 +261,15 @@ const Annexure = () => {
           <h5>{item.heading}</h5>
           <TableComponent
             rows={getTableRows(item.benefit)}
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             renderType="normal"
             classes="my-3"
           />
@@ -238,10 +328,17 @@ const Annexure = () => {
   const from = parseInt(context.selectedSalaryRange.salaryFrom);
   const to = parseInt(context.selectedSalaryRange.salaryTo);
   const validateCTC = () => {
-    if (entersalary >= from && entersalary <= to) {
-      setCTCerror(null);
+    if (!entersalary) {
+      setCTCerror("Please enter CTC");
+      setisCTCvalid(false);
     } else {
-      setCTCerror("Invalid CTC.");
+      if (entersalary >= from && entersalary <= to) {
+        setCTCerror(null);
+        setisCTCvalid(true);
+      } else {
+        setCTCerror("Invalid CTC.");
+        setisCTCvalid(false);
+      }
     }
   };
 
@@ -293,7 +390,7 @@ const Annexure = () => {
                         setSelectedSection(parseInt(event.target.value));
                       }}
                     >
-                      <option value="Please select the salary range" hidden>
+                      <option value={-1} hidden>
                         Please select table section
                       </option>
                       {sectionData.map((val) => {
@@ -388,7 +485,7 @@ const Annexure = () => {
                           }}
                         />
                         {CTCerror ? (
-                          <div id="errordiv" className="p-0">
+                          <div id="errordiv" className="p-0 mb-3">
                             {CTCerror}
                           </div>
                         ) : null}
