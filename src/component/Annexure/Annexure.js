@@ -59,34 +59,35 @@ const Annexure = () => {
       index: 2,
     },
   ];
-  const getValue = (value) => {
-    if (!isNaN(value)) {
-      const getIndex = tableRows.findIndex((val, index) =>
-        Object.values(val).includes(value)
-      );
-      return tableRows[getIndex].columnValue1;
-    } else {
-      return value;
-    }
-  };
+
   const validation = () => {
-    if (colName && colValue) {
+    if ((selectedSection || selectedSection === 0) && colName && colValue) {
       debugger;
       const copy = JSON.parse(JSON.stringify(updateVal));
+      const totalKeys = [];
+      const totalValues = [];
+      copy[context.selectedSalaryRange.label].forEach((val) => {
+        const staticVal = ["basic", "deduction", "benefit"];
 
-      // const formula = colValue.split("*");
-      // const splitted =
-      //   formula.length > 0 ? getValue(formula[0]) * formula[1] : colValue;
-      // copy.push({
-      //   columnName: colName,
-      //   columnValue1: colValue,
-      //   columnKey1: `A${tableRows.length + 1}`,
-      //   columnKey2: `B${tableRows.length + 1}`,
-      //   month: splitted,
-      // });
+        staticVal.forEach((key) => {
+          if (val[key]) {
+            val[key].forEach((value) => {
+              totalKeys.push(value.columnKey);
+              totalValues.push(value.monthly);
+            });
+          }
+        });
+      });
+      let formula = colValue;
+      formula = formula.includes("=") ? formula.replace("=", "") : formula;
+      formula.replace("=", "");
+      formula = formula.includes("%") ? formula.replace("%", "/100") : formula;
+      totalKeys.forEach((val, index) => {
+        if (formula.includes(val)) {
+          formula = formula.replace(val, totalValues[index]);
+        }
+      });
 
-      // context.annexureDataMethod(copy);
-      // setTableRows(copy);
       const prefix =
         selectedSection === 0 ? "A" : selectedSection === 1 ? "B" : "C";
       copy[context.selectedSalaryRange.label][selectedSection][
@@ -99,25 +100,15 @@ const Annexure = () => {
             sectionData[selectedSection].value
           ].length + 1
         }`,
-        monthly: "",
-        yearly: "",
+        monthly: isNaN(formula) ? Math.ceil(eval(formula)) : colValue,
+        yearly: isNaN(formula)
+          ? Math.ceil(eval(formula)) * 12
+          : parseInt(colValue) * 12,
       });
       setUpdatedValue(copy);
       setColName("");
       setColValue("");
     }
-  };
-  const calculatePreview = () => {
-    const copy = [];
-    tableRows.map((val, index) => {
-      copy.push({
-        columnName: val.columnName,
-        columnValue1: Math.trunc(val.month),
-        columnValue2: parseInt(val.month) * 12,
-      });
-    });
-
-    setPreviewTableRows(copy);
   };
 
   console.log(context.selectedSalaryRange);
