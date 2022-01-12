@@ -20,7 +20,7 @@ const Annexure = () => {
 
   const subColumnsHome = [
     {
-      headerName: "Sl No",
+      headerName: "Ref No",
     },
     {
       headerName: "Column Name",
