@@ -17,6 +17,8 @@ const Annexure = () => {
   const [selectedSection, setSelectedSection] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [openConfirmation, setOpenConfirmation] = useState(false);
+  const [entersalary, setentersalary] = useState(null);
+  const [CTCerror, setCTCerror] = useState(null);
 
   const subColumnsHome = [
     {
@@ -101,7 +103,6 @@ const Annexure = () => {
         yearly: "",
       });
       setUpdatedValue(copy);
-      console.log('----', copy)
       setColName("");
       setColValue("");
     }
@@ -243,6 +244,16 @@ const Annexure = () => {
     context.updateAnnexure(updateVal);
   };
 
+  const from = parseInt(context.selectedSalaryRange.salaryFrom);
+  const to = parseInt(context.selectedSalaryRange.salaryTo);
+  const validateCTC = () => {
+    if (entersalary >= from && entersalary <= to) {
+      setCTCerror(null);
+    } else {
+      setCTCerror("Invalid CTC.");
+    }
+  };
+
   return (
     <div>
       <Home buttonShow={false} buttonVal={context.buttonVal} />
@@ -371,26 +382,31 @@ const Annexure = () => {
                     <Modal.Title>Annexure Preview</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <div className="row">
-                      <div className="col-6">
+                    <div className="row col-12 m-0 p-0">
+                      <div className="col-5 mr-2 p-0">
                         <MDBInput
                           autocomplete="off"
-                          value={colName}
-                          label="Column Name"
-                          type="text"
+                          value={entersalary}
+                          label="Enter CTC"
+                          type="number"
                           name="ColumnName"
                           id="ColumnName"
-                          title="ColumnName"
+                          title="Enter CTC"
                           onChange={(event) => {
-                            setColName(event.target.value);
+                            setentersalary(event.target.value);
                           }}
                         />
+                        {CTCerror ? (
+                          <div id="errordiv" className="p-0">
+                            {CTCerror}
+                          </div>
+                        ) : null}
                       </div>
-                      <div className="col-6">
+                      <div className="col-5 ml-3 p-0 mt-3">
                         <MDBBtn
                           outline
                           type="submit"
-                          onClick={validation}
+                          onClick={validateCTC}
                           id="generate"
                           style={{ margin: "0" }}
                           className=" form-control-plaintext  justify-content-center text-center"
