@@ -19,7 +19,7 @@ const TableComponent = (props) => {
             className={`${
               key === "monthly" || key === "yearly" ? "text-right" : "text-left"
             }`}
-            style={{padding:"0.5vw"}}
+            style={{ maxWidth:"5vw" }}
           >
             {value}
           </td>
@@ -53,7 +53,7 @@ const TableComponent = (props) => {
                 <th
                   colSpan={colSpan}
                   rowSpan={rowSpan}
-                  style={{ width: "10vw", padding: "0.5vw" }}
+                  style={{ width: "5vw"}}
                   className={`fw-700 ${classStyle}`}
                 >
                   {headerName}
@@ -72,7 +72,7 @@ const TableComponent = (props) => {
               <th
                 colSpan={colSpan}
                 rowSpan={rowSpan}
-                style={{ width: "10vw", padding: "0.5vw" }}
+                style={{ width: "5vw"}}
                 className={`fw-700 ${classStyle}`}
               >
                 {headerName}
