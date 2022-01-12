@@ -80,7 +80,7 @@ const Annexure = () => {
           }
         });
       });
-      let formula = colValue;
+      let formula = colValue.toString();
       formula = formula.includes("=") ? formula.replace("=", "") : formula;
       formula.replace("=", "");
       formula = formula.includes("%") ? formula.replace("%", "/100") : formula;
