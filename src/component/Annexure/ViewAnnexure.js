@@ -50,7 +50,7 @@ function ViewAnnexure() {
         />
       );
     }
-    if (item.hasOwnProperty("deduction") && item.deduction.length > 0) {
+    if (item.hasOwnProperty("deduction")) {
       return (
         <TableComponent
           columns={getColumns(item)}
@@ -59,7 +59,7 @@ function ViewAnnexure() {
         />
       );
     }
-    if (item.hasOwnProperty("benefit") && item.benefit.length > 0) {
+    if (item.hasOwnProperty("benefit")) {
       return (
         <TableComponent
           columns={getColumns(item)}
