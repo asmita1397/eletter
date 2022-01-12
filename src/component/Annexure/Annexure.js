@@ -71,6 +71,7 @@ const Annexure = () => {
     if (colName && colValue) {
       debugger;
       const copy = JSON.parse(JSON.stringify(updateVal));
+
       // const formula = colValue.split("*");
       // const splitted =
       //   formula.length > 0 ? getValue(formula[0]) * formula[1] : colValue;
@@ -100,6 +101,7 @@ const Annexure = () => {
         yearly: "",
       });
       setUpdatedValue(copy);
+      console.log('----', copy)
       setColName("");
       setColValue("");
     }
@@ -217,7 +219,7 @@ const Annexure = () => {
     if (item.hasOwnProperty("benefit") && item.benefit.length > 0) {
       return (
         <TableComponent
-          columns={getPreviewTableRows(item)}
+          columns={getColumns(item)}
           rows={getPreviewTableRows(item.benefit)}
           renderType="normal"
         />
@@ -352,7 +354,7 @@ const Annexure = () => {
               <div className="float-right">
                 <Button
                   onClick={() => {
-                    calculatePreview();
+                    // calculatePreview();
                     setPreview(true);
                   }}
                 >
