@@ -3,7 +3,7 @@
     "salaryFrom": "21000",
     "salaryTo": "27324",
     "label": "21000-27324",
-    "name": "21000-27324",
+    "name": "abc",
     "displayLabel": "₹21,000 - ₹27,324"
   },
   {
@@ -11,6 +11,6 @@
     "salaryTo": "27324",
     "label": "27325-27324",
     "displayLabel": "₹27,325 - ₹27,324",
-    "name": "27325-27324"
+    "name": "de"
   }
 ]

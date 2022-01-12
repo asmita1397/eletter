@@ -71,6 +71,7 @@ const Annexure = () => {
     if (colName && colValue) {
       debugger;
       const copy = JSON.parse(JSON.stringify(updateVal));
+
       // const formula = colValue.split("*");
       // const splitted =
       //   formula.length > 0 ? getValue(formula[0]) * formula[1] : colValue;
@@ -100,6 +101,7 @@ const Annexure = () => {
         yearly: "",
       });
       setUpdatedValue(copy);
+      console.log('----', copy)
       setColName("");
       setColValue("");
     }
@@ -217,7 +219,7 @@ const Annexure = () => {
     if (item.hasOwnProperty("benefit") && item.benefit.length > 0) {
       return (
         <TableComponent
-          columns={getPreviewTableRows(item)}
+          columns={getColumns(item)}
           rows={getPreviewTableRows(item.benefit)}
           renderType="normal"
         />
@@ -349,22 +351,20 @@ const Annexure = () => {
                   {tableData?.map((item) => renderTable(item))}
                 </div>
               </div>
-              <Button
-                onClick={() => {
-                  calculatePreview();
-                  setPreview(true);
-                }}
-              >
-                {" "}
-                Test
-              </Button>
-              <Button
-                className="float-right"
-                onClick={() => setOpenConfirmation(true)}
-              >
-                Submit
-              </Button>
-
+              <div className="float-right">
+                <Button
+                  onClick={() => {
+                    // calculatePreview();
+                    setPreview(true);
+                  }}
+                >
+                  {" "}
+                  Test
+                </Button>
+                <Button onClick={() => setOpenConfirmation(true)}>
+                  Submit
+                </Button>
+              </div>
               {preview && (
                 <Modal show={preview} onHide={() => setPreview(true)}>
                   <Modal.Header closeButton onClick={() => setPreview(false)}>
@@ -404,14 +404,6 @@ const Annexure = () => {
                       renderTableForPreview(item)
                     )}
                   </Modal.Body>
-                  <Modal.Footer>
-                    <Button
-                      variant="secondary"
-                      onClick={() => setPreview(false)}
-                    >
-                      Close
-                    </Button>
-                  </Modal.Footer>
                 </Modal>
               )}
 
