@@ -92,8 +92,13 @@ export class App extends Component {
       pdfVal: false,
       annexureData: annexureJson,
       annexureDropdown: annexureDropDown,
-      selectedSalaryRange: "21000-27324",
-      updateSalaryRange:(val) => {
+      selectedSalaryRange: {
+        label: "21000-27324",
+        name: "nncnc",
+        salaryFrom: 21000,
+        salaryTo: 27324,
+      },
+      updateSalaryRange: (val) => {
         this.setState({
           selectedSalaryRange: val,
         });
