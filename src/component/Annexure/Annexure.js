@@ -260,7 +260,8 @@ const Annexure = () => {
                   }}
                 >
                   <h3 className="text-center black-text font-bold ">
-                    Annexure for {context.selectedSalaryRange.name}({getRange()})
+                    Annexure for {context.selectedSalaryRange.name}({getRange()}
+                    )
                   </h3>
                 </div>
                 <div className="row">
@@ -353,54 +354,61 @@ const Annexure = () => {
                 Submit
               </Button>
 
-              <Modal show={preview} onHide={() => setPreview(true)}>
-                <Modal.Header closeButton onClick={() => setPreview(false)}>
-                  <Modal.Title>Annexure Preview</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  {updateVal[context.selectedSalaryRange.label].map((item) =>
-                    renderTableForPreview(item)
-                  )}
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant="secondary" onClick={() => setPreview(false)}>
-                    Close
-                  </Button>
-                </Modal.Footer>
-              </Modal>
+              {preview && (
+                <Modal show={preview} onHide={() => setPreview(true)}>
+                  <Modal.Header closeButton onClick={() => setPreview(false)}>
+                    <Modal.Title>Annexure Preview</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {updateVal[context.selectedSalaryRange.label].map((item) =>
+                      renderTableForPreview(item)
+                    )}
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setPreview(false)}
+                    >
+                      Close
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              )}
 
-              <Modal
-                show={openConfirmation}
-                centered
-                size="md"
-                aria-labelledby="contained-modal-title-vcenter"
-                onHide={() => setOpenConfirmation(true)}
-              >
-                <Modal.Header
-                  closeButton
-                  onClick={() => setOpenConfirmation(false)}
+              {openConfirmation && (
+                <Modal
+                  show={openConfirmation}
+                  centered
+                  size="md"
+                  aria-labelledby="contained-modal-title-vcenter"
+                  onHide={() => setOpenConfirmation(true)}
                 >
-                  <Modal.Title>Annexure Confirmation</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Click yes if you have tested once.</Modal.Body>
-                <Modal.Footer>
-                  <Button
-                    variant="secondary"
+                  <Modal.Header
+                    closeButton
                     onClick={() => setOpenConfirmation(false)}
                   >
-                    No
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      updateMainArray();
-                      setOpenConfirmation(false);
-                    }}
-                  >
-                    Yes
-                  </Button>
-                </Modal.Footer>
-              </Modal>
+                    <Modal.Title>Annexure Confirmation</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>Click yes if you have tested once.</Modal.Body>
+                  <Modal.Footer>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setOpenConfirmation(false)}
+                    >
+                      No
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        updateMainArray();
+                        setOpenConfirmation(false);
+                      }}
+                    >
+                      Yes
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              )}
             </div>
           </div>
         </div>
