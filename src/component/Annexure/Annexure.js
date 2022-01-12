@@ -142,7 +142,7 @@ const Annexure = () => {
           columnName: item.columnName,
           columnValue: item.columnValue,
           edit: <i className="fas fa-pen mx-3"></i>,
-          delete: <i className="far fa-trash-alt mx-3"></i>,
+          delete: <i class="fas fa-trash-alt mx-3"></i>,
         });
       } else {
         copy.push({
