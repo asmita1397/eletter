@@ -136,14 +136,25 @@ const Annexure = () => {
   const getTableRows = (list) => {
     const copy = [];
     list.forEach((item) => {
-      copy.push({
-        columnKey: item.columnKey,
-        columnName: item.columnName,
-        columnValue: item.columnValue,
-      });
+      if (context?.selectedSalaryRange?.type === "mod") {
+        copy.push({
+          columnKey: item.columnKey,
+          columnName: item.columnName,
+          columnValue: item.columnValue,
+          edit: <i className="fas fa-pen mx-3"></i>,
+          delete: <i className="far fa-trash-alt mx-3"></i>,
+        });
+      } else {
+        copy.push({
+          columnKey: item.columnKey,
+          columnName: item.columnName,
+          columnValue: item.columnValue,
+        });
+      }
     });
     return copy;
   };
+
   const getPreviewTableRows = (list) => {
     const copy = [];
     list.forEach((item) => {
@@ -162,7 +173,15 @@ const Annexure = () => {
         <>
           <h5>{item.heading}</h5>
           <TableComponent
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             rows={getTableRows(item.basic)}
             renderType="normal"
             classes="my-3"
@@ -176,7 +195,15 @@ const Annexure = () => {
           <h5>{item.heading}</h5>
           <TableComponent
             rows={getTableRows(item.deduction)}
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             renderType="normal"
             classes="my-3"
           />
@@ -189,7 +216,15 @@ const Annexure = () => {
           <h5>{item.heading}</h5>
           <TableComponent
             rows={getTableRows(item.benefit)}
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             renderType="normal"
             classes="my-3"
           />

@@ -5,11 +5,23 @@ import { Home } from "../home";
 
 export default function UpdateAnnexure(props) {
   const context = useContext(UserConsumer);
-  const [salaryRange, setSalaryRange] = useState({});
-  const [error, setError] = useState({});
+  const [error, setError] = useState(null);
   const [selectedAnnexure, setSelectedAnnexure] = useState(null);
 
-  console.log(context.annexureDropdown);
+  const validation = () => {
+    if (selectedAnnexure) {
+      context.updateSalaryRange({
+        ...context.annexureDropdown.find(
+          (item) => item.name === selectedAnnexure
+        ),
+        type: "mod",
+      });
+      props.history.push("/InputAnnexure");
+      setError(null);
+    } else {
+      setError("This field is required");
+    }
+  };
 
   return (
     <div>
@@ -54,10 +66,15 @@ export default function UpdateAnnexure(props) {
                     <option value={val.name}>{val.name}</option>
                   ))}
                 </select>
+                {error ? (
+                  <div id="errordiv" className="p-0">
+                    {error}
+                  </div>
+                ) : null}
                 <MDBBtn
                   outline
                   type="submit"
-                  // onClick={validation}
+                  onClick={validation}
                   id="generate"
                   style={{ margin: "0" }}
                   className=" form-control-plaintext justify-content-center text-center col-4 float-right"
