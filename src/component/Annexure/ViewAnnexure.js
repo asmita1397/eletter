@@ -10,12 +10,15 @@ function ViewAnnexure() {
   const subColumns = [
     {
       headerName: "Cash Flow Head",
+      classStyle: "text-left",
     },
     {
       headerName: "Monthly",
+      classStyle: "text-right",
     },
     {
       headerName: "Yearly",
+      classStyle: "text-right",
     },
   ];
 
@@ -27,7 +30,15 @@ function ViewAnnexure() {
   }, [selectedRange, context.annexureData]);
 
   const getColumns = (item) => {
-    return [{ headerName: item.heading, colSpan: 3 }];
+    return [
+      {
+        headerName: item.heading,
+        colSpan: 3,
+        classStyle: item.heading.includes("Basic")
+          ? "text-center"
+          : "text-left",
+      },
+    ];
   };
 
   const getTableRows = (list) => {

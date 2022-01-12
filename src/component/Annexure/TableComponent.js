@@ -14,7 +14,17 @@ const TableComponent = (props) => {
     const rowObj = [];
     if (renderType === "normal") {
       Object.entries(item).forEach(([key, value]) => {
-        rowObj.push(<td>{value}</td>);
+        rowObj.push(
+          <td
+            className={`${
+              key === "monthly" || key === "yearly"
+                ? "text-right"
+                : "text-left"
+            }`}
+          >
+            {value}
+          </td>
+        );
       });
     } else if (renderType === "advanced") {
       subColumns.forEach((value, index) => {
@@ -29,7 +39,7 @@ const TableComponent = (props) => {
 
   return (
     <div>
-      <table className={`text-center ${classes}`}>
+      <table className={`${classes}`}>
         <thead>
           {columns.map((col) => {
             const {
@@ -37,6 +47,7 @@ const TableComponent = (props) => {
               colSpan = 1,
               rowSpan = 1,
               width = 100,
+              classStyle = "text-left",
             } = col;
             return (
               <tr className="bg-gray">
@@ -44,7 +55,7 @@ const TableComponent = (props) => {
                   colSpan={colSpan}
                   rowSpan={rowSpan}
                   style={{ width }}
-                  className="fw-700"
+                  className={`fw-700 ${classStyle}`}
                 >
                   {headerName}
                 </th>
@@ -52,9 +63,18 @@ const TableComponent = (props) => {
             );
           })}
           {subColumns.map((col) => {
-            const { headerName = "", colSpan = 1, rowSpan = 1 } = col;
+            const {
+              headerName = "",
+              colSpan = 1,
+              rowSpan = 1,
+              classStyle = "text-left",
+            } = col;
             return (
-              <th colSpan={colSpan} rowSpan={rowSpan} className="fw-700">
+              <th
+                colSpan={colSpan}
+                rowSpan={rowSpan}
+                className={`fw-700 ${classStyle}`}
+              >
                 {headerName}
               </th>
             );
