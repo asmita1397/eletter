@@ -263,6 +263,7 @@ const Annexure = () => {
                     Annexure for {context.selectedSalaryRange.name}({getRange()}
                     )
                   </h3>
+                  <span className="h6">Please enter static fields*</span>
                 </div>
                 <div className="row">
                   <div className="col-3 mt-4">
