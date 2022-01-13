@@ -387,7 +387,7 @@ const Annexure = () => {
           <div className="row">
             <div className="col-auto container mt-5 pb-5">
               <div
-                style={{ width: "80vw" }}
+                style={{ width: "50vw" }}
                 className="card m-auto shadow-lg mt-5"
               >
                 <div
