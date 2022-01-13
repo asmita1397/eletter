@@ -256,7 +256,7 @@ const Annexure = () => {
         setCTCerror(null);
         setisCTCvalid(true);
       } else {
-        setCTCerror("Invalid CTC.");
+        setCTCerror(`CTC must be in the range ${from} - ${to}.`);
         setisCTCvalid(false);
       }
     }
