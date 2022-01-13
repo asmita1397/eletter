@@ -68,7 +68,7 @@ const Annexure = () => {
 
   const validation = () => {
     let err = { ...fieldserror };
-    if (selectedSection) {
+    if (selectedSection || selectedSection === 0) {
       err.tablesection = null;
     } else {
       err.tablesection = "Please select table section.";
@@ -123,8 +123,8 @@ const Annexure = () => {
           columnName: colName,
           columnValue: colValue,
           columnKey: selectedColKey,
-          monthly: isNaN(formula) ? Math.ceil(eval(formula)) : colValue,
-          yearly: isNaN(formula)
+          monthly: !isNaN(colValue) ? Math.ceil(eval(formula)) : colValue,
+          yearly: !isNaN(colValue)
             ? Math.ceil(eval(formula)) * 12
             : parseInt(colValue) * 12,
           remarks: Remarks,
@@ -141,8 +141,8 @@ const Annexure = () => {
               sectionData[selectedSection].value
             ].length + 1
           }`,
-          monthly: isNaN(formula) ? Math.ceil(eval(formula)) : colValue,
-          yearly: isNaN(formula)
+          monthly: !isNaN(colValue) ? Math.ceil(eval(formula)) : colValue,
+          yearly: !isNaN(colValue)
             ? Math.ceil(eval(formula)) * 12
             : parseInt(colValue) * 12,
           remarks: Remarks,
