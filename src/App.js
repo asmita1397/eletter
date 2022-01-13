@@ -83,6 +83,7 @@ import annexureDropDown from "./component/annexureRange.json";
 import ViewAnnexure from "./component/Annexure/ViewAnnexure";
 import UpdateAnnexure from "./component/Annexure/UpdateAnnexure";
 import GenerateInputAnnexure from "./component/Annexure/GenerateInputAnnexure";
+import AnnexureLetter from "./component/Annexure/AnnexureLetter";
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -929,6 +930,18 @@ export class App extends Component {
               );
             }}
           ></Route>
+          <Route
+            exact
+            path="/AnnexureLetter"
+            render={() => {
+              return (
+                <AnnexureLetter
+                  history={this.props.history}
+                  empData={this.state.emp}
+                />
+              );
+            }}
+          />
         </UserProvider>
       </div>
     );
