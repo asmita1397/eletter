@@ -9,7 +9,7 @@ const AnnexureLetter = () => {
   const context = useContext(UserConsumer);
 
   useEffect(() => {
-      debugger
+    debugger;
     setTableData(context.selectedSalaryRange.label);
   }, [context.selectedSalaryRange.label]);
 
@@ -116,18 +116,47 @@ const AnnexureLetter = () => {
       <div>
         <Home
           buttonShow={true}
-        //   showWatermark={(data) => this.setState({ waterMark: data })}
-        //   sendData={() => this.sendData()}
-        //   setHeader={(data) => this.print()}
+          //   showWatermark={(data) => this.setState({ waterMark: data })}
+          //   sendData={() => this.sendData()}
+          //   setHeader={(data) => this.print()}
         />
         <div class="mainHeader">
           <div className="main" style={{ marginTop: "100px" }}>
             <PdfContainer
               id={"hrletter"}
-            //   name={this.state.employee.employeeName}
-            //   createPdf={this.createPdf}
+              //   name={this.state.employee.employeeName}
+              //   createPdf={this.createPdf}
             >
-              {tableData?.map((item) => renderTable(item))}
+              <div className="card" id="AFourPage">
+                <div className="card-body pb-0">
+                  {/* {tableData?.map((item) => renderTable(item))} */}
+                  <div className="waterMark">
+                    <span
+                      style={{
+                        color: "rgba(38, 50, 72, 0.33)",
+                        fontSize: "91px",
+                        fontFamily: "sans-serif",
+                        position: "absolute",
+                        zIndex: "0",
+                      }}
+                    >
+                      TES
+                      <span
+                        style={{
+                          color: "rgba(248, 152, 28, 0.34)",
+                          fontSize: "91px",
+                          fontFamily: "sans-serif",
+                          fontWeight: "600",
+                        }}
+                      >
+                        TY
+                      </span>
+                      ANTRA
+                    </span>
+                  </div>
+                  Display area
+                </div>
+              </div>
             </PdfContainer>
           </div>
         </div>
