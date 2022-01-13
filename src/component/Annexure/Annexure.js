@@ -17,6 +17,11 @@ const Annexure = () => {
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [entersalary, setentersalary] = useState(null);
   const [CTCerror, setCTCerror] = useState(null);
+  const [fieldserror, setfieldserror] = useState({
+    tablesection: null,
+    columnName: null,
+    columnValue: null,
+  });
   const [isCTCvalid, setisCTCvalid] = useState(false);
   const [selectedColKey, setSelectedColKey] = useState(null);
 
@@ -61,6 +66,23 @@ const Annexure = () => {
   ];
 
   const validation = () => {
+    let err = { ...fieldserror };
+    if (selectedSection) {
+      err.tablesection = null;
+    } else {
+      err.tablesection = "Please select table section.";
+    }
+    if (colName) {
+      err.columnName = null;
+    } else {
+      err.columnName = "Please enter column name.";
+    }
+    if (colValue) {
+      err.columnValue = null;
+    } else {
+      err.columnValue = "Please enter column value.";
+    }
+    setfieldserror(err);
     if ((selectedSection || selectedSection === 0) && colName && colValue) {
       debugger;
       const copy = JSON.parse(JSON.stringify(updateVal));
@@ -403,6 +425,11 @@ const Annexure = () => {
                         return <option value={val.index}>{val.name}</option>;
                       })}
                     </select>
+                    {fieldserror.tablesection ? (
+                      <div id="errordiv" className="p-0 mt-1">
+                        {fieldserror.tablesection}
+                      </div>
+                    ) : null}
                   </div>
                   <div className="col-3">
                     <MDBInput
@@ -417,6 +444,11 @@ const Annexure = () => {
                         setColName(event.target.value);
                       }}
                     />
+                    {fieldserror.columnName ? (
+                      <div id="errordiv" className="p-0 mb-3">
+                        {fieldserror.columnName}
+                      </div>
+                    ) : null}
                   </div>
                   <div className="col-3">
                     <MDBInput
@@ -431,6 +463,11 @@ const Annexure = () => {
                         setColValue(event.target.value);
                       }}
                     />
+                    {fieldserror.columnValue ? (
+                      <div id="errordiv" className="p-0 mb-3">
+                        {fieldserror.columnValue}
+                      </div>
+                    ) : null}
                   </div>
                   <div className="col-3 mt-4">
                     <MDBBtn
