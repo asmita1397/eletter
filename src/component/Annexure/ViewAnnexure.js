@@ -100,7 +100,7 @@ function ViewAnnexure() {
                 }}
               >
                 <h3 className="text-center black-text font-bold ">
-                  Generate Annexure
+                  View Annexure
                 </h3>
               </div>
 
@@ -122,7 +122,9 @@ function ViewAnnexure() {
                     Please select the salary range
                   </option>
                   {dropdownVals?.map((val) => (
-                    <option value={val.label}>{`${val.name}(${val.displayLabel})`}</option>
+                    <option
+                      value={val.label}
+                    >{`${val.name}(${val.displayLabel})`}</option>
                   ))}
                 </select>
                 {tableData?.map((item) => renderTable(item))}
