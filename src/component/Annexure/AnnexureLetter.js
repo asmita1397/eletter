@@ -108,6 +108,7 @@ const AnnexureLetter = () => {
     const ex = document.getElementsByClassName("pdf-body");
     Doc.createPdf(ex, name);
   };
+
   return (
     <div className="qwerty">
       <Home
@@ -154,7 +155,7 @@ const AnnexureLetter = () => {
                     </div>
                   ) : null}
 
-                  <div></div>
+                  <div className="mt-5">{tableData?.map((item) => renderTable(item))}</div>
                 </div>
                 {state.waterMark ? (
                   <div className={context.pdfVal ? "footerimg1" : "footerimg"}>
