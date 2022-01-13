@@ -8,42 +8,49 @@
           "columnValue": 15000,
           "columnKey": "A1",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "House Rent Allowance",
           "columnValue": 6000,
           "columnKey": "A2",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "Conveyance Allowance",
           "columnValue": 1600,
           "columnKey": "A3",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
+          
         },
         {
           "columnName": "Bonus",
           "columnValue": 1250,
           "columnKey": "A4",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "Other Allowances",
           "columnValue": 1354,
           "columnKey": "A5",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "Other Allowances",
           "columnValue": 1354,
           "columnKey": "A6",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         }
       ]
     },
@@ -65,42 +72,48 @@
           "columnValue": 15000,
           "columnKey": "A1",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "House Rent Allowance",
           "columnValue": 6000,
           "columnKey": "A2",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "Conveyance Allowance",
           "columnValue": 1600,
           "columnKey": "A3",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "Bonus",
           "columnValue": 1250,
           "columnKey": "A4",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "Other Allowances",
           "columnValue": 1354,
           "columnKey": "A5",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         },
         {
           "columnName": "Other Allowances",
           "columnValue": 1354,
           "columnKey": "A6",
           "monthly": 15000,
-          "yearly": 100000
+          "yearly": 100000,
+          "remarks": "abc"
         }
       ]
     },
