@@ -9,6 +9,7 @@ const Annexure = () => {
   const context = useContext(UserConsumer);
   const [colName, setColName] = useState();
   const [colValue, setColValue] = useState();
+  const [Remarks, setRemarks] = useState(null);
   const [updateVal, setUpdatedValue] = useState(context.annexureData);
 
   const [preview, setPreview] = useState(false);
@@ -404,7 +405,7 @@ const Annexure = () => {
                   <span className="h6">Please enter static fields first*</span>
                 </div>
                 <div className="row">
-                  <div className="col-3 mt-4">
+                  <div className="col-4 mt-4">
                     <select
                       class="browser-default custom-select my-auto"
                       autocomplete="off"
@@ -431,7 +432,7 @@ const Annexure = () => {
                       </div>
                     ) : null}
                   </div>
-                  <div className="col-3">
+                  <div className="col-4">
                     <MDBInput
                       autocomplete="off"
                       value={colName}
@@ -450,7 +451,7 @@ const Annexure = () => {
                       </div>
                     ) : null}
                   </div>
-                  <div className="col-3">
+                  <div className="col-4">
                     <MDBInput
                       autocomplete="off"
                       value={colValue}
@@ -469,13 +470,39 @@ const Annexure = () => {
                       </div>
                     ) : null}
                   </div>
-                  <div className="col-3 mt-4">
+                </div>
+                <div className="row">
+                  <div className="col-8">
+                    <MDBInput
+                      autocomplete="off"
+                      value={Remarks}
+                      label="Remarks"
+                      type="textarea"
+                      name="Remarks"
+                      id="Remarks"
+                      title="Remarks"
+                      onChange={(event) => {
+                        setRemarks(event.target.value);
+                      }}
+                    />
+                  </div>
+
+                  <div
+                    className="col-4 mb-4"
+                    style={{
+                      margin: "0",
+                      display: "flex",
+                      alignItems: "end",
+                    }}
+                  >
                     <MDBBtn
                       outline
                       type="submit"
                       onClick={validation}
                       id="generate"
-                      style={{ margin: "0" }}
+                      style={{
+                        margin: "0",
+                      }}
                       className=" form-control-plaintext  justify-content-center text-center"
                       color="primary"
                     >
