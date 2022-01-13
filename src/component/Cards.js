@@ -31,6 +31,7 @@ import ITPolicy from "./Assests/ITpolicy.png";
 import ConsultantOffer from "./Assests/Consultant.png";
 import DeliveryPolicy from "./Assests/DeliveryPolicy.png";
 import NoDue from "./Assests/NoDue.png";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export default class Cards extends Component {
   constructor(props) {
@@ -38,6 +39,9 @@ export default class Cards extends Component {
     this.state = {
       emp: [],
     };
+  }
+  renderTooltip(message) {
+    return <Tooltip>{message}</Tooltip>;
   }
 
   render() {
@@ -50,13 +54,28 @@ export default class Cards extends Component {
             <div className="column">
               <div className="card-css  ">
                 <Link to="/AddAnnexure">
-                  <i className="fas fa-plus mx-1"></i>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={this.renderTooltip("Add Annexure")}
+                  >
+                    <i className="fas fa-plus mx-1"></i>
+                  </OverlayTrigger>
                 </Link>
                 <Link to="/UpdateAnnexure">
-                  <i className="fas fa-pen mx-3"></i>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={this.renderTooltip("Edit Annexure")}
+                  >
+                    <i className="fas fa-pen mx-3"></i>
+                  </OverlayTrigger>
                 </Link>
                 <Link to="/ViewAnnexure">
-                  <i class="fas fa-eye mx-1"></i>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={this.renderTooltip("View Annexure")}
+                  >
+                    <i class="fas fa-eye mx-1"></i>
+                  </OverlayTrigger>
                 </Link>
 
                 <img
