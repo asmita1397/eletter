@@ -1,15 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Home } from "../home";
 import { UserConsumer } from "../Context/CustomContext";
 import PdfContainer from "../PdfComponent/PdfContainer";
 import TableComponent from "./TableComponent";
-import FooterPart from "../LetterFooter/FooterPart";
-import HeaderPart from "../LetterHeader/HeaderPart";
+import Header from "../LetterHeader/HeaderPart";
+import Footer from "../LetterFooter/FooterPart";
+import Doc from "../PdfComponent/DocService";
 
 const AnnexureLetter = () => {
   const [tableData, setTableData] = useState([]);
   const context = useContext(UserConsumer);
-
+  const bodyRef = useRef();
+  const [state, setState] = useState({
+    employee: [],
+    waterMark: false,
+  });
   useEffect(() => {
     setTableData(
       context.annexureData[context.selectedSalaryRange.label] || null
@@ -83,56 +88,82 @@ const AnnexureLetter = () => {
       );
     }
   };
-
+  const print = (data) => {
+    if (state.employee.withHeader) {
+      setState(
+        {
+          pix: true,
+        },
+        () =>
+          setTimeout(() => {
+            window.print();
+          }, 550)
+      );
+    } else {
+      window.print();
+    }
+  };
+  const createPdf = (html, name) => {
+    window.scrollTo(0, 0);
+    const ex = document.getElementsByClassName("pdf-body");
+    Doc.createPdf(ex, name);
+  };
   return (
-    <div>
-      <div>
-        <Home
-          buttonShow={true}
-          //   showWatermark={(data) => this.setState({ waterMark: data })}
-          //   sendData={() => this.sendData()}
-          //   setHeader={(data) => this.print()}
-        />
-        <div class="mainHeader">
-          <div className="main" style={{ marginTop: "100px" }}>
-            <PdfContainer
-              id={"hrletter"}
-              //   name={this.state.employee.employeeName}
-              //   createPdf={this.createPdf}
-            >
-              <div className="card" id="AFourPage">
-                <HeaderPart />
-                <div className="card-body pb-0">
-                  {tableData?.map((item) => renderTable(item))}
-                  <div className="waterMark">
-                    <span
-                      style={{
-                        color: "rgba(38, 50, 72, 0.33)",
-                        fontSize: "91px",
-                        fontFamily: "sans-serif",
-                        position: "absolute",
-                        zIndex: "0",
-                      }}
-                    >
-                      TES
+    <div className="qwerty">
+      <Home
+        buttonShow={true}
+        showWatermark={(data) => setState({ waterMark: data })}
+        setHeader={(data) => print()}
+      />
+      <div class="mainHeader">
+        <div className="main" style={{ marginTop: "100px" }}>
+          <PdfContainer id={"hrletter"} name={"salary"} createPdf={createPdf}>
+            <div className="card" ref={bodyRef} id="AFourPage">
+              <div className="card-body pb-0">
+                <div>
+                  {state.waterMark ? (
+                    <header className="headerimg">
+                      <Header />
+                    </header>
+                  ) : null}
+
+                  {state.waterMark ? (
+                    <div className="waterMark">
                       <span
                         style={{
-                          color: "rgba(248, 152, 28, 0.34)",
+                          color: "rgba(38, 50, 72, 0.33)",
                           fontSize: "91px",
                           fontFamily: "sans-serif",
-                          fontWeight: "600",
+                          position: "absolute",
+                          zIndex: "0",
                         }}
                       >
-                        TY
+                        TES
+                        <span
+                          style={{
+                            color: "rgba(248, 152, 28, 0.34)",
+                            fontSize: "91px",
+                            fontFamily: "sans-serif",
+                            fontWeight: "600",
+                          }}
+                        >
+                          TY
+                        </span>
+                        ANTRA
                       </span>
-                      ANTRA
-                    </span>
-                  </div>
+                    </div>
+                  ) : null}
+
+                  <div></div>
                 </div>
-                <FooterPart />
+                {state.waterMark ? (
+                  <div className={context.pdfVal ? "footerimg1" : "footerimg"}>
+                    <Footer />
+                  </div>
+                ) : null}
               </div>
-            </PdfContainer>
-          </div>
+            </div>
+          </PdfContainer>
         </div>
       </div>
     </div>
