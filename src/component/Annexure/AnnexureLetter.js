@@ -3,6 +3,8 @@ import { Home } from "../home";
 import { UserConsumer } from "../Context/CustomContext";
 import PdfContainer from "../PdfComponent/PdfContainer";
 import TableComponent from "./TableComponent";
+import FooterPart from "../LetterFooter/FooterPart";
+import HeaderPart from "../LetterHeader/HeaderPart";
 
 const AnnexureLetter = () => {
   const [tableData, setTableData] = useState([]);
@@ -99,6 +101,7 @@ const AnnexureLetter = () => {
               //   createPdf={this.createPdf}
             >
               <div className="card" id="AFourPage">
+                <HeaderPart />
                 <div className="card-body pb-0">
                   {tableData?.map((item) => renderTable(item))}
                   <div className="waterMark">
@@ -126,6 +129,7 @@ const AnnexureLetter = () => {
                     </span>
                   </div>
                 </div>
+                <FooterPart />
               </div>
             </PdfContainer>
           </div>
