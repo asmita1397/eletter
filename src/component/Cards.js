@@ -50,15 +50,13 @@ export default class Cards extends Component {
             <div className="column">
               <div className="card-css  ">
                 <Link to="/AddAnnexure">
-                  <span style={{ fontSize: "15px", margin: "5px" }}>add</span>{" "}
+                  <i className="fas fa-plus mx-1"></i>
                 </Link>
                 <Link to="/ViewAnnexure">
-                  <span style={{ fontSize: "15px", margin: "5px" }}>view</span>{" "}
+                  <i class="far fa-file-alt mx-3"></i>
                 </Link>
                 <Link to="/UpdateAnnexure">
-                  <span style={{ fontSize: "15px", margin: "5px" }}>
-                    modify
-                  </span>
+                  <i className="fas fa-pen mx-1"></i>
                 </Link>
                 <img
                   style={{

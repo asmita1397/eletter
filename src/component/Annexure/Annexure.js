@@ -12,14 +12,13 @@ const Annexure = () => {
   const [updateVal, setUpdatedValue] = useState(context.annexureData);
 
   const [preview, setPreview] = useState(false);
-  const [previewTableRows, setPreviewTableRows] = useState(false);
-  const [tableRows, setTableRows] = useState(context.annexureData.basic || []);
   const [selectedSection, setSelectedSection] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [entersalary, setentersalary] = useState(null);
   const [CTCerror, setCTCerror] = useState(null);
   const [isCTCvalid, setisCTCvalid] = useState(false);
+  const [selectedColKey, setSelectedColKey] = useState(null);
 
   const subColumnsHome = [
     {
@@ -60,65 +59,75 @@ const Annexure = () => {
       index: 2,
     },
   ];
-  const getValue = (value) => {
-    if (!isNaN(value)) {
-      const getIndex = tableRows.findIndex((val, index) =>
-        Object.values(val).includes(value)
-      );
-      return tableRows[getIndex].columnValue1;
-    } else {
-      return value;
-    }
-  };
+
   const validation = () => {
-    if (colName && colValue) {
+    if ((selectedSection || selectedSection === 0) && colName && colValue) {
       debugger;
       const copy = JSON.parse(JSON.stringify(updateVal));
+      const totalKeys = [];
+      const totalValues = [];
+      copy[context.selectedSalaryRange.label].forEach((val) => {
+        const staticVal = ["basic", "deduction", "benefit"];
 
-      // const formula = colValue.split("*");
-      // const splitted =
-      //   formula.length > 0 ? getValue(formula[0]) * formula[1] : colValue;
-      // copy.push({
-      //   columnName: colName,
-      //   columnValue1: colValue,
-      //   columnKey1: `A${tableRows.length + 1}`,
-      //   columnKey2: `B${tableRows.length + 1}`,
-      //   month: splitted,
-      // });
+        staticVal.forEach((key) => {
+          if (val[key]) {
+            val[key].forEach((value) => {
+              totalKeys.push(value.columnKey);
+              totalValues.push(value.monthly);
+            });
+          }
+        });
+      });
+      let formula = colValue.toString();
+      formula = formula.includes("=") ? formula.replace("=", "") : formula;
+      formula.replace("=", "");
+      formula = formula.includes("%") ? formula.replace("%", "/100") : formula;
+      totalKeys.forEach((val, index) => {
+        if (formula.includes(val)) {
+          formula = formula.replace(val, totalValues[index]);
+        }
+      });
 
-      // context.annexureDataMethod(copy);
-      // setTableRows(copy);
       const prefix =
         selectedSection === 0 ? "A" : selectedSection === 1 ? "B" : "C";
-      copy[context.selectedSalaryRange.label][selectedSection][
-        sectionData[selectedSection].value
-      ].push({
-        columnName: colName,
-        columnValue: colValue,
-        columnKey: `${prefix}${
-          copy[context.selectedSalaryRange.label][selectedSection][
-            sectionData[selectedSection].value
-          ].length + 1
-        }`,
-        monthly: "",
-        yearly: "",
-      });
+      if (selectedColKey) {
+        const index = copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ].findIndex((item) => item.columnKey === selectedColKey);
+        copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ][index] = {
+          columnName: colName,
+          columnValue: colValue,
+          columnKey: selectedColKey,
+          monthly: isNaN(formula) ? Math.ceil(eval(formula)) : colValue,
+          yearly: isNaN(formula)
+            ? Math.ceil(eval(formula)) * 12
+            : parseInt(colValue) * 12,
+        };
+        setSelectedColKey(null);
+      } else {
+        copy[context.selectedSalaryRange.label][selectedSection][
+          sectionData[selectedSection].value
+        ].push({
+          columnName: colName,
+          columnValue: colValue,
+          columnKey: `${prefix}${
+            copy[context.selectedSalaryRange.label][selectedSection][
+              sectionData[selectedSection].value
+            ].length + 1
+          }`,
+          monthly: isNaN(formula) ? Math.ceil(eval(formula)) : colValue,
+          yearly: isNaN(formula)
+            ? Math.ceil(eval(formula)) * 12
+            : parseInt(colValue) * 12,
+        });
+      }
       setUpdatedValue(copy);
       setColName("");
       setColValue("");
+      setSelectedSection(-1);
     }
-  };
-  const calculatePreview = () => {
-    const copy = [];
-    tableRows.map((val, index) => {
-      copy.push({
-        columnName: val.columnName,
-        columnValue1: Math.trunc(val.month),
-        columnValue2: parseInt(val.month) * 12,
-      });
-    });
-
-    setPreviewTableRows(copy);
   };
 
   console.log(context.selectedSalaryRange);
@@ -127,23 +136,76 @@ const Annexure = () => {
     setTableData(updateVal[context.selectedSalaryRange.label] || null);
   }, [context.selectedSalaryRange.label, updateVal]);
 
-  console.log(tableRows, tableData);
-
   const getColumns = (item) => {
     return [{ headerName: item.heading, colSpan: 3 }];
+  };
+
+  const handleEdit = (item) => {
+    setSelectedSection(
+      item?.columnKey?.includes("A")
+        ? 0
+        : item?.columnKey?.includes("B")
+        ? 1
+        : 2
+    );
+    setColName(item.columnName);
+    setColValue(item.columnValue);
+    setSelectedColKey(item.columnKey);
+  };
+
+  const handleDelete = (current) => {
+    debugger;
+    const copy = JSON.parse(JSON.stringify(updateVal));
+    const section = current?.columnKey?.includes("A")
+      ? 0
+      : current?.columnKey?.includes("B")
+      ? 1
+      : 2;
+    const prefix = section === 0 ? "A" : section === 1 ? "B" : "C";
+    const updatedList = copy[context.selectedSalaryRange.label][section][
+      sectionData[section].value
+    ].filter((item) => item.columnKey !== current.columnKey);
+    const updateLatest = updatedList.map((ele, index) => {
+      return {
+        ...ele,
+        columnKey: `${prefix}${index + 1}`,
+      };
+    });
+    copy[context.selectedSalaryRange.label][section][
+      sectionData[section].value
+    ] = updateLatest;
+    setUpdatedValue(copy);
   };
 
   const getTableRows = (list) => {
     const copy = [];
     list.forEach((item) => {
-      copy.push({
-        columnKey: item.columnKey,
-        columnName: item.columnName,
-        columnValue: item.columnValue,
-      });
+      if (context?.selectedSalaryRange?.type === "mod") {
+        copy.push({
+          columnKey: item.columnKey,
+          columnName: item.columnName,
+          columnValue: item.columnValue,
+          edit: (
+            <i className="fas fa-pen mx-3" onClick={() => handleEdit(item)}></i>
+          ),
+          delete: (
+            <i
+              class="fas fa-trash-alt mx-3"
+              onClick={() => handleDelete(item)}
+            ></i>
+          ),
+        });
+      } else {
+        copy.push({
+          columnKey: item.columnKey,
+          columnName: item.columnName,
+          columnValue: item.columnValue,
+        });
+      }
     });
     return copy;
   };
+
   const getPreviewTableRows = (list) => {
     const copy = [];
     list.forEach((item) => {
@@ -162,7 +224,15 @@ const Annexure = () => {
         <>
           <h5>{item.heading}</h5>
           <TableComponent
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             rows={getTableRows(item.basic)}
             renderType="normal"
             classes="my-3"
@@ -176,7 +246,15 @@ const Annexure = () => {
           <h5>{item.heading}</h5>
           <TableComponent
             rows={getTableRows(item.deduction)}
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             renderType="normal"
             classes="my-3"
           />
@@ -189,7 +267,15 @@ const Annexure = () => {
           <h5>{item.heading}</h5>
           <TableComponent
             rows={getTableRows(item.benefit)}
-            subColumns={subColumnsHome}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
             renderType="normal"
             classes="my-3"
           />
@@ -310,7 +396,7 @@ const Annexure = () => {
                         setSelectedSection(parseInt(event.target.value));
                       }}
                     >
-                      <option value="Please select the salary range" hidden>
+                      <option value={-1} hidden>
                         Please select table section
                       </option>
                       {sectionData.map((val) => {
@@ -356,17 +442,14 @@ const Annexure = () => {
                       className=" form-control-plaintext  justify-content-center text-center"
                       color="primary"
                     >
-                      Add
+                      {context.selectedSalaryRange.type === "mod"
+                        ? "Modify"
+                        : "Add"}
                     </MDBBtn>
                   </div>
                 </div>
 
                 <div className="card-body ">
-                  {/* <TableComponent
-                    // columns={columns}
-                    subColumns={subColumnsHome}
-                    rows={tableRows}
-                  /> */}
                   {tableData?.map((item) => renderTable(item))}
                 </div>
               </div>
