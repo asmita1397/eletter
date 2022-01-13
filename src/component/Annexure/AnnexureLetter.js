@@ -9,9 +9,8 @@ const AnnexureLetter = () => {
   const context = useContext(UserConsumer);
 
   useEffect(() => {
-      debugger
-    setTableData(context.selectedSalaryRange.label);
-  }, [context.selectedSalaryRange.label]);
+    setTableData(context.annexureData[context.selectedSalaryRange.label] || null);
+  }, [context.selectedSalaryRange.label, context.annexureData]);
 
   const subColumnsHome = [
     {
@@ -116,16 +115,16 @@ const AnnexureLetter = () => {
       <div>
         <Home
           buttonShow={true}
-        //   showWatermark={(data) => this.setState({ waterMark: data })}
-        //   sendData={() => this.sendData()}
-        //   setHeader={(data) => this.print()}
+          //   showWatermark={(data) => this.setState({ waterMark: data })}
+          //   sendData={() => this.sendData()}
+          //   setHeader={(data) => this.print()}
         />
         <div class="mainHeader">
           <div className="main" style={{ marginTop: "100px" }}>
             <PdfContainer
               id={"hrletter"}
-            //   name={this.state.employee.employeeName}
-            //   createPdf={this.createPdf}
+              //   name={this.state.employee.employeeName}
+              //   createPdf={this.createPdf}
             >
               {tableData?.map((item) => renderTable(item))}
             </PdfContainer>

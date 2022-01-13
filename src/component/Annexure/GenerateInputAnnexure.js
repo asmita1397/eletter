@@ -130,7 +130,13 @@ export default function GenerateInputAnnexure(props) {
                 <MDBBtn
                   outline
                   type="submit"
-                  onClick={() => props.history.push("/AnnexureLetter")}
+                  onClick={() => {
+                    const getObject = dropdownVals.filter(
+                      (val) => val.label === selectedRange
+                    );
+                    context.updateSalaryRange(getObject);
+                    props.history.push("/AnnexureLetter");
+                  }}
                   id="generate"
                   style={{ margin: "0" }}
                   className=" form-control-plaintext  justify-content-center text-center col-4 float-right"
