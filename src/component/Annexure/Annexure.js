@@ -127,6 +127,7 @@ const Annexure = () => {
           yearly: isNaN(formula)
             ? Math.ceil(eval(formula)) * 12
             : parseInt(colValue) * 12,
+          remarks: Remarks,
         };
         setSelectedColKey(null);
       } else {
@@ -144,6 +145,7 @@ const Annexure = () => {
           yearly: isNaN(formula)
             ? Math.ceil(eval(formula)) * 12
             : parseInt(colValue) * 12,
+          remarks: Remarks,
         });
       }
       setUpdatedValue(copy);
