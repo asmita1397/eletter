@@ -131,10 +131,7 @@ export default function GenerateInputAnnexure(props) {
                   outline
                   type="submit"
                   onClick={() => {
-                    const getObject = dropdownVals.filter(
-                      (val) => val.label === selectedRange
-                    );
-                    context.updateSalaryRange(getObject);
+                    context.updateSalaryRange(selectedRange);
                     props.history.push("/AnnexureLetter");
                   }}
                   id="generate"

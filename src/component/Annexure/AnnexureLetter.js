@@ -9,103 +9,75 @@ const AnnexureLetter = () => {
   const context = useContext(UserConsumer);
 
   useEffect(() => {
-    setTableData(context.annexureData[context.selectedSalaryRange.label] || null);
+    setTableData(
+      context.annexureData[context.selectedSalaryRange.label] || null
+    );
   }, [context.selectedSalaryRange.label, context.annexureData]);
 
-  const subColumnsHome = [
+  const subColumns = [
     {
-      headerName: "Ref No",
+      headerName: "Cash Flow Head",
+      classStyle: "text-left",
     },
     {
-      headerName: "Column Name",
+      headerName: "Monthly",
+      classStyle: "text-right",
     },
     {
-      headerName: "Column Value",
+      headerName: "Yearly",
+      classStyle: "text-right",
     },
   ];
 
   const getTableRows = (list) => {
-    const copy = [];
-    list.forEach((item) => {
-      if (context?.selectedSalaryRange?.type === "mod") {
-        copy.push({
-          columnKey: item.columnKey,
-          columnName: item.columnName,
-          columnValue: item.columnValue,
-        });
-      } else {
-        copy.push({
-          columnKey: item.columnKey,
-          columnName: item.columnName,
-          columnValue: item.columnValue,
-        });
-      }
+    const copy = [...list];
+    copy.forEach((item) => {
+      delete item.columnKey;
+      delete item.columnValue;
+      delete item.remarks;
     });
     return copy;
+  };
+
+  const getColumns = (item) => {
+    return [
+      {
+        headerName: item.heading,
+        colSpan: 3,
+        classStyle: item.heading.includes("Basic")
+          ? "text-center"
+          : "text-left",
+      },
+    ];
   };
 
   const renderTable = (item) => {
     if (item.hasOwnProperty("basic")) {
       return (
-        <>
-          <h5>{item.heading}</h5>
-          <TableComponent
-            subColumns={
-              context?.selectedSalaryRange?.type === "mod"
-                ? [
-                    ...subColumnsHome,
-                    { headerName: "Edit" },
-                    { headerName: "Delete" },
-                  ]
-                : subColumnsHome
-            }
-            rows={getTableRows(item.basic)}
-            renderType="normal"
-            classes="my-3"
-          />
-        </>
+        <TableComponent
+          columns={getColumns(item)}
+          subColumns={subColumns}
+          rows={getTableRows(item.basic)}
+          renderType="normal"
+        />
       );
     }
     if (item.hasOwnProperty("deduction")) {
       return (
-        <>
-          <h5>{item.heading}</h5>
-          <TableComponent
-            rows={getTableRows(item.deduction)}
-            subColumns={
-              context?.selectedSalaryRange?.type === "mod"
-                ? [
-                    ...subColumnsHome,
-                    { headerName: "Edit" },
-                    { headerName: "Delete" },
-                  ]
-                : subColumnsHome
-            }
-            renderType="normal"
-            classes="my-3"
-          />
-        </>
+        <TableComponent
+          columns={getColumns(item)}
+          rows={getTableRows(item.deduction)}
+          renderType="normal"
+        />
       );
     }
     if (item.hasOwnProperty("benefit")) {
       return (
-        <>
-          <h5>{item.heading}</h5>
-          <TableComponent
-            rows={getTableRows(item.benefit)}
-            subColumns={
-              context?.selectedSalaryRange?.type === "mod"
-                ? [
-                    ...subColumnsHome,
-                    { headerName: "Edit" },
-                    { headerName: "Delete" },
-                  ]
-                : subColumnsHome
-            }
-            renderType="normal"
-            classes="my-3"
-          />
-        </>
+        <TableComponent
+          columns={getColumns(item)}
+          rows={getTableRows(item.benefit)}
+          renderType="normal"
+        />
       );
     }
   };
@@ -128,7 +100,7 @@ const AnnexureLetter = () => {
             >
               <div className="card" id="AFourPage">
                 <div className="card-body pb-0">
-                  {/* {tableData?.map((item) => renderTable(item))} */}
+                  {tableData?.map((item) => renderTable(item))}
                   <div className="waterMark">
                     <span
                       style={{
@@ -153,7 +125,6 @@ const AnnexureLetter = () => {
                       ANTRA
                     </span>
                   </div>
-                  Display area
                 </div>
               </div>
             </PdfContainer>
