@@ -41,7 +41,9 @@ export default class Cards extends Component {
     };
   }
   renderTooltip(message) {
-    return <Tooltip style={{padding:"0", fontSize:"0.6vw"}}>{message}</Tooltip>;
+    return (
+      <Tooltip style={{ padding: "0", fontSize: "0.6vw" }}>{message}</Tooltip>
+    );
   }
 
   render() {
@@ -52,46 +54,48 @@ export default class Cards extends Component {
         <div className="mt-5 pt-5 pl-5 pr-5">
           <div className="row ">
             <div className="column">
-              <div className="card-css  ">
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={this.renderTooltip("Add Annexure")}
-                >
-                  <Link to="/AddAnnexure">
-                    <i className="fas fa-plus mx-1"></i>
-                  </Link>
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={this.renderTooltip("Edit Annexure")}
-                >
-                  <Link to="/UpdateAnnexure">
-                    <i className="fas fa-pen mx-3"></i>
-                  </Link>
-                </OverlayTrigger>
-                <OverlayTrigger
-                  placement="bottom"
-                  overlay={this.renderTooltip("View Annexure")}
-                >
-                  <Link to="/ViewAnnexure">
-                    <i class="fas fa-eye mx-1"></i>
-                  </Link>
-                </OverlayTrigger>
+              <Link to="/GenerateInputAnnexure">
+                <div className="card-css  ">
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={this.renderTooltip("Add Annexure")}
+                  >
+                    <Link to="/AddAnnexure">
+                      <i className="fas fa-plus mx-1"></i>
+                    </Link>
+                  </OverlayTrigger>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={this.renderTooltip("Edit Annexure")}
+                  >
+                    <Link to="/UpdateAnnexure">
+                      <i className="fas fa-pen mx-3"></i>
+                    </Link>
+                  </OverlayTrigger>
+                  <OverlayTrigger
+                    placement="bottom"
+                    overlay={this.renderTooltip("View Annexure")}
+                  >
+                    <Link to="/ViewAnnexure">
+                      <i class="fas fa-eye mx-1"></i>
+                    </Link>
+                  </OverlayTrigger>
 
-                <img
-                  style={{
-                    width: "70%",
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                  }}
-                  src={NoDue}
-                  className="card-css-img-top"
-                  alt="..."
-                />
-                <div style={{ color: "#343A40" }}>
-                  <h6 className="font-weight-bold">Annexure</h6>
+                  <img
+                    style={{
+                      width: "70%",
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    src={NoDue}
+                    className="card-css-img-top"
+                    alt="..."
+                  />
+                  <div style={{ color: "#343A40" }}>
+                    <h6 className="font-weight-bold">Annexure</h6>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
             <div className="column">
               <Link to="/hr">
