@@ -46,6 +46,7 @@ function ViewAnnexure() {
     copy.forEach((item) => {
       delete item.columnKey;
       delete item.columnValue;
+      delete item.remarks;
     });
     return copy;
   };
