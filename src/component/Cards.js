@@ -52,12 +52,13 @@ export default class Cards extends Component {
                 <Link to="/AddAnnexure">
                   <i className="fas fa-plus mx-1"></i>
                 </Link>
-                <Link to="/ViewAnnexure">
-                  <i class="far fa-file-alt mx-3"></i>
-                </Link>
                 <Link to="/UpdateAnnexure">
-                  <i className="fas fa-pen mx-1"></i>
+                  <i className="fas fa-pen mx-3"></i>
                 </Link>
+                <Link to="/ViewAnnexure">
+                  <i class="fas fa-eye mx-1"></i>
+                </Link>
+
                 <img
                   style={{
                     width: "70%",
