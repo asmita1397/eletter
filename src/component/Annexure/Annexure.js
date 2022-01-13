@@ -442,9 +442,7 @@ const Annexure = () => {
                       className=" form-control-plaintext  justify-content-center text-center"
                       color="primary"
                     >
-                      {context.selectedSalaryRange.type === "mod"
-                        ? "Modify"
-                        : "Add"}
+                      {selectedColKey ? "Modify" : "Add"}
                     </MDBBtn>
                   </div>
                 </div>
