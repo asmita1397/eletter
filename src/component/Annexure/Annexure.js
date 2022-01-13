@@ -12,8 +12,6 @@ const Annexure = () => {
   const [updateVal, setUpdatedValue] = useState(context.annexureData);
 
   const [preview, setPreview] = useState(false);
-  const [previewTableRows, setPreviewTableRows] = useState(false);
-  const [tableRows, setTableRows] = useState(context.annexureData.basic || []);
   const [selectedSection, setSelectedSection] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [openConfirmation, setOpenConfirmation] = useState(false);
@@ -138,8 +136,6 @@ const Annexure = () => {
     setTableData(updateVal[context.selectedSalaryRange.label] || null);
   }, [context.selectedSalaryRange.label, updateVal]);
 
-  console.log(tableRows, tableData);
-
   const getColumns = (item) => {
     return [{ headerName: item.heading, colSpan: 3 }];
   };
@@ -158,6 +154,7 @@ const Annexure = () => {
   };
 
   const handleDelete = (current) => {
+    debugger;
     const copy = JSON.parse(JSON.stringify(updateVal));
     const section = current?.columnKey?.includes("A")
       ? 0
@@ -174,7 +171,10 @@ const Annexure = () => {
         columnKey: `${prefix}${index + 1}`,
       };
     });
-    console.log(updateLatest);
+    copy[context.selectedSalaryRange.label][section][
+      sectionData[section].value
+    ] = updateLatest;
+    setUpdatedValue(copy);
   };
 
   const getTableRows = (list) => {
@@ -342,7 +342,7 @@ const Annexure = () => {
         setCTCerror(null);
         setisCTCvalid(true);
       } else {
-        setCTCerror("Invalid CTC.");
+        setCTCerror(`CTC must be in the range ${from} - ${to}.`);
         setisCTCvalid(false);
       }
     }
@@ -450,11 +450,6 @@ const Annexure = () => {
                 </div>
 
                 <div className="card-body ">
-                  {/* <TableComponent
-                    // columns={columns}
-                    subColumns={subColumnsHome}
-                    rows={tableRows}
-                  /> */}
                   {tableData?.map((item) => renderTable(item))}
                 </div>
               </div>
