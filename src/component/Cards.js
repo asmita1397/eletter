@@ -41,7 +41,7 @@ export default class Cards extends Component {
     };
   }
   renderTooltip(message) {
-    return <Tooltip>{message}</Tooltip>;
+    return <Tooltip style={{padding:"0", fontSize:"0.6vw"}}>{message}</Tooltip>;
   }
 
   render() {
@@ -53,30 +53,30 @@ export default class Cards extends Component {
           <div className="row ">
             <div className="column">
               <div className="card-css  ">
-                <Link to="/AddAnnexure">
-                  <OverlayTrigger
-                    placement="bottom"
-                    overlay={this.renderTooltip("Add Annexure")}
-                  >
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={this.renderTooltip("Add Annexure")}
+                >
+                  <Link to="/AddAnnexure">
                     <i className="fas fa-plus mx-1"></i>
-                  </OverlayTrigger>
-                </Link>
-                <Link to="/UpdateAnnexure">
-                  <OverlayTrigger
-                    placement="bottom"
-                    overlay={this.renderTooltip("Edit Annexure")}
-                  >
+                  </Link>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={this.renderTooltip("Edit Annexure")}
+                >
+                  <Link to="/UpdateAnnexure">
                     <i className="fas fa-pen mx-3"></i>
-                  </OverlayTrigger>
-                </Link>
-                <Link to="/ViewAnnexure">
-                  <OverlayTrigger
-                    placement="bottom"
-                    overlay={this.renderTooltip("View Annexure")}
-                  >
+                  </Link>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement="bottom"
+                  overlay={this.renderTooltip("View Annexure")}
+                >
+                  <Link to="/ViewAnnexure">
                     <i class="fas fa-eye mx-1"></i>
-                  </OverlayTrigger>
-                </Link>
+                  </Link>
+                </OverlayTrigger>
 
                 <img
                   style={{
