@@ -10,7 +10,7 @@ const Annexure = () => {
   const [colName, setColName] = useState();
   const [colValue, setColValue] = useState();
   const [Remarks, setRemarks] = useState(null);
-  const [updateVal, setUpdatedValue] = useState(context.annexureData);
+  const [updateVal, setUpdatedValue] = useState([]);
 
   const [preview, setPreview] = useState(false);
   const [selectedSection, setSelectedSection] = useState(null);
@@ -25,7 +25,9 @@ const Annexure = () => {
   });
   const [isCTCvalid, setisCTCvalid] = useState(false);
   const [selectedColKey, setSelectedColKey] = useState(null);
-
+  useEffect(() => {
+    setUpdatedValue(context.annexureData);
+  }, [context.annexureData]);
   const subColumnsHome = [
     {
       headerName: "Ref No",
