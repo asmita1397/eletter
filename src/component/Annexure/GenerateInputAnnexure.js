@@ -1,4 +1,4 @@
-import { MDBBtn } from "mdbreact";
+import { MDBBtn, MDBInput } from "mdbreact";
 import React, { useContext, useEffect, useState } from "react";
 import { UserConsumer } from "../Context/CustomContext";
 import { Home } from "../home";
@@ -7,7 +7,10 @@ import TableComponent from "./TableComponent";
 export default function GenerateInputAnnexure(props) {
   const context = useContext(UserConsumer);
   const dropdownVals = context.annexureDropdown || [];
+  const [entersalary, setentersalary] = useState(null);
+  const [CTCerror, setCTCerror] = useState(null);
 
+  const [isSelect, setIsSelect] = useState(false);
   const subColumns = [
     {
       headerName: "Cash Flow Head",
@@ -81,6 +84,22 @@ export default function GenerateInputAnnexure(props) {
       );
     }
   };
+  const validateCTC = () => {
+    const from = parseInt(context.selectedSalaryRange.salaryFrom);
+    const to = parseInt(context.selectedSalaryRange.salaryTo);
+    if (!entersalary) {
+      setCTCerror("Please enter CTC");
+      return false;
+    } else {
+      if (entersalary >= from && entersalary <= to) {
+        setCTCerror(null);
+        return true;
+      } else {
+        setCTCerror(`CTC must be in the range ${from} - ${to}.`);
+        return false;
+      }
+    }
+  };
   return (
     <>
       <Home buttonShow={false} buttonVal={context.buttonVal} />
@@ -127,15 +146,51 @@ export default function GenerateInputAnnexure(props) {
                     >{`${val.name}(${val.displayLabel})`}</option>
                   ))}
                 </select>
+                {isSelect ? (
+                  <div id="errordiv" className="p-0 mb-3">
+                    {isSelect}
+                  </div>
+                ) : null}
+                {selectedRange && (
+                  <div className="row col-12 m-0 p-0">
+                    <div className="col-12 mr-2 p-0">
+                      <MDBInput
+                        autocomplete="off"
+                        value={entersalary}
+                        label="Enter CTC"
+                        type="number"
+                        name="ColumnName"
+                        id="ColumnName"
+                        title="Enter CTC"
+                        onChange={(event) => {
+                          setentersalary(event.target.value);
+                        }}
+                      />
+                      {CTCerror ? (
+                        <div id="errordiv" className="p-0 mb-3">
+                          {CTCerror}
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                )}
                 <MDBBtn
                   outline
                   type="submit"
                   onClick={() => {
-                    const getObject = dropdownVals.find(
-                      (val) => val.label === selectedRange
-                    );
-                    context.updateSalaryRange(getObject);
-                    props.history.push("/AnnexureLetter");
+                    if (selectedRange) {
+                      setIsSelect("");
+                      const isValid = validateCTC();
+                      if (isValid) {
+                        const getObject = dropdownVals.find(
+                          (val) => val.label === selectedRange
+                        );
+                        context.updateSalaryRange(getObject);
+                        props.history.push("/AnnexureLetter");
+                      }
+                    } else {
+                      setIsSelect("Please select salray range");
+                    }
                   }}
                   id="generate"
                   style={{ margin: "0" }}

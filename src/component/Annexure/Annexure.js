@@ -154,6 +154,7 @@ const Annexure = () => {
       setColName("");
       setColValue("");
       setSelectedSection(-1);
+      setRemarks('')
     }
   };
 
@@ -358,9 +359,9 @@ const Annexure = () => {
     context.updateAnnexure(updateVal);
   };
 
-  const from = parseInt(context.selectedSalaryRange.salaryFrom);
-  const to = parseInt(context.selectedSalaryRange.salaryTo);
   const validateCTC = () => {
+    const from = parseInt(context.selectedSalaryRange.salaryFrom);
+    const to = parseInt(context.selectedSalaryRange.salaryTo);
     if (!entersalary) {
       setCTCerror("Please enter CTC");
       setisCTCvalid(false);
@@ -569,7 +570,7 @@ const Annexure = () => {
                           className=" form-control-plaintext  justify-content-center text-center"
                           color="primary"
                         >
-                          Generate
+                          Test
                         </MDBBtn>
                       </div>
                     </div>
