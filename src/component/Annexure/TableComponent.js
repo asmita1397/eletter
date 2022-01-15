@@ -39,7 +39,7 @@ const TableComponent = (props) => {
           <td colSpan={2} className="text-left border-right-0">
             {item.columnName}
           </td>
-          <td className="text-right border-left-0">{item.columnValue}</td>
+          <td className="text-right border-left-0">{item.monthly}</td>
         </>
       );
     }

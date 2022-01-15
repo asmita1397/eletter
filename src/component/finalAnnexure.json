@@ -67,7 +67,10 @@
       "ctc": [
         {
           "columnName": "Monthly CTC",
-          "columnValue": 0
+          "columnValue": 0,
+          "monthly": 0,
+          "yearly": 0,
+          "columnKey": "D1"
         }
       ]
     }
@@ -140,7 +143,10 @@
       "ctc": [
         {
           "columnName": "Monthly CTC",
-          "columnValue": 0
+          "columnValue": 0,
+          "monthly": 0,
+          "yearly": 0,
+          "columnKey": "D1"
         }
       ]
     }
