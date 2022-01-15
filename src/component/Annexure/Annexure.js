@@ -154,7 +154,7 @@ const Annexure = () => {
       setColName("");
       setColValue("");
       setSelectedSection(-1);
-      setRemarks('')
+      setRemarks("");
     }
   };
 
@@ -164,8 +164,24 @@ const Annexure = () => {
     setTableData(updateVal[context.selectedSalaryRange.label] || null);
   }, [context.selectedSalaryRange.label, updateVal]);
 
-  const getColumns = (item) => {
-    return [{ headerName: item.heading, colSpan: 3 }];
+  const getColumns = (item, colSpanVal = 3, rightCol = false) => {
+    if (!rightCol) {
+      return [{ headerName: item.heading, colSpan: 3 }];
+    }
+    return [
+      {
+        headerName: item.heading,
+        colSpan: colSpanVal,
+        classStyle: item.heading.includes("Basic")
+          ? "text-center"
+          : "text-left border-right-0",
+      },
+      {
+        headerName: item.value,
+        colSpan: 1,
+        classStyle: "text-right border-left-0",
+      },
+    ];
   };
 
   const handleEdit = (item) => {
@@ -338,6 +354,15 @@ const Annexure = () => {
           columns={getColumns(item)}
           rows={getPreviewTableRows(item.benefit)}
           renderType="normal"
+        />
+      );
+    }
+    if (item.hasOwnProperty("ctc")) {
+      return (
+        <TableComponent
+          columns={getColumns(item, 2, true)}
+          rows={getTableRows(item.ctc)}
+          renderType="special"
         />
       );
     }

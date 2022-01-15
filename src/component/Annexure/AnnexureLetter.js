@@ -46,14 +46,30 @@ const AnnexureLetter = () => {
     return copy;
   };
 
-  const getColumns = (item) => {
+  const getColumns = (item, colSpanVal = 3, rightCol = false) => {
+    if (!rightCol) {
+      return [
+        {
+          headerName: item.heading,
+          colSpan: colSpanVal,
+          classStyle: item.heading.includes("Basic")
+            ? "text-center"
+            : "text-left",
+        },
+      ];
+    }
     return [
       {
         headerName: item.heading,
-        colSpan: 3,
+        colSpan: colSpanVal,
         classStyle: item.heading.includes("Basic")
           ? "text-center"
-          : "text-left",
+          : "text-left border-right-0",
+      },
+      {
+        headerName: item.value,
+        colSpan: 1,
+        classStyle: "text-right border-left-0",
       },
     ];
   };
@@ -87,7 +103,19 @@ const AnnexureLetter = () => {
         />
       );
     }
+    if (item.hasOwnProperty("ctc")) {
+      return (
+        <TableComponent
+          columns={getColumns(item, 2, true)}
+          rows={getTableRows(item.ctc)}
+          renderType="special"
+        />
+      );
+    }
   };
+
+  console.log(tableData);
+
   const print = (data) => {
     if (state.employee.withHeader) {
       setState(
@@ -155,7 +183,9 @@ const AnnexureLetter = () => {
                     </div>
                   ) : null}
 
-                  <div className="mt-5">{tableData?.map((item) => renderTable(item))}</div>
+                  <div className="mt-5">
+                    {tableData?.map((item) => renderTable(item))}
+                  </div>
                 </div>
                 {state.waterMark ? (
                   <div className={context.pdfVal ? "footerimg1" : "footerimg"}>

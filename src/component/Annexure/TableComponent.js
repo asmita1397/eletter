@@ -19,7 +19,7 @@ const TableComponent = (props) => {
             className={`${
               key === "monthly" || key === "yearly" ? "text-right" : "text-left"
             }`}
-            style={{ width:"33%"  }}
+            style={{ width: "33%" }}
           >
             {value}
           </td>
@@ -32,6 +32,16 @@ const TableComponent = (props) => {
         const value2 = item[keys[index + 2]];
         rowObj.push(<td>{`${value1}${index === 0 ? `(${value2})` : ""}`}</td>);
       });
+    } else if (renderType === "special") {
+      console.log(item);
+      rowObj.push(
+        <>
+          <td colSpan={2} className="text-left border-right-0">
+            {item.columnName}
+          </td>
+          <td className="text-right border-left-0">{item.columnValue}</td>
+        </>
+      );
     }
     return rowObj;
   };
@@ -40,16 +50,16 @@ const TableComponent = (props) => {
     <div>
       <table className={`${classes}`}>
         <thead>
-          {columns.map((col) => {
-            const {
-              headerName = "",
-              colSpan = 1,
-              rowSpan = 1,
-              width = 100,
-              classStyle = "text-left",
-            } = col;
-            return (
-              <tr className="bg-gray">
+          <tr className="bg-gray">
+            {columns.map((col) => {
+              const {
+                headerName = "",
+                colSpan = 1,
+                rowSpan = 1,
+                width = 100,
+                classStyle = "text-left",
+              } = col;
+              return (
                 <th
                   colSpan={colSpan}
                   rowSpan={rowSpan}
@@ -57,9 +67,9 @@ const TableComponent = (props) => {
                 >
                   {headerName}
                 </th>
-              </tr>
-            );
-          })}
+              );
+            })}
+          </tr>
           {subColumns.map((col) => {
             const {
               headerName = "",
@@ -72,7 +82,7 @@ const TableComponent = (props) => {
                 colSpan={colSpan}
                 rowSpan={rowSpan}
                 className={`fw-700 ${classStyle}`}
-                style={{width:"33%"}}
+                style={{ width: "33%" }}
               >
                 {headerName}
               </th>
