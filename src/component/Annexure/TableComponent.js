@@ -33,13 +33,16 @@ const TableComponent = (props) => {
         rowObj.push(<td>{`${value1}${index === 0 ? `(${value2})` : ""}`}</td>);
       });
     } else if (renderType === "special") {
-      console.log(item);
       rowObj.push(
         <>
           <td colSpan={2} className="text-left border-right-0">
             {item.columnName}
           </td>
-          <td className="text-right border-left-0">{item.monthly}</td>
+          <td className="text-right border-left-0">
+            {item.hasOwnProperty("columnValue")
+              ? item.columnValue
+              : item.monthly}
+          </td>
         </>
       );
     }

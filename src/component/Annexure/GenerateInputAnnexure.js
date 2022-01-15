@@ -186,13 +186,7 @@ export default function GenerateInputAnnexure(props) {
                           (val) => val.label === selectedRange
                         );
                         context.updateSalaryRange(getObject);
-                        const getAnnexure = JSON.parse(
-                          JSON.stringify(context.annexureData)
-                        );
-                        getAnnexure[selectedRange][3].value = entersalary;
-                        getAnnexure[selectedRange][3].ctc[0].monthly =
-                          parseInt(entersalary) / 12;
-                        context.updateAnnexure(getAnnexure);
+                       
                         props.history.push("/AnnexureLetter");
                       }
                     } else {

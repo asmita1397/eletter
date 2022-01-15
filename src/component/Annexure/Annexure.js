@@ -68,6 +68,32 @@ const Annexure = () => {
     },
   ];
 
+  const calculation = (formulaEntered, finalArray, keyIndex) => {
+    const totalKeys = [];
+    const totalValues = [];
+    finalArray[keyIndex].forEach((val) => {
+      const staticVal = ["basic", "deduction", "benefit"];
+
+      staticVal.forEach((key) => {
+        if (val[key]) {
+          val[key].forEach((value) => {
+            totalKeys.push(value.columnKey);
+            totalValues.push(value.monthly);
+          });
+        }
+      });
+    });
+    let formula = formulaEntered.toString();
+    formula = formula.includes("=") ? formula.replace("=", "") : formula;
+    formula.replace("=", "");
+    formula = formula.includes("%") ? formula.replace("%", "/100") : formula;
+    totalKeys.forEach((val, index) => {
+      if (formula.includes(val)) {
+        formula = formula.replace(val, totalValues[index]);
+      }
+    });
+  };
+
   const validation = () => {
     let err = { ...fieldserror };
     if (selectedSection || selectedSection === 0) {
@@ -89,29 +115,6 @@ const Annexure = () => {
     if ((selectedSection || selectedSection === 0) && colName && colValue) {
       debugger;
       const copy = JSON.parse(JSON.stringify(updateVal));
-      const totalKeys = [];
-      const totalValues = [];
-      copy[context.selectedSalaryRange.label].forEach((val) => {
-        const staticVal = ["basic", "deduction", "benefit"];
-
-        staticVal.forEach((key) => {
-          if (val[key]) {
-            val[key].forEach((value) => {
-              totalKeys.push(value.columnKey);
-              totalValues.push(value.monthly);
-            });
-          }
-        });
-      });
-      let formula = colValue.toString();
-      formula = formula.includes("=") ? formula.replace("=", "") : formula;
-      formula.replace("=", "");
-      formula = formula.includes("%") ? formula.replace("%", "/100") : formula;
-      totalKeys.forEach((val, index) => {
-        if (formula.includes(val)) {
-          formula = formula.replace(val, totalValues[index]);
-        }
-      });
 
       const prefix =
         selectedSection === 0 ? "A" : selectedSection === 1 ? "B" : "C";
@@ -125,10 +128,8 @@ const Annexure = () => {
           columnName: colName,
           columnValue: colValue,
           columnKey: selectedColKey,
-          monthly: !isNaN(colValue) ? Math.ceil(eval(formula)) : colValue,
-          yearly: !isNaN(colValue)
-            ? Math.ceil(eval(formula)) * 12
-            : parseInt(colValue) * 12,
+          monthly: 0,
+          yearly: 0,
           remarks: Remarks,
         };
         setSelectedColKey(null);
@@ -143,10 +144,8 @@ const Annexure = () => {
               sectionData[selectedSection].value
             ].length + 1
           }`,
-          monthly: !isNaN(colValue) ? Math.ceil(eval(formula)) : colValue,
-          yearly: !isNaN(colValue)
-            ? Math.ceil(eval(formula)) * 12
-            : parseInt(colValue) * 12,
+          monthly: 0,
+          yearly: 0,
           remarks: Remarks,
         });
       }
@@ -389,14 +388,14 @@ const Annexure = () => {
     const to = parseInt(context.selectedSalaryRange.salaryTo);
     if (!entersalary) {
       setCTCerror("Please enter CTC");
-      setisCTCvalid(false);
+      return false;
     } else {
       if (entersalary >= from && entersalary <= to) {
         setCTCerror(null);
-        setisCTCvalid(true);
+        return true;
       } else {
         setCTCerror(`CTC must be in the range ${from} - ${to}.`);
-        setisCTCvalid(false);
+        return false;
       }
     }
   };
@@ -432,7 +431,10 @@ const Annexure = () => {
                     Annexure for {context.selectedSalaryRange.name}({getRange()}
                     )
                   </h3>
-                  <span className="h6">Please enter static fields first*</span>
+                  <span className="h6">
+                    Please enter static fields first and D1 is reference number
+                    for CTC*
+                  </span>
                 </div>
                 <div className="row">
                   <div className="col-4 mt-4">
@@ -589,7 +591,16 @@ const Annexure = () => {
                         <MDBBtn
                           outline
                           type="submit"
-                          onClick={validateCTC}
+                          onClick={() => {
+                            const isValid = validateCTC();
+                            if (isValid) {
+                              const copy = JSON.parse(
+                                JSON.stringify(updateVal)
+                              );
+
+                              setUpdatedValue(copy);
+                            }
+                          }}
                           id="generate"
                           style={{ margin: "0" }}
                           className=" form-control-plaintext  justify-content-center text-center"
