@@ -68,12 +68,11 @@ const Annexure = () => {
     },
   ];
 
-  const calculation = (formulaEntered, finalArray, keyIndex) => {
+  const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
     const totalKeys = [];
     const totalValues = [];
+    const staticVal = ["basic", "deduction", "benefit"];
     finalArray[keyIndex].forEach((val) => {
-      const staticVal = ["basic", "deduction", "benefit"];
-
       staticVal.forEach((key) => {
         if (val[key]) {
           val[key].forEach((value) => {
@@ -92,6 +91,50 @@ const Annexure = () => {
         formula = formula.replace(val, totalValues[index]);
       }
     });
+    return formula;
+  };
+
+  const calculation = (keyIndex) => {
+    const finalArray = JSON.parse(JSON.stringify(updateVal));
+    const staticVal = ["basic", "deduction", "benefit"];
+    finalArray[keyIndex].forEach((val, index) => {
+      staticVal.forEach((key) => {
+        if (key in finalArray[keyIndex][index])
+          finalArray[keyIndex][index][key].forEach((value, colIndex) => {
+            const valueCol = parseInt(value.columnValue);
+            if (!isNaN(valueCol)) {
+              finalArray[keyIndex][index][key][colIndex].monthly = valueCol;
+              finalArray[keyIndex][index][key][colIndex].yearly = valueCol * 12;
+            }
+          });
+      });
+    });
+    finalArray[keyIndex].forEach((val, index) => {
+      staticVal.forEach((key) => {
+        if (key in finalArray[keyIndex][index])
+          finalArray[keyIndex][index][key].forEach((value, colIndex) => {
+            const valueCol = parseInt(value.columnValue);
+            if (!isNaN(valueCol)) {
+              finalArray[keyIndex][index][key][colIndex].monthly = valueCol;
+              finalArray[keyIndex][index][key][colIndex].yearly = valueCol * 12;
+            } else {
+              const returnValue = updateFormulaValue(
+                value.columnValue,
+                keyIndex,
+                finalArray
+              );
+              const result = eval(returnValue);
+              if (returnValue) {
+                finalArray[keyIndex][index][key][colIndex].monthly =
+                  Math.floor(result);
+                finalArray[keyIndex][index][key][colIndex].yearly =
+                  Math.floor(result) * 12;
+              }
+            }
+          });
+      });
+    });
+    setUpdatedValue(finalArray);
   };
 
   const validation = () => {
@@ -388,13 +431,16 @@ const Annexure = () => {
     const to = parseInt(context.selectedSalaryRange.salaryTo);
     if (!entersalary) {
       setCTCerror("Please enter CTC");
+      setisCTCvalid(false);
       return false;
     } else {
       if (entersalary >= from && entersalary <= to) {
         setCTCerror(null);
+        setisCTCvalid(true);
         return true;
       } else {
         setCTCerror(`CTC must be in the range ${from} - ${to}.`);
+        setisCTCvalid(false);
         return false;
       }
     }
@@ -594,11 +640,7 @@ const Annexure = () => {
                           onClick={() => {
                             const isValid = validateCTC();
                             if (isValid) {
-                              const copy = JSON.parse(
-                                JSON.stringify(updateVal)
-                              );
-
-                              setUpdatedValue(copy);
+                              calculation(context.selectedSalaryRange.label);
                             }
                           }}
                           id="generate"

@@ -5,34 +5,26 @@
       "basic": [
         {
           "columnName": "Basic Salary",
-          "columnValue": 15000,
+          "columnValue": 14470,
           "columnKey": "A1",
-          "monthly": 15000,
-          "yearly": 100000,
+          "monthly": 0,
+          "yearly": 0,
           "remarks": "abc"
         },
         {
           "columnName": "House Rent Allowance",
-          "columnValue": 6000,
+          "columnValue": 2825,
           "columnKey": "A2",
-          "monthly": 15000,
-          "yearly": 100000,
-          "remarks": "abc"
-        },
-        {
-          "columnName": "Conveyance Allowance",
-          "columnValue": 1600,
-          "columnKey": "A3",
-          "monthly": 15000,
-          "yearly": 100000,
+          "monthly": 0,
+          "yearly": 0,
           "remarks": "abc"
         },
         {
           "columnName": "Bonus",
-          "columnValue": 1250,
+          "columnValue": "=A1*8.33%",
           "columnKey": "A4",
-          "monthly": 15000,
-          "yearly": 100000,
+          "monthly": 0,
+          "yearly": 0,
           "remarks": "abc"
         },
         {
