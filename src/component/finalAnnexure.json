@@ -50,16 +50,6 @@
           "monthly": 15000,
           "yearly": 100000,
           "remarks": "abc"
-        },
-        {
-          "heading": "CTC",
-          "value": "0",
-          "ctc": [
-            {
-              "columnName": "Monthly CTC",
-              "columnValue": 0
-            }
-          ]
         }
       ]
     },
@@ -70,6 +60,16 @@
     {
       "heading": "Benefit",
       "benefit": []
+    },
+    {
+      "heading": "CTC",
+      "value": "0",
+      "ctc": [
+        {
+          "columnName": "Monthly CTC",
+          "columnValue": 0
+        }
+      ]
     }
   ],
   "27325-37500": [

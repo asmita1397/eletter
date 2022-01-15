@@ -11,11 +11,11 @@ function ViewAnnexure() {
 
   const subColumns = [
     {
-      headerName: "Cash Flow Head",
+      headerName: "Column Name",
       classStyle: "text-left",
     },
     {
-      headerName: "Monthly",
+      headerName: "Column Value",
       classStyle: "text-left",
     },
   ];
@@ -68,6 +68,7 @@ function ViewAnnexure() {
   };
 
   const renderTable = (item) => {
+    debugger;
     if (item.hasOwnProperty("basic")) {
       return (
         <TableComponent
@@ -201,7 +202,9 @@ function ViewAnnexure() {
                     >{`${val.name}(${val.displayLabel})`}</option>
                   ))}
                 </select>
-                {tableData?.map((item) => renderTable(item))}
+                {tableData?.map((item) => {
+                  renderTable(item);
+                })}
               </div>
             </div>
             {selectedRange && (
