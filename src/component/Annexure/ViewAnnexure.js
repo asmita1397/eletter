@@ -68,7 +68,7 @@ function ViewAnnexure() {
   };
 
   const renderTable = (item) => {
-    debugger;
+    debugger
     if (item.hasOwnProperty("basic")) {
       return (
         <TableComponent
@@ -202,9 +202,7 @@ function ViewAnnexure() {
                     >{`${val.name}(${val.displayLabel})`}</option>
                   ))}
                 </select>
-                {tableData?.map((item) => {
-                  renderTable(item);
-                })}
+                {tableData?.map((item) => renderTable(item))}
               </div>
             </div>
             {selectedRange && (
