@@ -42,7 +42,7 @@ function ViewAnnexure() {
   const [isCTCvalid, setisCTCvalid] = useState(false);
   useEffect(() => {
     setTableData(context.annexureData[selectedRange] || null);
-  }, [selectedRange, context.annexureData, isCTCvalid]);
+  }, [selectedRange, context.annexureData]);
 
   const getColumns = (item) => {
     return [
