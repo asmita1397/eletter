@@ -128,13 +128,16 @@ function ViewAnnexure() {
     if (!entersalary) {
       setCTCerror("Please enter CTC");
       setisCTCvalid(false);
+      return false;
     } else {
       if (entersalary >= from && entersalary <= to) {
         setCTCerror(null);
         setisCTCvalid(true);
+        return true;
       } else {
         setCTCerror(`CTC must be in the range ${from} - ${to}.`);
         setisCTCvalid(false);
+        return false;
       }
     }
   };
@@ -188,6 +191,75 @@ function ViewAnnexure() {
         />
       );
     }
+  };
+
+  const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
+    const totalKeys = [];
+    const totalValues = [];
+    const staticVal = ["basic", "deduction", "benefit"];
+    finalArray[keyIndex].forEach((val) => {
+      staticVal.forEach((key) => {
+        if (val[key]) {
+          val[key].forEach((value) => {
+            totalKeys.push(value.columnKey);
+            totalValues.push(value.monthly);
+          });
+        }
+      });
+    });
+    let formula = formulaEntered.toString();
+    formula = formula.includes("=") ? formula.replace("=", "") : formula;
+    formula.replace("=", "");
+    formula = formula.includes("%") ? formula.replace("%", "/100") : formula;
+    totalKeys.forEach((val, index) => {
+      if (formula.includes(val)) {
+        formula = formula.replace(val, totalValues[index]);
+      }
+    });
+    return formula;
+  };
+
+  const calculation = (keyIndex) => {
+    const finalArray = JSON.parse(JSON.stringify(context.annexureData));
+    const staticVal = ["basic", "deduction", "benefit"];
+    finalArray[keyIndex].forEach((val, index) => {
+      staticVal.forEach((key) => {
+        if (key in finalArray[keyIndex][index])
+          finalArray[keyIndex][index][key].forEach((value, colIndex) => {
+            const valueCol = parseInt(value.columnValue);
+            if (!isNaN(valueCol)) {
+              finalArray[keyIndex][index][key][colIndex].monthly = valueCol;
+              finalArray[keyIndex][index][key][colIndex].yearly = valueCol * 12;
+            }
+          });
+      });
+    });
+    finalArray[keyIndex].forEach((val, index) => {
+      staticVal.forEach((key) => {
+        if (key in finalArray[keyIndex][index])
+          finalArray[keyIndex][index][key].forEach((value, colIndex) => {
+            const valueCol = parseInt(value.columnValue);
+            if (!isNaN(valueCol)) {
+              finalArray[keyIndex][index][key][colIndex].monthly = valueCol;
+              finalArray[keyIndex][index][key][colIndex].yearly = valueCol * 12;
+            } else {
+              const returnValue = updateFormulaValue(
+                value.columnValue,
+                keyIndex,
+                finalArray
+              );
+              const result = eval(returnValue);
+              if (returnValue) {
+                finalArray[keyIndex][index][key][colIndex].monthly =
+                  Math.floor(result);
+                finalArray[keyIndex][index][key][colIndex].yearly =
+                  Math.floor(result) * 12;
+              }
+            }
+          });
+      });
+    });
+    context.updateAnnexure(finalArray);
   };
   return (
     <>
@@ -279,7 +351,12 @@ function ViewAnnexure() {
                       <MDBBtn
                         outline
                         type="submit"
-                        onClick={validateCTC}
+                        onClick={() => {
+                          const isValid = validateCTC();
+                          if (isValid) {
+                            calculation(context.selectedSalaryRange.label);
+                          }
+                        }}
                         id="generate"
                         style={{ margin: "0" }}
                         className=" form-control-plaintext  justify-content-center text-center"
