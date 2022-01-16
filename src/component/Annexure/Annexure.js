@@ -445,6 +445,36 @@ const Annexure = () => {
       }
     }
   };
+  useEffect(() => {
+    if (
+      preview === false &&
+      context.selectedSalaryRange.label &&
+      Object.keys(updateVal).length > 0 &&
+      entersalary
+    ) {
+      setentersalary(null);
+      const finalArray = JSON.parse(JSON.stringify(updateVal));
+      const staticVal = ["basic", "deduction", "benefit"];
+      finalArray[context.selectedSalaryRange.label].forEach((val, index) => {
+        staticVal.forEach((key) => {
+          if (key in finalArray[context.selectedSalaryRange.label][index])
+            finalArray[context.selectedSalaryRange.label][index][key].forEach(
+              (value, colIndex) => {
+                const valueCol = 0;
+                finalArray[context.selectedSalaryRange.label][index][key][
+                  colIndex
+                ].monthly = valueCol;
+                finalArray[context.selectedSalaryRange.label][index][key][
+                  colIndex
+                ].yearly = valueCol * 12;
+              }
+            );
+        });
+      });
+
+      setUpdatedValue(finalArray);
+    }
+  }, [preview, context.selectedSalaryRange.label, updateVal]);
 
   return (
     <div>

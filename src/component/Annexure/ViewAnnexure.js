@@ -89,7 +89,7 @@ function ViewAnnexure() {
         <>
           <h5>{item.heading}</h5>
           <TableComponent
-           subColumns={subColumns}
+            subColumns={subColumns}
             rows={getTableRows(item.basic)}
             renderType="normal"
             classes="my-3"
@@ -263,6 +263,37 @@ function ViewAnnexure() {
     });
     context.updateAnnexure(finalArray);
   };
+  useEffect(() => {
+    if (
+      preview === false &&
+      context.selectedSalaryRange.label &&
+      Object.keys(context.annexureData).length > 0 &&
+      entersalary
+    ) {
+      setentersalary(null);
+      const finalArray = JSON.parse(JSON.stringify(context.annexureData));
+      const staticVal = ["basic", "deduction", "benefit"];
+      finalArray[context.selectedSalaryRange.label].forEach((val, index) => {
+        staticVal.forEach((key) => {
+          if (key in finalArray[context.selectedSalaryRange.label][index])
+            finalArray[context.selectedSalaryRange.label][index][key].forEach(
+              (value, colIndex) => {
+                const valueCol = 0;
+                finalArray[context.selectedSalaryRange.label][index][key][
+                  colIndex
+                ].monthly = valueCol;
+                finalArray[context.selectedSalaryRange.label][index][key][
+                  colIndex
+                ].yearly = valueCol * 12;
+              }
+            );
+        });
+      });
+
+      context.updateAnnexure(finalArray);
+    }
+  }, [preview, context.selectedSalaryRange.label, context.annexureData]);
+
   return (
     <>
       <Home buttonShow={false} buttonVal={context.buttonVal} />
