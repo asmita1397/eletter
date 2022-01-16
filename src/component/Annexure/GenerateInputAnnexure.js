@@ -100,6 +100,75 @@ export default function GenerateInputAnnexure(props) {
       }
     }
   };
+
+  const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
+    const totalKeys = [];
+    const totalValues = [];
+    const staticVal = ["basic", "deduction", "benefit"];
+    finalArray[keyIndex].forEach((val) => {
+      staticVal.forEach((key) => {
+        if (val[key]) {
+          val[key].forEach((value) => {
+            totalKeys.push(value.columnKey);
+            totalValues.push(value.monthly);
+          });
+        }
+      });
+    });
+    let formula = formulaEntered.toString();
+    formula = formula.includes("=") ? formula.replace("=", "") : formula;
+    formula.replace("=", "");
+    formula = formula.includes("%") ? formula.replace("%", "/100") : formula;
+    totalKeys.forEach((val, index) => {
+      if (formula.includes(val)) {
+        formula = formula.replace(val, totalValues[index]);
+      }
+    });
+    return formula;
+  };
+
+  const calculation = (keyIndex) => {
+    const finalArray = JSON.parse(JSON.stringify(context.annexureData));
+    const staticVal = ["basic", "deduction", "benefit"];
+    finalArray[keyIndex].forEach((val, index) => {
+      staticVal.forEach((key) => {
+        if (key in finalArray[keyIndex][index])
+          finalArray[keyIndex][index][key].forEach((value, colIndex) => {
+            const valueCol = parseInt(value.columnValue);
+            if (!isNaN(valueCol)) {
+              finalArray[keyIndex][index][key][colIndex].monthly = valueCol;
+              finalArray[keyIndex][index][key][colIndex].yearly = valueCol * 12;
+            }
+          });
+      });
+    });
+    finalArray[keyIndex].forEach((val, index) => {
+      staticVal.forEach((key) => {
+        if (key in finalArray[keyIndex][index])
+          finalArray[keyIndex][index][key].forEach((value, colIndex) => {
+            const valueCol = parseInt(value.columnValue);
+            if (!isNaN(valueCol)) {
+              finalArray[keyIndex][index][key][colIndex].monthly = valueCol;
+              finalArray[keyIndex][index][key][colIndex].yearly = valueCol * 12;
+            } else {
+              const returnValue = updateFormulaValue(
+                value.columnValue,
+                keyIndex,
+                finalArray
+              );
+              const result = eval(returnValue);
+              if (returnValue) {
+                finalArray[keyIndex][index][key][colIndex].monthly =
+                  Math.floor(result);
+                finalArray[keyIndex][index][key][colIndex].yearly =
+                  Math.floor(result) * 12;
+              }
+            }
+          });
+      });
+    });
+    context.updateAnnexure(finalArray);
+  };
   return (
     <>
       <Home buttonShow={false} buttonVal={context.buttonVal} />
@@ -185,8 +254,9 @@ export default function GenerateInputAnnexure(props) {
                         const getObject = dropdownVals.find(
                           (val) => val.label === selectedRange
                         );
+                        calculation(getObject.label);
                         context.updateSalaryRange(getObject);
-                       
+
                         props.history.push("/AnnexureLetter");
                       }
                     } else {
