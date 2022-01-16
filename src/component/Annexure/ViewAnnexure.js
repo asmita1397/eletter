@@ -86,39 +86,41 @@ function ViewAnnexure() {
   const renderTable = (item) => {
     if (item.hasOwnProperty("basic")) {
       return (
-        <TableComponent
-          columns={getColumns(item)}
-          subColumns={subColumns}
-          rows={getTableRows(item.basic)}
-          renderType="normal"
-        />
+        <>
+          <h5>{item.heading}</h5>
+          <TableComponent
+           subColumns={subColumns}
+            rows={getTableRows(item.basic)}
+            renderType="normal"
+            classes="my-3"
+          />
+        </>
       );
     }
     if (item.hasOwnProperty("deduction")) {
       return (
-        <TableComponent
-          columns={getColumns(item)}
-          rows={getTableRows(item.deduction)}
-          renderType="normal"
-        />
+        <>
+          <h5>{item.heading}</h5>
+          <TableComponent
+            rows={getTableRows(item.deduction)}
+            subColumns={subColumns}
+            renderType="normal"
+            classes="my-3"
+          />
+        </>
       );
     }
     if (item.hasOwnProperty("benefit")) {
       return (
-        <TableComponent
-          columns={getColumns(item)}
-          rows={getTableRows(item.benefit)}
-          renderType="normal"
-        />
-      );
-    }
-    if (item.hasOwnProperty("ctc")) {
-      return (
-        <TableComponent
-          columns={getColumns(item, 2, true)}
-          rows={getTableRows(item.ctc)}
-          renderType="special"
-        />
+        <>
+          <h5>{item.heading}</h5>
+          <TableComponent
+            rows={getTableRows(item.benefit)}
+            subColumns={subColumns}
+            renderType="normal"
+            classes="my-3"
+          />
+        </>
       );
     }
   };
