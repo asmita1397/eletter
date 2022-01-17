@@ -106,7 +106,8 @@ const AnnexureLetter = () => {
     if (item.hasOwnProperty("ctc")) {
       return (
         <TableComponent
-          columns={getColumns(item, 2, true)}
+          // columns={getColumns(item, 2, true)}
+          preview={true}
           rows={getTableRows(item.ctc)}
           renderType="special"
         />

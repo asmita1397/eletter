@@ -56,7 +56,24 @@
     {
       "heading": "CTC",
       "value": "0",
-      "ctc": []
+      "ctc": [
+        {
+          "columnName": "CTC",
+          "columnValue": 15000,
+          "columnKey": "A1",
+          "monthly": 15000,
+          "yearly": 100000,
+          "remarks": "abc"
+        },
+        {
+          "columnName": "Monthly CTC",
+          "columnValue": 6000,
+          "columnKey": "A2",
+          "monthly": 15000,
+          "yearly": 100000,
+          "remarks": "abc"
+        }
+      ]
     }
   ],
   "27325-37500": [
