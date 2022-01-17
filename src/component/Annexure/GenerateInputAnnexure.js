@@ -104,7 +104,7 @@ export default function GenerateInputAnnexure(props) {
   const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
     const totalKeys = [];
     const totalValues = [];
-    const staticVal = ["basic", "deduction", "benefit"];
+    const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val) => {
       staticVal.forEach((key) => {
         if (val[key]) {
@@ -129,7 +129,7 @@ export default function GenerateInputAnnexure(props) {
 
   const calculation = (keyIndex) => {
     const finalArray = JSON.parse(JSON.stringify(context.annexureData));
-    const staticVal = ["basic", "deduction", "benefit"];
+    const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val, index) => {
       staticVal.forEach((key) => {
         if (key in finalArray[keyIndex][index])

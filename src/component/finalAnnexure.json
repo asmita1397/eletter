@@ -60,15 +60,15 @@
         {
           "columnName": "CTC",
           "columnValue": 15000,
-          "columnKey": "A1",
+          "columnKey": "D1",
           "monthly": 15000,
           "yearly": 100000,
           "remarks": "abc"
         },
         {
           "columnName": "Monthly CTC",
-          "columnValue": 6000,
-          "columnKey": "A2",
+          "columnValue": "A1*12",
+          "columnKey": "D2",
           "monthly": 15000,
           "yearly": 100000,
           "remarks": "abc"

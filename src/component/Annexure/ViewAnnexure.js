@@ -123,6 +123,19 @@ function ViewAnnexure() {
         </>
       );
     }
+    if (item.hasOwnProperty("ctc")) {
+      return (
+        <>
+          <h5>{item.heading}</h5>
+          <TableComponent
+            rows={getTableRows(item.ctc)}
+            subColumns={subColumns}
+            renderType="normal"
+            classes="my-3"
+          />
+        </>
+      );
+    }
   };
   const validateCTC = () => {
     const from = parseInt(context.selectedSalaryRange.salaryFrom);
@@ -187,9 +200,10 @@ function ViewAnnexure() {
     if (item.hasOwnProperty("ctc")) {
       return (
         <TableComponent
-          columns={getColumns(item, 2, true)}
-          rows={getTableRows(item.ctc)}
+          // columns={getColumns(item, 2, true)}
+          rows={getPreviewTableRows(item.ctc)}
           renderType="special"
+          preview={preview}
         />
       );
     }
@@ -198,7 +212,7 @@ function ViewAnnexure() {
   const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
     const totalKeys = [];
     const totalValues = [];
-    const staticVal = ["basic", "deduction", "benefit"];
+    const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val) => {
       staticVal.forEach((key) => {
         if (val[key]) {
@@ -223,7 +237,7 @@ function ViewAnnexure() {
 
   const calculation = (keyIndex) => {
     const finalArray = JSON.parse(JSON.stringify(context.annexureData));
-    const staticVal = ["basic", "deduction", "benefit"];
+    const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val, index) => {
       staticVal.forEach((key) => {
         if (key in finalArray[keyIndex][index])
