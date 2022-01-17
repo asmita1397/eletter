@@ -75,8 +75,8 @@ const Annexure = () => {
   ];
 
   const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
-    const totalKeys = [];
-    const totalValues = [];
+    const totalKeys = ["E1"];
+    const totalValues = [entersalary ? entersalary : 1];
     const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val) => {
       staticVal.forEach((key) => {

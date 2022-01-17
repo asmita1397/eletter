@@ -102,8 +102,8 @@ export default function GenerateInputAnnexure(props) {
   };
 
   const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
-    const totalKeys = [];
-    const totalValues = [];
+    const totalKeys = ["E1"];
+    const totalValues = [entersalary];
     const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val) => {
       staticVal.forEach((key) => {
