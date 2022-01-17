@@ -128,6 +128,7 @@ export default function GenerateInputAnnexure(props) {
   };
 
   const calculation = (keyIndex) => {
+    debugger
     const finalArray = JSON.parse(JSON.stringify(context.annexureData));
     const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val, index) => {
