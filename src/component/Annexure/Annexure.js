@@ -4,6 +4,7 @@ import { Home } from "../home";
 import TableComponent from "./TableComponent";
 import { UserConsumer } from "../Context/CustomContext";
 import { Button, Modal } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const Annexure = () => {
   const context = useContext(UserConsumer);
@@ -710,15 +711,17 @@ const Annexure = () => {
                     >
                       No
                     </Button>
-                    <Button
-                      variant="secondary"
-                      onClick={() => {
-                        updateMainArray();
-                        setOpenConfirmation(false);
-                      }}
-                    >
-                      Yes
-                    </Button>
+                    <Link to="/cards">
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          updateMainArray();
+                          setOpenConfirmation(false);
+                        }}
+                      >
+                        Yes
+                      </Button>
+                    </Link>
                   </Modal.Footer>
                 </Modal>
               )}
