@@ -204,6 +204,10 @@ export default function GenerateInputAnnexure(props) {
                   defaultValue="Please select the salary range"
                   onChange={(event) => {
                     setSelectedRange(event.target.value);
+                    const getObject = dropdownVals.find(
+                      (val) => val.label === event.target.value
+                    );
+                    context.updateSalaryRange(getObject);
                   }}
                 >
                   <option value="Please select the salary range" hidden>
