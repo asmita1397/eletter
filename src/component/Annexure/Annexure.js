@@ -13,7 +13,7 @@ const Annexure = () => {
   const [updateVal, setUpdatedValue] = useState([]);
 
   const [preview, setPreview] = useState(false);
-  const [selectedSection, setSelectedSection] = useState(null);
+  const [selectedSection, setSelectedSection] = useState("sts");
   const [tableData, setTableData] = useState([]);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [entersalary, setentersalary] = useState(null);
@@ -139,7 +139,7 @@ const Annexure = () => {
 
   const validation = () => {
     let err = { ...fieldserror };
-    if (selectedSection || selectedSection === 0) {
+    if (selectedSection !== "sts") {
       err.tablesection = null;
     } else {
       err.tablesection = "Please select table section.";
@@ -155,7 +155,7 @@ const Annexure = () => {
       err.columnValue = "Please enter column value.";
     }
     setfieldserror(err);
-    if ((selectedSection || selectedSection === 0) && colName && colValue) {
+    if (selectedSection !== "sts" && colName && colValue) {
       debugger;
       const copy = JSON.parse(JSON.stringify(updateVal));
 
@@ -195,7 +195,7 @@ const Annexure = () => {
       setUpdatedValue(copy);
       setColName("");
       setColValue("");
-      setSelectedSection(-1);
+      setSelectedSection("sts");
       setRemarks("");
     }
   };
@@ -519,16 +519,15 @@ const Annexure = () => {
                       autocomplete="off"
                       value={selectedSection}
                       name="salaryRange"
-                      title="Salary Range"
-                      placeholder="Please select the salary range"
+                      title="Table Section"
                       id="salaryRange"
-                      defaultValue="Please select the salary range"
+                      defaultValue={"sts"}
                       onChange={(event) => {
                         setSelectedSection(parseInt(event.target.value));
                       }}
                     >
-                      <option value={-1} hidden>
-                        Please select table section
+                      <option value="sts" hidden selected>
+                        Select Table Section
                       </option>
                       {sectionData.map((val) => {
                         return <option value={val.index}>{val.name}</option>;
