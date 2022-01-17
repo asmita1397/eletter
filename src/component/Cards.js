@@ -57,40 +57,40 @@ export default class Cards extends Component {
           <div className="row ">
             <div className="column">
               <Link to="/GenerateInputAnnexure">
-                <div className="card-css  ">
-                  {this.state.viewActions && (
-                    <div>
-                      <OverlayTrigger
-                        placement="bottom"
-                        overlay={this.renderTooltip("Add Annexure")}
-                      >
-                        <Link to="/AddAnnexure">
-                          <i className="fas fa-plus mx-1"></i>
-                        </Link>
-                      </OverlayTrigger>
-                      <OverlayTrigger
-                        placement="bottom"
-                        overlay={this.renderTooltip("Edit Annexure")}
-                      >
-                        <Link to="/UpdateAnnexure">
-                          <i className="fas fa-pen mx-3"></i>
-                        </Link>
-                      </OverlayTrigger>
-                      <OverlayTrigger
-                        placement="bottom"
-                        overlay={this.renderTooltip("View Annexure")}
-                      >
-                        <Link to="/ViewAnnexure">
-                          <i class="fas fa-eye mx-1"></i>
-                        </Link>
-                      </OverlayTrigger>
-                    </div>
-                  )}
+                <OverlayTrigger
+                  placement="right"
+                  overlay={this.renderTooltip("Generate Annexure")}
+                >
+                  <div className="card-css  ">
+                    {this.state.viewActions && (
+                      <div>
+                        <OverlayTrigger
+                          placement="bottom"
+                          overlay={this.renderTooltip("Add Annexure")}
+                        >
+                          <Link to="/AddAnnexure">
+                            <i className="fas fa-plus mx-1"></i>
+                          </Link>
+                        </OverlayTrigger>
+                        <OverlayTrigger
+                          placement="bottom"
+                          overlay={this.renderTooltip("Edit Annexure")}
+                        >
+                          <Link to="/UpdateAnnexure">
+                            <i className="fas fa-pen mx-3"></i>
+                          </Link>
+                        </OverlayTrigger>
+                        <OverlayTrigger
+                          placement="bottom"
+                          overlay={this.renderTooltip("View Annexure")}
+                        >
+                          <Link to="/ViewAnnexure">
+                            <i class="fas fa-eye mx-1"></i>
+                          </Link>
+                        </OverlayTrigger>
+                      </div>
+                    )}
 
-                  <OverlayTrigger
-                    placement="right"
-                    overlay={this.renderTooltip("Generate Annexure")}
-                  >
                     <img
                       style={{
                         width: "70%",
@@ -101,28 +101,28 @@ export default class Cards extends Component {
                       className="card-css-img-top"
                       alt="..."
                     />
-                  </OverlayTrigger>
-                  <div
-                    style={{ color: "#343A40", display: "inline !important" }}
-                  >
-                    <h6
-                      className="font-weight-bold"
-                      style={{ display: "inline", marginRight: "0.5vw" }}
+                    <div
+                      style={{ color: "#343A40", display: "inline !important" }}
                     >
-                      Annexure
-                    </h6>
-                    <Link to="/cards">
-                      <i
-                        className="fas fa-info-circle"
-                        onClick={() => {
-                          this.state.viewActions
-                            ? this.setState({ viewActions: false })
-                            : this.setState({ viewActions: true });
-                        }}
-                      ></i>
-                    </Link>
+                      <h6
+                        className="font-weight-bold"
+                        style={{ display: "inline", marginRight: "0.5vw" }}
+                      >
+                        Annexure
+                      </h6>
+                      <Link to="/cards">
+                        <i
+                          className="fas fa-info-circle"
+                          onClick={() => {
+                            this.state.viewActions
+                              ? this.setState({ viewActions: false })
+                              : this.setState({ viewActions: true });
+                          }}
+                        ></i>
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                </OverlayTrigger>
               </Link>
             </div>
             <div className="column">

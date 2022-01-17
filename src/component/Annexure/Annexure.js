@@ -67,12 +67,17 @@ const Annexure = () => {
       value: "benefit",
       index: 2,
     },
+    {
+      name: "CTC",
+      value: "ctc",
+      index: 3,
+    },
   ];
 
   const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
     const totalKeys = [];
     const totalValues = [];
-    const staticVal = ["basic", "deduction", "benefit"];
+    const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val) => {
       staticVal.forEach((key) => {
         if (val[key]) {
@@ -97,7 +102,7 @@ const Annexure = () => {
 
   const calculation = (keyIndex) => {
     const finalArray = JSON.parse(JSON.stringify(updateVal));
-    const staticVal = ["basic", "deduction", "benefit"];
+    const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val, index) => {
       staticVal.forEach((key) => {
         if (key in finalArray[keyIndex][index])
@@ -161,7 +166,13 @@ const Annexure = () => {
       const copy = JSON.parse(JSON.stringify(updateVal));
 
       const prefix =
-        selectedSection === 0 ? "A" : selectedSection === 1 ? "B" : "C";
+        selectedSection === 0
+          ? "A"
+          : selectedSection === 1
+          ? "B"
+          : selectedSection === 2
+          ? "C"
+          : "D";
       if (selectedColKey) {
         const index = copy[context.selectedSalaryRange.label][selectedSection][
           sectionData[selectedSection].value
@@ -193,6 +204,7 @@ const Annexure = () => {
           remarks: Remarks,
         });
       }
+      debugger
       setUpdatedValue(copy);
       setColName("");
       setColValue("");
@@ -369,6 +381,28 @@ const Annexure = () => {
         </>
       );
     }
+
+    if (item.hasOwnProperty("ctc")) {
+      return (
+        <>
+          <h5>{item.heading}</h5>
+          <TableComponent
+            rows={getTableRows(item.ctc)}
+            subColumns={
+              context?.selectedSalaryRange?.type === "mod"
+                ? [
+                    ...subColumnsHome,
+                    { headerName: "Edit" },
+                    { headerName: "Delete" },
+                  ]
+                : subColumnsHome
+            }
+            renderType="normal"
+            classes="my-3"
+          />
+        </>
+      );
+    }
   };
 
   const renderTableForPreview = (item) => {
@@ -403,9 +437,10 @@ const Annexure = () => {
     if (item.hasOwnProperty("ctc")) {
       return (
         <TableComponent
-          columns={getColumns(item, 2, true)}
-          rows={getTableRows(item.ctc)}
+          // columns={getColumns(item, 2, true)}
+          rows={getPreviewTableRows(item.ctc)}
           renderType="special"
+          preview={preview}
         />
       );
     }
@@ -455,7 +490,7 @@ const Annexure = () => {
     ) {
       setentersalary(null);
       const finalArray = JSON.parse(JSON.stringify(updateVal));
-      const staticVal = ["basic", "deduction", "benefit"];
+      const staticVal = ["basic", "deduction", "benefit", "ctc"];
       finalArray[context.selectedSalaryRange.label].forEach((val, index) => {
         staticVal.forEach((key) => {
           if (key in finalArray[context.selectedSalaryRange.label][index])
@@ -509,8 +544,8 @@ const Annexure = () => {
                     )
                   </h3>
                   <span className="h6">
-                    Please enter static fields first and D1 is reference number
-                    for CTC*
+                    Please enter static fields first and E1 is reference number
+                    for entered CTC*
                   </span>
                 </div>
                 <div className="row">

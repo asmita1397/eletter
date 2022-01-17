@@ -8,9 +8,10 @@ const TableComponent = (props) => {
     rows = [],
     renderType = "advanced",
     classes = "",
+    preview = false,
   } = props;
 
-  const renderTableBody = (item) => {
+  const renderTableBody = (item, index) => {
     const rowObj = [];
     if (renderType === "normal") {
       Object.entries(item).forEach(([key, value]) => {
@@ -35,13 +36,24 @@ const TableComponent = (props) => {
     } else if (renderType === "special") {
       rowObj.push(
         <>
-          <td colSpan={2} className="text-left border-right-0">
+          <td
+            colSpan={2}
+            className={
+              index === 0
+                ? "text-left border-right-0 bg-gray"
+                : "text-left border-right-0"
+            }
+          >
             {item.columnName}
           </td>
-          <td className="text-right border-left-0">
-            {item.hasOwnProperty("columnValue")
-              ? item.columnValue
-              : item.monthly}
+          <td
+            className={
+              index === 0
+                ? "text-right border-left-0 bg-gray"
+                : "text-right border-left-0"
+            }
+          >
+            {!preview ? item.columnValue : item.monthly}
           </td>
         </>
       );
@@ -93,8 +105,8 @@ const TableComponent = (props) => {
           })}
         </thead>
         <tbody>
-          {rows.map((item) => (
-            <tr>{renderTableBody(item)}</tr>
+          {rows.map((item, index) => (
+            <tr>{renderTableBody(item, index)}</tr>
           ))}
         </tbody>
       </table>

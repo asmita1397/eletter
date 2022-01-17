@@ -64,15 +64,7 @@ export default function AddAnnexure(props) {
         {
           heading: "CTC",
           value: "0",
-          ctc: [
-            {
-              columnName: "Monthly CTC",
-              columnValue: 0,
-              monthly: 0,
-              yearly: 0,
-              columnKey: "D1",
-            },
-          ],
+          ctc: [],
         },
       ];
       const updateAnnexureVal = { ...context.annexureData, ...newObject };
