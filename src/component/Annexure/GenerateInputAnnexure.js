@@ -1,8 +1,7 @@
 import { MDBBtn, MDBInput } from "mdbreact";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { UserConsumer } from "../Context/CustomContext";
 import { Home } from "../home";
-import TableComponent from "./TableComponent";
 
 export default function GenerateInputAnnexure(props) {
   const context = useContext(UserConsumer);
@@ -10,35 +9,7 @@ export default function GenerateInputAnnexure(props) {
   const [entersalary, setentersalary] = useState(null);
   const [CTCerror, setCTCerror] = useState(null);
 
-  const subColumns = [
-    {
-      headerName: "Cash Flow Head",
-      classStyle: "text-left",
-    },
-    {
-      headerName: "Monthly",
-      classStyle: "text-right",
-    },
-    {
-      headerName: "Yearly",
-      classStyle: "text-right",
-    },
-  ];
-
- 
-  const getColumns = (item) => {
-    return [
-      {
-        headerName: item.heading,
-        colSpan: 3,
-        classStyle: item.heading.includes("Basic")
-          ? "text-center"
-          : "text-left",
-      },
-    ];
-  };
-
-
+  
   const validateCTC = () => {
 
     if (!entersalary) {
