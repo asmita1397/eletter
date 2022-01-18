@@ -1,5 +1,5 @@
 {
-  "21000-27324": [
+  "223604-295241": [
     {
       "heading": "Basic and Other Allowances Details",
       "basic": [
@@ -22,25 +22,25 @@
         {
           "columnName": "Bonus",
           "columnValue": "=A1*8.33%",
-          "columnKey": "A4",
+          "columnKey": "A3",
           "monthly": 0,
           "yearly": 0,
           "remarks": "abc"
         },
         {
           "columnName": "Other Allowances",
-          "columnValue": 1354,
-          "columnKey": "A5",
-          "monthly": 15000,
-          "yearly": 100000,
+          "columnValue": 0,
+          "columnKey": "A4",
+          "monthly": 0,
+          "yearly": 0,
           "remarks": "abc"
         },
         {
-          "columnName": "Other Allowances",
-          "columnValue": 1354,
-          "columnKey": "A6",
-          "monthly": 15000,
-          "yearly": 100000,
+          "columnName": "Monthly / Yearly Gross",
+          "columnValue": "=A1+A2+A3+A4",
+          "columnKey": "A5",
+          "monthly": 0,
+          "yearly": 0,
           "remarks": "abc"
         }
       ]

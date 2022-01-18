@@ -75,8 +75,8 @@ const Annexure = () => {
   ];
 
   const updateFormulaValue = (formulaEntered, keyIndex, finalArray) => {
-    const totalKeys = [];
-    const totalValues = [];
+    const totalKeys = ["E1"];
+    const totalValues = [entersalary ? entersalary : 1];
     const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val) => {
       staticVal.forEach((key) => {
@@ -160,8 +160,26 @@ const Annexure = () => {
     } else {
       err.columnValue = "Please enter column value.";
     }
+    const returnVal = updateFormulaValue(
+      colValue,
+      context.selectedSalaryRange.label,
+      updateVal
+    );
+    try {
+      eval(returnVal);
+    } catch (e) {
+      if (e instanceof SyntaxError) {
+        err.columnValue = "Invalid Column Value";
+      } else {
+        err.columnValue = "Invalid Column Value";
+      }
+    }
     setfieldserror(err);
-    if (selectedSection !== "sts" && colName && colValue) {
+    if (
+      err.tablesection === null &&
+      err.columnName === null &&
+      err.columnValue === null
+    ) {
       debugger;
       const copy = JSON.parse(JSON.stringify(updateVal));
 
@@ -204,7 +222,6 @@ const Annexure = () => {
           remarks: Remarks,
         });
       }
-      debugger
       setUpdatedValue(copy);
       setColName("");
       setColValue("");
