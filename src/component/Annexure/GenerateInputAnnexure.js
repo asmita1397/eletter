@@ -10,7 +10,6 @@ export default function GenerateInputAnnexure(props) {
   const [entersalary, setentersalary] = useState(null);
   const [CTCerror, setCTCerror] = useState(null);
 
-  const [isSelect, setIsSelect] = useState(false);
   const subColumns = [
     {
       headerName: "Cash Flow Head",
@@ -26,13 +25,7 @@ export default function GenerateInputAnnexure(props) {
     },
   ];
 
-  const [selectedRange, setSelectedRange] = useState(null);
-  const [tableData, setTableData] = useState([]);
-
-  useEffect(() => {
-    setTableData(context.annexureData[selectedRange] || null);
-  }, [selectedRange, context.annexureData]);
-
+ 
   const getColumns = (item) => {
     return [
       {
@@ -45,57 +38,22 @@ export default function GenerateInputAnnexure(props) {
     ];
   };
 
-  const getTableRows = (list) => {
-    const copy = [...list];
-    copy.forEach((item) => {
-      delete item.columnKey;
-      delete item.columnValue;
-    });
-    return copy;
-  };
 
-  const renderTable = (item) => {
-    if (item.hasOwnProperty("basic")) {
-      return (
-        <TableComponent
-          columns={getColumns(item)}
-          subColumns={subColumns}
-          rows={getTableRows(item.basic)}
-          renderType="normal"
-        />
-      );
-    }
-    if (item.hasOwnProperty("deduction")) {
-      return (
-        <TableComponent
-          columns={getColumns(item)}
-          rows={getTableRows(item.deduction)}
-          renderType="normal"
-        />
-      );
-    }
-    if (item.hasOwnProperty("benefit")) {
-      return (
-        <TableComponent
-          columns={getColumns(item)}
-          rows={getTableRows(item.benefit)}
-          renderType="normal"
-        />
-      );
-    }
-  };
   const validateCTC = () => {
-    const from = parseInt(context.selectedSalaryRange.salaryFrom);
-    const to = parseInt(context.selectedSalaryRange.salaryTo);
+
     if (!entersalary) {
       setCTCerror("Please enter CTC");
       return false;
     } else {
-      if (entersalary >= from && entersalary <= to) {
+      const matchedSalRange = dropdownVals.filter(
+        (item) => Number(entersalary) >= Number(item.salaryFrom) && Number(entersalary) <= Number(item.salaryTo)
+      );
+      if (matchedSalRange.length > 0) {
         setCTCerror(null);
-        return true;
+        context.updateSalaryRange(matchedSalRange[0]);
+        return matchedSalRange[0];
       } else {
-        setCTCerror(`CTC must be in the range ${from} - ${to}.`);
+        setCTCerror(`No annexure available for this CTC.`);
         return false;
       }
     }
@@ -128,7 +86,6 @@ export default function GenerateInputAnnexure(props) {
   };
 
   const calculation = (keyIndex) => {
-    debugger
     const finalArray = JSON.parse(JSON.stringify(context.annexureData));
     const staticVal = ["basic", "deduction", "benefit", "ctc"];
     finalArray[keyIndex].forEach((val, index) => {
@@ -194,78 +151,36 @@ export default function GenerateInputAnnexure(props) {
               </div>
 
               <div className="card-body">
-                <select
-                  class="browser-default custom-select my-3"
-                  autocomplete="off"
-                  value={selectedRange}
-                  name="salaryRange"
-                  title="Salary Range"
-                  placeholder="Please select the salary range"
-                  id="salaryRange"
-                  defaultValue="Please select the salary range"
-                  onChange={(event) => {
-                    setSelectedRange(event.target.value);
-                    const getObject = dropdownVals.find(
-                      (val) => val.label === event.target.value
-                    );
-                    context.updateSalaryRange(getObject);
-                  }}
-                >
-                  <option value="Please select the salary range" hidden>
-                    Please select the salary range
-                  </option>
-                  {dropdownVals?.map((val) => (
-                    <option
-                      value={val.label}
-                    >{`${val.name}(${val.displayLabel})`}</option>
-                  ))}
-                </select>
-                {isSelect ? (
-                  <div id="errordiv" className="p-0 mb-3">
-                    {isSelect}
+                <div className="row col-12 m-0 p-0">
+                  <div className="col-12 mr-2 p-0">
+                    <MDBInput
+                      autocomplete="off"
+                      value={entersalary}
+                      label="Enter CTC"
+                      type="number"
+                      name="ColumnName"
+                      id="ColumnName"
+                      title="Enter CTC"
+                      onChange={(event) => {
+                        setentersalary(event.target.value);
+                      }}
+                    />
+                    {CTCerror ? (
+                      <div id="errordiv" className="p-0 mb-3">
+                        {CTCerror}
+                      </div>
+                    ) : null}
                   </div>
-                ) : null}
-                {selectedRange && (
-                  <div className="row col-12 m-0 p-0">
-                    <div className="col-12 mr-2 p-0">
-                      <MDBInput
-                        autocomplete="off"
-                        value={entersalary}
-                        label="Enter CTC"
-                        type="number"
-                        name="ColumnName"
-                        id="ColumnName"
-                        title="Enter CTC"
-                        onChange={(event) => {
-                          setentersalary(event.target.value);
-                        }}
-                      />
-                      {CTCerror ? (
-                        <div id="errordiv" className="p-0 mb-3">
-                          {CTCerror}
-                        </div>
-                      ) : null}
-                    </div>
-                  </div>
-                )}
+                </div>
                 <MDBBtn
                   outline
                   type="submit"
                   onClick={() => {
-                    if (selectedRange) {
-                      setIsSelect("");
-                      const isValid = validateCTC();
-                      if (isValid) {
-                        const getObject = dropdownVals.find(
-                          (val) => val.label === selectedRange
-                        );
-                        calculation(getObject.label);
-                        context.updateSalaryRange(getObject);
+                    const isValid = validateCTC();
+                    if (isValid) {
+                      calculation(isValid.label);
 
-                        props.history.push("/AnnexureLetter");
-                      }
-                    } else {
-                      setIsSelect("Please select salray range");
+                      props.history.push("/AnnexureLetter");
                     }
                   }}
                   id="generate"
