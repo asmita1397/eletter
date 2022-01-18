@@ -23,12 +23,15 @@ export default function AddAnnexure(props) {
     } else {
       errObj["from"] = null;
     }
+
     if (!salaryRange.to) {
       errObj["to"] = "This field is required";
     } else if (!Number(salaryRange.to)) {
       errObj["to"] = "Salary To must be positive whole number";
-    } else {
+    } else if (salaryRange.from < salaryRange.to) {
       errObj["to"] = null;
+    } else {
+      errObj["to"] = "Salary To must be greater than Salary From";
     }
     if (
       Number(salaryRange.from) &&
